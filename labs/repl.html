@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>EYWA · Consola Python</title>
+<style>
+:root{font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif;color:#12303c;background:#f8faf9}
+*{box-sizing:border-box}body{margin:0;padding:22px;min-height:100vh}.top{display:flex;align-items:center;justify-content:space-between;gap:10px}.eyebrow{font-size:11px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:#087e72}.top h1{font-size:21px;letter-spacing:-.04em;margin:5px 0 0}.status{display:inline-flex;gap:6px;align-items:center;color:#6a8186;font-size:12px;border:1px solid #dce9e3;border-radius:999px;padding:7px 10px;background:#fff}.dot{width:7px;height:7px;background:#d7a135;border-radius:50%}.status.ready .dot{background:#10a47e}.hint{font-size:12px;color:#637881;line-height:1.5;max-width:58ch;margin:14px 0}.toolbar{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}.toolbar button{border:1px solid #cddfd8;border-radius:10px;padding:10px 13px;font-size:12px;font-weight:750;background:#fff;color:#183843;cursor:pointer}.toolbar button.primary{background:#087e72;color:#fff;border-color:#087e72}.toolbar button:disabled{opacity:.55;cursor:wait}.label{font-size:11px;font-weight:850;letter-spacing:.1em;text-transform:uppercase;margin:18px 0 9px;color:#59747b}textarea{display:block;width:100%;min-height:245px;resize:vertical;background:#102838;color:#e5fff2;border:1px solid #16384a;border-radius:14px;padding:18px;font:13px/1.65 ui-monospace,SFMono-Regular,Consolas,monospace;outline:none;tab-size:4}textarea:focus{border-color:#28aa92;box-shadow:0 0 0 3px #22aa8a25}pre.output{white-space:pre-wrap;word-break:break-word;margin:0;min-height:100px;padding:17px;font:13px/1.6 ui-monospace,SFMono-Regular,Consolas,monospace;color:#18363f;background:#fff;border:1px solid #dce9e3;border-radius:13px}.small{font-size:11px;color:#718892;margin-top:13px}a{color:#087e72}
+</style>
+<script src="https://cdn.jsdelivr.net/pyodide/v314.0.8/full/pyodide.js"></script>
+</head>
+<body>
+<div class="top">
+  <div><div class="eyebrow">EYWA / Sandbox</div><h1>Consola Python</h1></div>
+  <div class="status" id="status"><span class="dot"></span><span id="statusText">Sin iniciar</span></div>
+</div>
+<p class="hint">Ejecuta Python real con Pyodide. El entorno conserva las variables mientras esta ventana siga montada. Usa <strong>Ctrl/⌘ + Enter</strong> para ejecutar.</p>
+<div class="toolbar">
+  <button id="run" class="primary">▶ Ejecutar</button>
+  <button id="example">Importar módulo de GitHub</button>
+  <button id="clear">Limpiar salida</button>
+  <button id="reset">Reiniciar Python</button>
+</div>
+<div class="label">Editor · Python</div>
+<textarea id="editor" spellcheck="false">from collections import deque
+
+pila = deque([2, 4, 6])
+pila.append(8)
+print("Último:", pila.pop())
+print("Restantes:", list(pila))</textarea>
+<div class="label">Salida</div>
+<pre class="output" id="output" aria-live="polite">Pulsa «Ejecutar» para iniciar Python.</pre>
+<p class="small">Runtime en navegador · <a href="https://github.com/juanitoyun/eywa" target="_blank" rel="noopener">Repositorio EYWA</a></p>
+<script>
+const editor = document.getElementById("editor");
+const output = document.getElementById("output");
+const status = document.getElementById("status");
+const statusText = document.getElementById("statusText");
+const runBtn = document.getElementById("run");
+let runtimePromise = null;
+let running = false;
+function setStatus(msg,ready=false){statusText.textContent=msg;status.classList.toggle("ready",ready);}
+function runtime(){
+  if(!runtimePromise){
+    setStatus("Cargando Python…");
+    runtimePromise = loadPyodide().then(py=>{setStatus("Python listo",true);return py;})
+      .catch(e=>{runtimePromise=null;setStatus("No disponible");throw e;});
+  }
+  return runtimePromise;
+}
+async function run(){
+  if(running)return;
+  running=true;runBtn.disabled=true;
+  try{
+    const py=await runtime();
+    output.textContent="Ejecutando…";
+    py.runPython("import sys, io\n__eywa_saved = sys.stdout\nsys.stdout = io.StringIO()");
+    let returned;let error=null;
+    try{returned=await py.runPythonAsync(editor.value);}catch(e){error=e;}
+    const printed=py.runPython("__eywa_text = sys.stdout.getvalue()\nsys.stdout = __eywa_saved\n__eywa_text");
+    output.textContent=(printed||"")+(error?"\n"+String(error):(returned!==undefined&&returned!==null?"\n"+String(returned):""))||"✓ Ejecutado sin salida. Usa print(...).";
+  }catch(e){output.textContent="No fue posible ejecutar Python:\n"+String(e);}
+  finally{running=false;runBtn.disabled=false;}
+}
+runBtn.addEventListener("click",run);
+document.getElementById("example").addEventListener("click",()=>{
+ editor.value = [
+  "from pyodide.http import pyfetch",
+  "import importlib",
+  "",
+  'url = "https://raw.githubusercontent.com/juanitoyun/eywa/main/eywa/search.py"',
+  "r = await pyfetch(url)",
+  "if not r.ok: raise RuntimeError('Descarga fallida')",
+  'open("search.py", "wb").write(await r.bytes())',
+  "importlib.invalidate_caches()",
+  "from search import binary_search",
+  "print(binary_search([2, 4, 6, 8], 6))"
+ ].join("\n");
+ editor.focus();
+});
+document.getElementById("clear").addEventListener("click",()=>{output.textContent="";});
+document.getElementById("reset").addEventListener("click",()=>{location.reload();});
+editor.addEventListener("keydown",e=>{
+ if(e.key==="Enter"&&(e.ctrlKey||e.metaKey)){e.preventDefault();run();}
+ if(e.key==="Tab"){e.preventDefault();const a=editor.selectionStart,b=editor.selectionEnd;editor.setRangeText("    ",a,b,"end");}
+});
+</script>
+</body>
+</html>
