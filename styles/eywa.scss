@@ -49,3 +49,96 @@ $code-block-bg: #f0f5f2;
   .reveal .eywa-array { gap: 6px; }
   .reveal .eywa-array span { width: 80px; }
 }
+
+
+
+/*-- scss:rules --*/
+/* Curso AED: bloques reutilizables para todas las presentaciones. */
+.reveal .eywa-course-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0,1fr));
+  gap: 22px;
+  margin: 32px 0 28px;
+}
+.reveal .eywa-course-grid .eywa-card {
+  min-width: 0;
+  min-height: 154px;
+  padding: 23px;
+}
+.reveal .eywa-course-grid .eywa-card h3 {
+  font-size: .67em;
+  line-height: 1.16;
+  margin: 12px 0 11px;
+}
+.reveal .eywa-course-grid .eywa-card p {
+  font-size: .5em;
+  line-height: 1.45;
+  color: #58717c;
+}
+.reveal .eywa-declaration {
+  font-size: .91em;
+  font-weight: 650;
+  line-height: 1.35;
+  letter-spacing: -.035em;
+  max-width: 38em;
+  margin: 25px 0 42px;
+  color: #173442;
+}
+.reveal .eywa-index-grid {
+  display: grid;
+  grid-template-columns: repeat(2,minmax(0,1fr));
+  gap: 16px;
+  margin: 24px 0;
+}
+.reveal .eywa-index-grid .eywa-index-card {
+  text-decoration: none;
+  background: #fff;
+  border: 1px solid #dce9e4;
+  border-radius: 17px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 17px 24px;
+  color: #193641;
+  box-shadow: 0 7px 25px rgba(24,61,67,.035);
+  transition: border-color .2s, transform .2s, box-shadow .2s;
+}
+.reveal .eywa-index-grid .eywa-index-card:hover {
+  border-color: #0d977c;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 35px rgba(19,93,85,.11);
+}
+.reveal .eywa-index-card strong { font-size: .66em; line-height: 1.2; margin: 6px 0 2px; }
+.reveal .eywa-index-card small { font-size: .43em; color:#698089; }
+.reveal .eywa-index-card .eywa-number {font-size:.38em;}
+.reveal .eywa-chapter-nav {
+  display:flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+  margin-top: 48px;
+  font-size: .52em;
+  font-weight: 750;
+}
+.reveal .eywa-chapter-nav a {
+  text-decoration: none;
+  border-bottom: 2px solid #91c7b6;
+  padding-bottom: 7px;
+}
+.reveal .eywa-source {
+  font-size: .36em;
+  color:#74848d;
+  line-height: 1.5;
+  max-width: 80em;
+  margin-top: 35px;
+}
+.reveal .eywa-lesson-frame {height: 385px; max-height: 52vh;}
+.reveal .eywa-lesson-frame + .eywa-slide-link {margin-top: 8px;}
+.reveal table {font-size: .69em; width: 100%;}
+.reveal table th {font-weight: 800; color:#087e72;}
+.reveal table td, .reveal table th {padding: .35em .5em;}
+.reveal ul {font-size:.8em; line-height:1.5;}
+@media(max-width: 1000px){
+  .reveal .eywa-course-grid {gap:15px}
+  .reveal .eywa-course-grid .eywa-card {padding:17px}
+}
