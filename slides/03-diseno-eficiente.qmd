@@ -1,0 +1,76 @@
+---
+title: "03 / Diseño eficiente"
+subtitle: "Divide y vencerás · DP · greedy · backtracking"
+author: "EYWA · Algoritmos y Estructuras de Datos"
+---
+
+## Mapa esencial
+
+<div class="eywa-kicker">AED / CAPÍTULO 03</div>
+
+<div class="eywa-course-grid">
+<div class="eywa-card"><div class="eywa-number">01</div><h3>Dividir y vencer</h3><p>Resuelve subproblemas y combina resultados.</p></div>
+<div class="eywa-card"><div class="eywa-number">02</div><h3>Programación dinámica</h3><p>Guarda soluciones de subproblemas repetidos.</p></div>
+<div class="eywa-card"><div class="eywa-number">03</div><h3>Greedy y backtracking</h3><p>Elegir localmente o explorar posibilidades.</p></div>
+</div>
+
+## Idea que debes retener
+
+<div class="eywa-kicker">CONCEPTO</div>
+
+<div class="eywa-declaration">Elegir una técnica depende de la estructura del problema, no de cuál algoritmo parece más elegante.</div>
+
+<div class="eywa-course-grid">
+<div class="eywa-card"><div class="eywa-number">01</div><p>Subproblemas solapados → considerar memoización o tabulación.</p></div>
+<div class="eywa-card"><div class="eywa-number">02</div><p>Elección local demostrablemente segura → considerar greedy.</p></div>
+<div class="eywa-card"><div class="eywa-number">03</div><p>Restricciones con decisiones reversibles → considerar backtracking.</p></div>
+</div>
+
+## Código en Python
+
+<div class="eywa-kicker">IMPLEMENTACIÓN DE REFERENCIA · EDITABLE EN EL LAB</div>
+
+```python
+def fibonacci(n):
+    a, b = 0, 1
+    for _ in range(n):
+        a, b = b, a + b
+    return a
+
+print(fibonacci(10))  # 55
+```
+
+## Complejidad y decisiones
+
+<div class="eywa-kicker">TIME / SPACE · COMPARACIONES</div>
+
+| Operación o enfoque | Costo | Por qué |
+|:---|:---|:---|
+| Fibonacci recursivo ingenuo | **Exponencial** | Repite muchos subproblemas. |
+| Fibonacci tabulado | **Θ(n)** | Cada estado se calcula una sola vez. |
+| Fibonacci iterativo | **O(1) espacio** | Conserva dos estados previos. |
+
+## Laboratorio Python
+
+<div class="eywa-kicker">PRÁCTICA · CAPÍTULO 03</div>
+
+<div class="eywa-lead">Programa Fibonacci con estado iterativo, evitando recursión redundante.</div>
+
+<iframe class="eywa-frame eywa-lesson-frame" src="../labs/chapter.html?c=03" title="Ejercicio interactivo de Diseño eficiente" loading="lazy"></iframe>
+
+<div class="eywa-slide-link"><a href="../labs/chapter.html?c=03" target="_blank" rel="noopener noreferrer">Abrir ejercicio aislado ↗</a></div>
+
+## Comprobación de aprendizaje
+
+<div class="eywa-kicker">DOMINIO MÍNIMO</div>
+
+- Identificar subproblemas repetidos.
+- Explicar por qué greedy requiere una prueba.
+- Reconocer un caso donde hay que retroceder.
+
+<div class="eywa-chapter-nav">
+<a href="../index.html">← Índice EYWA AED</a>
+<a href="04-estructuras-elementales.html">Siguiente capítulo →</a>
+</div>
+
+<div class="eywa-source">Adaptación didáctica original. Temario de referencia: <a href="https://github.com/ivansipiran/AED-Apuntes" target="_blank" rel="noopener">AED-Apuntes (DCC · U. de Chile)</a>.</div>
