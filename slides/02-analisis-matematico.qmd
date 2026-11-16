@@ -1,0 +1,77 @@
+---
+title: "02 / Análisis matemático"
+subtitle: "Cotas asintóticas · recurrencias"
+author: "EYWA · Algoritmos y Estructuras de Datos"
+---
+
+## Mapa esencial
+
+<div class="eywa-kicker">AED / CAPÍTULO 02</div>
+
+<div class="eywa-course-grid">
+<div class="eywa-card"><div class="eywa-number">01</div><h3>Crecimiento</h3><p>O, Ω y Θ clasifican ritmos asintóticos.</p></div>
+<div class="eywa-card"><div class="eywa-number">02</div><h3>Recurrencias</h3><p>El costo recursivo se expresa en términos de subproblemas.</p></div>
+<div class="eywa-card"><div class="eywa-number">03</div><h3>Teorema maestro</h3><p>Identifica patrones de división y combinación.</p></div>
+</div>
+
+## Idea que debes retener
+
+<div class="eywa-kicker">CONCEPTO</div>
+
+<div class="eywa-declaration">En análisis asintótico importa cómo escala el costo cuando crece n; las constantes y los términos menores dejan de dominar.</div>
+
+<div class="eywa-course-grid">
+<div class="eywa-card"><div class="eywa-number">01</div><p>O(g(n)) entrega una cota superior.</p></div>
+<div class="eywa-card"><div class="eywa-number">02</div><p>Ω(g(n)) entrega una cota inferior.</p></div>
+<div class="eywa-card"><div class="eywa-number">03</div><p>Θ(g(n)) expresa ambas cotas a la vez.</p></div>
+</div>
+
+## Código en Python
+
+<div class="eywa-kicker">IMPLEMENTACIÓN DE REFERENCIA · EDITABLE EN EL LAB</div>
+
+```python
+def count_halvings(n):
+    pasos = 0
+    while n > 1:
+        n //= 2
+        pasos += 1
+    return pasos
+
+print(count_halvings(128))  # 7
+```
+
+## Complejidad y decisiones
+
+<div class="eywa-kicker">TIME / SPACE · COMPARACIONES</div>
+
+| Operación o enfoque | Costo | Por qué |
+|:---|:---|:---|
+| Una búsqueda lineal | **Θ(n)** | Puede mirar cada elemento. |
+| Mitades sucesivas | **Θ(log n)** | Reduce el tamaño por un factor constante. |
+| Dos mitades + combinar | **Θ(n log n)** | Recurrencia 2T(n/2)+Θ(n). |
+
+## Laboratorio Python
+
+<div class="eywa-kicker">PRÁCTICA · CAPÍTULO 02</div>
+
+<div class="eywa-lead">Cuenta cuántas veces debes reducir un entero positivo a la mitad.</div>
+
+<iframe class="eywa-frame eywa-lesson-frame" src="../labs/chapter.html?c=02" title="Ejercicio interactivo de Análisis matemático" loading="lazy"></iframe>
+
+<div class="eywa-slide-link"><a href="../labs/chapter.html?c=02" target="_blank" rel="noopener noreferrer">Abrir ejercicio aislado ↗</a></div>
+
+## Comprobación de aprendizaje
+
+<div class="eywa-kicker">DOMINIO MÍNIMO</div>
+
+- Distinguir O de Θ.
+- Resolver T(n) = T(n/2) + Θ(1).
+- Reconocer cuándo aplicar un teorema maestro.
+
+<div class="eywa-chapter-nav">
+<a href="../index.html">← Índice EYWA AED</a>
+<a href="03-diseno-eficiente.html">Siguiente capítulo →</a>
+</div>
+
+<div class="eywa-source">Adaptación didáctica original. Temario de referencia: <a href="https://github.com/ivansipiran/AED-Apuntes" target="_blank" rel="noopener">AED-Apuntes (DCC · U. de Chile)</a>.</div>
