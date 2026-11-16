@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>EYWA · Mini tester de búsqueda binaria</title>
+<style>
+:root{font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif;color:#16323d;background:#fff}
+*{box-sizing:border-box}body{margin:0;padding:18px 24px}.header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0 0 13px}.title{font-size:12px;font-weight:850;letter-spacing:.09em;text-transform:uppercase;color:#087e72}.status{font-size:12px;color:#71848a;display:inline-flex;align-items:center;gap:8px}.dot{width:7px;height:7px;background:#d2a13c;border-radius:50%}.status.ready .dot{background:#0caa7f}.layout{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(0,1fr);gap:18px}label{font-size:11px;font-weight:850;letter-spacing:.09em;text-transform:uppercase;color:#59737c;display:block;margin-bottom:8px}textarea{width:100%;height:275px;min-height:190px;resize:vertical;border:1px solid #2a4a5b;border-radius:12px;background:#102737;color:#defde8;padding:14px 16px;line-height:1.53;font:12px ui-monospace,SFMono-Regular,Consolas,monospace;tab-size:4;outline:none}textarea:focus{border-color:#078a77;box-shadow:0 0 0 3px #17b89420}.right{display:flex;flex-direction:column;min-width:0}.description{font-size:12px;color:#637984;line-height:1.48;margin:0 0 11px}.tests{background:#f4f8f5;border:1px solid #deebe4;border-radius:12px;padding:14px 14px;flex:1;min-height:124px}.tests pre{margin:0;font:12px/1.65 ui-monospace,SFMono-Regular,Consolas,monospace;white-space:pre-wrap;word-break:break-word}.actions{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:12px}.actions button{background:#087e72;border:1px solid #087e72;border-radius:10px;padding:11px 14px;color:#fff;font-size:12px;font-weight:850;cursor:pointer}.actions button:disabled{opacity:.55;cursor:wait}.tiny{font-size:11px;color:#6b818a}.error{color:#bb4234}.success{color:#067b5b}@media(max-width:680px){body{padding:13px}.layout{grid-template-columns:1fr}textarea{height:220px}.tests{min-height:110px}}
+</style>
+<script src="https://cdn.jsdelivr.net/pyodide/v314.0.8/full/pyodide.js"></script>
+</head>
+<body>
+<div class="header"><div class="title">EYWA / Búsqueda binaria</div><div id="status" class="status"><span class="dot"></span><span id="statusText">Python sin iniciar</span></div></div>
+<div class="layout">
+  <div>
+    <label for="code">Tu implementación · editable</label>
+    <textarea id="code" spellcheck="false">def binary_search(xs, target):
+    left, right = 0, len(xs) - 1
+    while left <= right:
+        mid = (left + right) // 2
+        if xs[mid] == target:
+            return mid
+        if xs[mid] < target:
+            left = mid + 1
+        else:
+            right = mid - 1
+    return -1</textarea>
+  </div>
+  <div class="right">
+    <label>Evaluación automática</label>
+    <p class="description">La función recibe una lista ordenada y un objetivo. Debe devolver su índice o <code>-1</code> si no existe.</p>
+    <div class="tests"><pre id="output" aria-live="polite">7 casos de prueba preparados.
+
+Pulsa Ejecutar tests para comenzar.</pre></div>
+    <div class="actions">
+      <span class="tiny" id="score">0 / 7 tests</span>
+      <button id="run">▶ Ejecutar tests</button>
+    </div>
+  </div>
+</div>
+<script>
+const source = document.getElementById("code");
+const output = document.getElementById("output");
+const button = document.getElementById("run");
+const score = document.getElementById("score");
+const statusEl = document.getElementById("status");
+const statusText = document.getElementById("statusText");
+let pyPromise=null,running=false;
+function setStatus(text,ready=false){statusText.textContent=text;statusEl.classList.toggle("ready",ready);}
+function runtime(){
+ if(!pyPromise){
+   setStatus("Cargando Python…");
+   pyPromise=loadPyodide().then(py=>{setStatus("Python listo",true);return py;})
+    .catch(err=>{pyPromise=null;setStatus("Error de carga");throw err;});
+ }
+ return pyPromise;
+}
+async function test(){
+ if(running)return;
+ running=true;button.disabled=true;
+ output.className="";output.textContent="Preparando el entorno Python…";
+ try{
+  const py=await runtime();
+  py.globals.set("__eywa_source",source.value);
+  const result=await py.runPythonAsync([
+   "import io, contextlib",
+   "__eywa_log = io.StringIO()",
+   "globals().pop('binary_search', None)",
+   "with contextlib.redirect_stdout(__eywa_log):",
+   "    exec(compile(__eywa_source, '<editor>', 'exec'), globals())",
+   "    cases = [",
+   "        ([2, 4, 6, 8, 10], 8, 3),",
+   "        ([1], 1, 0),",
+   "        ([1], 2, -1),",
+   "        ([], 7, -1),",
+   "        ([3, 7, 11, 18, 20, 25], 3, 0),",
+   "        ([3, 7, 11, 18, 20, 25], 25, 5),",
+   "        ([0, 3, 6, 9, 12], 5, -1),",
+   "    ]",
+   "    for i, (arr, target, expected) in enumerate(cases, 1):",
+   "        received = binary_search(arr, target)",
+   "        assert received == expected, f'Test {i} falló: {received=} / {expected=}'",
+   "        print(f'✓ Test {i} superado')",
+   "__eywa_log.getvalue()"
+  ].join("\n"));
+  output.textContent=result+"\n✓ 7/7 · Todos los tests superados";
+  output.className="success";score.textContent="7 / 7 tests";
+ }catch(e){
+  output.textContent=String(e);
+  output.className="error";score.textContent="Revisar implementación";
+ }finally{running=false;button.disabled=false;}
+}
+button.addEventListener("click",test);
+source.addEventListener("keydown",event=>{
+ if(event.key==="Tab"){event.preventDefault();source.setRangeText("    ",source.selectionStart,source.selectionEnd,"end");}
+ if(event.key==="Enter"&&(event.ctrlKey||event.metaKey)){event.preventDefault();test();}
+});
+</script>
+</body>
+</html>
