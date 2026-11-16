@@ -37,10 +37,14 @@ def merge_sort(xs):
     mid = len(xs) // 2
     a = merge_sort(xs[:mid])
     b = merge_sort(xs[mid:])
+    i = j = 0
     out = []
-    while a and b:
-        out.append(a.pop(0) if a[0] <= b[0] else b.pop(0))
-    return out + a + b
+    while i < len(a) and j < len(b):
+        if a[i] <= b[j]:
+            out.append(a[i]); i += 1
+        else:
+            out.append(b[j]); j += 1
+    return out + a[i:] + b[j:]
 ```
 
 ## Complejidad y decisiones
