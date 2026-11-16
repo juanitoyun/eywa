@@ -1,0 +1,70 @@
+<style>
+#eywa-console-open { position:fixed; left:22px; bottom:20px; z-index:2000; padding:12px 19px; background:#102b38; color:#fff; border:0; border-radius:14px; font:700 14px/1.2 system-ui,sans-serif; box-shadow:0 10px 30px #102b3830; cursor:pointer; letter-spacing:.015em; }
+#eywa-console-open:hover { background:#087e72; }
+#eywa-console-backdrop { position:fixed; inset:0; z-index:2001; background:#0b19235c; opacity:0; pointer-events:none; transition:opacity .16s ease; }
+#eywa-console-backdrop.is-open { opacity:1; pointer-events:auto; }
+#eywa-console-panel { position:fixed; top:0; right:0; bottom:0; width:min(640px,96vw); z-index:2002; background:#fff; border-left:1px solid #d4e4dd; box-shadow:-20px 0 80px #0d26382c; transform:translateX(104%); transition:transform .23s ease; display:flex; flex-direction:column; font-family:system-ui,sans-serif; }
+#eywa-console-panel.is-open { transform:translateX(0); }
+#eywa-console-bar { height:56px; flex:0 0 56px; display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #e1ebe6; padding:0 19px; color:#142f3b; font-size:14px; }
+#eywa-console-close { cursor:pointer; border:0; background:#eaf3ef; color:#163a44; border-radius:8px; padding:8px 13px; font-size:13px; }
+#eywa-console-panel iframe { flex:1; width:100%; border:0; background:#f7faf8; }
+@media (max-width:600px) { #eywa-console-open { left:10px; bottom:8px; padding:10px 12px; font-size:12px; } }
+</style>
+<script>
+(() => {
+  function initEywaConsole() {
+    if (document.getElementById("eywa-console-open")) return;
+    const open = document.createElement("button");
+    open.id = "eywa-console-open";
+    open.type = "button";
+    open.textContent = "⌘  Consola Python";
+    open.setAttribute("aria-controls", "eywa-console-panel");
+    open.setAttribute("aria-expanded", "false");
+
+    const backdrop = document.createElement("div");
+    backdrop.id = "eywa-console-backdrop";
+
+    const panel = document.createElement("aside");
+    panel.id = "eywa-console-panel";
+    panel.setAttribute("aria-label", "Consola persistente EYWA");
+    const bar = document.createElement("header");
+    bar.id = "eywa-console-bar";
+    const heading = document.createElement("strong");
+    heading.textContent = "EYWA / Python REPL";
+    const close = document.createElement("button");
+    close.id = "eywa-console-close";
+    close.textContent = "Cerrar ×";
+    close.type = "button";
+    bar.append(heading, close);
+    panel.append(bar);
+
+    // El iframe se carga una sola vez, cuando el usuario abre la consola.
+    // Al cerrarlo permanece montado, conservando variables entre slides.
+    let iframe = null;
+    function setOpen(value) {
+      if (value && !iframe) {
+        iframe = document.createElement("iframe");
+        iframe.title = "Consola Python EYWA";
+        iframe.src = new URL("labs/repl.html", document.baseURI).href;
+        iframe.allow = "clipboard-write";
+        panel.append(iframe);
+      }
+      panel.classList.toggle("is-open", value);
+      backdrop.classList.toggle("is-open", value);
+      open.setAttribute("aria-expanded", String(value));
+    }
+    open.addEventListener("click", () => setOpen(true));
+    close.addEventListener("click", () => setOpen(false));
+    backdrop.addEventListener("click", () => setOpen(false));
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") setOpen(false);
+    });
+    document.body.append(open, backdrop, panel);
+  }
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initEywaConsole);
+  } else {
+    initEywaConsole();
+  }
+})();
+</script>
