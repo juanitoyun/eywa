@@ -97,3 +97,62 @@ Requiere conexión a Internet y que el servidor permita CORS. Si has modificado 
 ## Próximos pasos
 
 Reutilizar el tema y mini testers con pilas, colas, árboles, grafos y ordenamientos. Evaluar reemplazar el REPL por una instancia JupyterLite propia cuando necesitemos compatibilidad plena con notebooks.
+
+
+## Curso completo de AED — diez capítulos
+
+La página inicial, al publicarse, funciona como índice navegable: https://juanitoyun.github.io/eywa/
+
+Cada capítulo tiene **una presentación Quarto Reveal.js** con cinco secciones de aprendizaje, más portada, y un mini tester Python autocorregible.
+
+| Capítulo | Presentación | Tester |
+| --- | --- | --- |
+| 01 Introducción | [Slides](slides/01-introduccion.qmd) | [Python](labs/chapter.html?c=01) |
+| 02 Análisis matemático | [Slides](slides/02-analisis-matematico.qmd) | [Python](labs/chapter.html?c=02) |
+| 03 Diseño eficiente | [Slides](slides/03-diseno-eficiente.qmd) | [Python](labs/chapter.html?c=03) |
+| 04 Estructuras elementales | [Slides](slides/04-estructuras-elementales.qmd) | [Python](labs/chapter.html?c=04) |
+| 05 Pilas, colas y prioridad | [Slides](slides/05-pilas-colas-prioridad.qmd) | [Python](labs/chapter.html?c=05) |
+| 06 Diccionarios | [Slides](slides/06-diccionarios.qmd) | [Python](labs/chapter.html?c=06) |
+| 07 Ordenación | [Slides](slides/07-ordenacion.qmd) | [Python](labs/chapter.html?c=07) |
+| 08 Búsqueda en texto | [Slides](slides/08-busqueda-texto.qmd) | [Python](labs/chapter.html?c=08) |
+| 09 Compresión | [Slides](slides/09-compresion.qmd) | [Python](labs/chapter.html?c=09) |
+| 10 Grafos | [Slides](slides/10-grafos.qmd) | [Python](labs/chapter.html?c=10) |
+
+Formato de publicación previsto para un capítulo:
+
+- Presentación: `https://juanitoyun.github.io/eywa/slides/01-introduccion.html`
+- Tester aislado: `https://juanitoyun.github.io/eywa/labs/chapter.html?c=01`
+
+Por ejemplo, para insertar un ejercicio independiente en Genially:
+
+~~~html
+<iframe
+  src="https://juanitoyun.github.io/eywa/labs/chapter.html?c=01"
+  width="960" height="520"
+  title="EYWA · Introducción"
+  allow="clipboard-write">
+</iframe>
+~~~
+
+### Metodología y créditos
+
+Contenido y código **originales**, tomando el temario y orden como referencia de [AED-Apuntes](https://github.com/ivansipiran/AED-Apuntes) (Ivan Sipiran, curso AED del DCC de la Universidad de Chile; basado en antiguos apuntes de Patricio Poblete y Benjamín Bustos). Los cuadernos ajenos **no se reproducen ni redistribuyen** en este repositorio.
+
+Esta es la **primera síntesis visual de los diez capítulos**, no una conversión íntegra de sus textos, figuras y ejercicios. El siguiente trabajo será profundizar subtemas y crear visualizaciones/animaciones y tests específicos adicionales.
+
+### Biblioteca Python
+
+Implementaciones propias en `eywa/lessons.py` y `eywa/search.py`. Para probar los algoritmos desde un clon local:
+
+~~~python
+from eywa.lessons import merge_sort, bfs, fibonacci
+print(merge_sort([8, 1, 5, 2]))
+~~~
+
+Pruebas locales:
+
+~~~bash
+python -m unittest discover -s tests -v
+~~~
+
+La validación automática de pull requests comprueba tanto el render Quarto como las pruebas estándar de Python.
