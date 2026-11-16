@@ -1,101 +1,46 @@
 ---
 title: "EYWA."
-subtitle: "Pensar. Ejecutar. Entender."
-author: "Python · Estructuras de datos · Algoritmos"
+subtitle: "Algoritmos y Estructuras de Datos"
+author: "Curso visual · Python · 10 capítulos"
 ---
 
-## Búsqueda binaria, sin magia
+## Un curso. Diez laboratorios.
 
-<div class="eywa-kicker">01 / Idea fundamental</div>
+<div class="eywa-kicker">ÍNDICE INTERACTIVO · 01—05</div>
 
-Una lista **ordenada** permite descartar la mitad del espacio de búsqueda en cada paso.
-
-<div class="eywa-array" aria-label="Arreglo ordenado de siete elementos">
-  <span>2</span><span>4</span><span>6</span><span class="is-mid">8</span><span>10</span><span>12</span><span>14</span>
+<div class="eywa-index-grid">
+<a class="eywa-index-card" href="slides/01-introduccion.html"><span class="eywa-number">01 / AED</span><strong>Introducción</strong><small>Python · invariantes · recursión</small></a>
+<a class="eywa-index-card" href="slides/02-analisis-matematico.html"><span class="eywa-number">02 / AED</span><strong>Análisis matemático</strong><small>O, Ω, Θ · recurrencias</small></a>
+<a class="eywa-index-card" href="slides/03-diseno-eficiente.html"><span class="eywa-number">03 / AED</span><strong>Diseño eficiente</strong><small>DP · greedy · backtracking</small></a>
+<a class="eywa-index-card" href="slides/04-estructuras-elementales.html"><span class="eywa-number">04 / AED</span><strong>Estructuras elementales</strong><small>Arreglos · listas · árboles</small></a>
+<a class="eywa-index-card" href="slides/05-pilas-colas-prioridad.html"><span class="eywa-number">05 / AED</span><strong>Pilas, colas y prioridad</strong><small>LIFO · FIFO · heaps</small></a>
 </div>
 
-<span class="eywa-pill">objetivo = 8</span> &nbsp; <span class="eywa-pill">índice = 3</span>
+## Estructuras, búsqueda y grafos
 
-<div class="eywa-grid">
-  <div class="eywa-card">
-    <div class="eywa-number">O(log n)</div>
-    <h3>Buscar con criterio</h3>
-    <p>Cada comparación reduce el intervalo de búsqueda aproximadamente a la mitad.</p>
-  </div>
-  <div class="eywa-card">
-    <div class="eywa-number">PRECONDICIÓN</div>
-    <h3>Datos ordenados</h3>
-    <p>Sin orden previo, el algoritmo no garantiza encontrar el elemento.</p>
-  </div>
+<div class="eywa-kicker">ÍNDICE INTERACTIVO · 06—10</div>
+
+<div class="eywa-index-grid">
+<a class="eywa-index-card" href="slides/06-diccionarios.html"><span class="eywa-number">06 / AED</span><strong>Diccionarios</strong><small>ABB · AVL · hashing</small></a>
+<a class="eywa-index-card" href="slides/07-ordenacion.html"><span class="eywa-number">07 / AED</span><strong>Ordenación</strong><small>Quicksort · heapsort · mergesort</small></a>
+<a class="eywa-index-card" href="slides/08-busqueda-texto.html"><span class="eywa-number">08 / AED</span><strong>Búsqueda en texto</strong><small>Fuerza bruta · KMP · Boyer–Moore</small></a>
+<a class="eywa-index-card" href="slides/09-compresion.html"><span class="eywa-number">09 / AED</span><strong>Compresión de datos</strong><small>Huffman · entropía · Lempel–Ziv</small></a>
+<a class="eywa-index-card" href="slides/10-grafos.html"><span class="eywa-number">10 / AED</span><strong>Grafos</strong><small>BFS · DFS · MST · rutas mínimas</small></a>
 </div>
 
-## Lo esencial del algoritmo
+## Cómo estudiar con EYWA
 
-<div class="eywa-kicker">02 / Modelo mental</div>
+<div class="eywa-kicker">MÉTODO EN 3 PASOS</div>
 
-```{.python}
-def binary_search(xs, target):
-    left, right = 0, len(xs) - 1
-    while left <= right:
-        mid = (left + right) // 2
-        if xs[mid] == target:
-            return mid
-        if xs[mid] < target:
-            left = mid + 1
-        else:
-            right = mid - 1
-    return -1
-```
-
-<div class="eywa-steps">
-  <div class="eywa-step fragment"><b>01</b> Inspecciona el centro<small>mid = (left + right) // 2</small></div>
-  <div class="eywa-step fragment"><b>02</b> Descarta una mitad<small>Actualiza left o right.</small></div>
-  <div class="eywa-step fragment"><b>03</b> Termina al encontrarlo<small>O cuando el intervalo se vacía.</small></div>
+<div class="eywa-course-grid">
+  <div class="eywa-card"><div class="eywa-number">01</div><h3>Comprender</h3><p>Identifica el problema, el invariante y las operaciones fundamentales.</p></div>
+  <div class="eywa-card"><div class="eywa-number">02</div><h3>Analizar</h3><p>Calcula costo temporal y espacial; estudia precondiciones y casos extremos.</p></div>
+  <div class="eywa-card"><div class="eywa-number">03</div><h3>Ejecutar</h3><p>Modifica Python en vivo y verifica resultados con tests autocorregibles.</p></div>
 </div>
 
-## Modifica y ejecuta Python
-
-<div class="eywa-kicker">03 / Mini tester</div>
-
-<div class="eywa-lead">Edita la función y pulsa <strong>Ejecutar tests</strong>. Python corre dentro de tu navegador, sin servidor.</div>
-
-<iframe class="eywa-frame" src="labs/binary-search.html" title="Mini tester Python: búsqueda binaria" loading="eager" allow="clipboard-write"></iframe>
-
-<div class="eywa-slide-link"><a href="labs/binary-search.html" target="_blank" rel="noopener noreferrer">Abrir el mini tester por separado ↗</a></div>
-
-## Una consola. Todos tus módulos.
-
-<div class="eywa-kicker">04 / Biblioteca de algoritmos</div>
-
-Utiliza la pestaña flotante **⌘ Consola Python** en la esquina inferior izquierda.
-
-<div class="eywa-code-card">
-
-```{.python}
-# Ejemplo: importar un módulo público de GitHub
-from pyodide.http import pyfetch
-import importlib
-
-url = "https://raw.githubusercontent.com/juanitoyun/eywa/main/eywa/search.py"
-respuesta = await pyfetch(url)
-open("search.py", "wb").write(await respuesta.bytes())
-
-importlib.invalidate_caches()
-from search import binary_search
-print(binary_search([2, 4, 6, 8], 6))
-```
-
+<div class="eywa-chapter-nav">
+<a href="demo.html">Ver prototipo visual EYWA →</a>
+<a href="labs/repl.html" target="_blank" rel="noopener noreferrer">Abrir consola Python →</a>
 </div>
 
-<div class="eywa-grid">
-  <div class="eywa-card">
-    <h3>El código vive en GitHub</h3>
-    <p>Un solo repositorio para importar y reutilizar algoritmos en otras presentaciones.</p>
-  </div>
-  <div class="eywa-card">
-    <h3>La consola conserva el estado</h3>
-    <p>Mientras esta presentación siga abierta, puedes navegar entre slides sin perder variables.</p>
-  </div>
-</div>
-
-<div class="eywa-slide-link"><a href="labs/repl.html" target="_blank" rel="noopener noreferrer">Abrir consola independiente ↗</a></div>
+<div class="eywa-source">Guía de estudio independiente, con contenido y código originales. Índice temático basado en <a href="https://github.com/ivansipiran/AED-Apuntes" target="_blank" rel="noopener noreferrer">AED-Apuntes — DCC, Universidad de Chile</a>. Esta primera versión sintetiza los diez capítulos; no reemplaza el apunte completo.</div>

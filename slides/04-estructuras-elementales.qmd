@@ -1,0 +1,80 @@
+---
+title: "04 / Estructuras elementales"
+subtitle: "Arreglos · listas enlazadas · árboles"
+author: "EYWA · Algoritmos y Estructuras de Datos"
+---
+
+## Mapa esencial
+
+<div class="eywa-kicker">AED / CAPÍTULO 04</div>
+
+<div class="eywa-course-grid">
+<div class="eywa-card"><div class="eywa-number">01</div><h3>Arreglos</h3><p>Acceso por índice, buena localidad de memoria.</p></div>
+<div class="eywa-card"><div class="eywa-number">02</div><h3>Listas enlazadas</h3><p>Nodos conectados mediante referencias.</p></div>
+<div class="eywa-card"><div class="eywa-number">03</div><h3>Árboles binarios</h3><p>Relaciones padre-hijo y recorridos recursivos.</p></div>
+</div>
+
+## Idea que debes retener
+
+<div class="eywa-kicker">CONCEPTO</div>
+
+<div class="eywa-declaration">La representación determina las operaciones eficientes. No existe una estructura universalmente mejor.</div>
+
+<div class="eywa-course-grid">
+<div class="eywa-card"><div class="eywa-number">01</div><p>Arreglo: acceso aleatorio O(1), insertar en medio O(n).</p></div>
+<div class="eywa-card"><div class="eywa-number">02</div><p>Lista enlazada: insertar junto a un nodo O(1), encontrar posición O(n).</p></div>
+<div class="eywa-card"><div class="eywa-number">03</div><p>Árbol: costo de búsqueda depende de su altura.</p></div>
+</div>
+
+## Código en Python
+
+<div class="eywa-kicker">IMPLEMENTACIÓN DE REFERENCIA · EDITABLE EN EL LAB</div>
+
+```python
+def binary_search(xs, target):
+    low, high = 0, len(xs) - 1
+    while low <= high:
+        mid = (low + high) // 2
+        if xs[mid] == target:
+            return mid
+        if xs[mid] < target:
+            low = mid + 1
+        else:
+            high = mid - 1
+    return -1
+```
+
+## Complejidad y decisiones
+
+<div class="eywa-kicker">TIME / SPACE · COMPARACIONES</div>
+
+| Operación o enfoque | Costo | Por qué |
+|:---|:---|:---|
+| Acceso por índice en arreglo | **Θ(1)** | Dirección calculable. |
+| Buscar en lista enlazada | **O(n)** | Recorrido secuencial. |
+| Búsqueda binaria ordenada | **O(log n)** | Intervalo reducido por mitades. |
+
+## Laboratorio Python
+
+<div class="eywa-kicker">PRÁCTICA · CAPÍTULO 04</div>
+
+<div class="eywa-lead">Verifica el invariante del intervalo de búsqueda sobre un arreglo ordenado.</div>
+
+<iframe class="eywa-frame eywa-lesson-frame" src="../labs/chapter.html?c=04" title="Ejercicio interactivo de Estructuras elementales" loading="lazy"></iframe>
+
+<div class="eywa-slide-link"><a href="../labs/chapter.html?c=04" target="_blank" rel="noopener noreferrer">Abrir ejercicio aislado ↗</a></div>
+
+## Comprobación de aprendizaje
+
+<div class="eywa-kicker">DOMINIO MÍNIMO</div>
+
+- Justificar acceso O(1) en arreglos.
+- Distinguir nodo de referencia.
+- Explicar tres recorridos de un árbol binario.
+
+<div class="eywa-chapter-nav">
+<a href="../index.html">← Índice EYWA AED</a>
+<a href="05-pilas-colas-prioridad.html">Siguiente capítulo →</a>
+</div>
+
+<div class="eywa-source">Adaptación didáctica original. Temario de referencia: <a href="https://github.com/ivansipiran/AED-Apuntes" target="_blank" rel="noopener">AED-Apuntes (DCC · U. de Chile)</a>.</div>

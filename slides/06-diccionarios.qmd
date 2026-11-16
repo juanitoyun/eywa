@@ -1,0 +1,76 @@
+---
+title: "06 / Diccionarios"
+subtitle: "Búsqueda · ABB · AVL · hashing"
+author: "EYWA · Algoritmos y Estructuras de Datos"
+---
+
+## Mapa esencial
+
+<div class="eywa-kicker">AED / CAPÍTULO 06</div>
+
+<div class="eywa-course-grid">
+<div class="eywa-card"><div class="eywa-number">01</div><h3>Acceso por clave</h3><p>Relación clave → valor, sin posición explícita.</p></div>
+<div class="eywa-card"><div class="eywa-number">02</div><h3>Árboles de búsqueda</h3><p>Invariante de orden; equilibrio determina altura.</p></div>
+<div class="eywa-card"><div class="eywa-number">03</div><h3>Hashing</h3><p>Dispersión y resolución de colisiones.</p></div>
+</div>
+
+## Idea que debes retener
+
+<div class="eywa-kicker">CONCEPTO</div>
+
+<div class="eywa-declaration">Un diccionario define operaciones de búsqueda, inserción y eliminación; árboles y tablas hash ofrecen contratos de costo diferentes.</div>
+
+<div class="eywa-course-grid">
+<div class="eywa-card"><div class="eywa-number">01</div><p>BST sin balancear: la altura puede llegar a n.</p></div>
+<div class="eywa-card"><div class="eywa-number">02</div><p>AVL, 2–3 y árboles B controlan la altura.</p></div>
+<div class="eywa-card"><div class="eywa-number">03</div><p>Hash table: acceso promedio O(1), pero con colisiones y redimensionamiento.</p></div>
+</div>
+
+## Código en Python
+
+<div class="eywa-kicker">IMPLEMENTACIÓN DE REFERENCIA · EDITABLE EN EL LAB</div>
+
+```python
+def frequencies(items):
+    freq = {}
+    for item in items:
+        freq[item] = freq.get(item, 0) + 1
+    return freq
+
+print(frequencies(["a", "b", "a"]))
+```
+
+## Complejidad y decisiones
+
+<div class="eywa-kicker">TIME / SPACE · COMPARACIONES</div>
+
+| Operación o enfoque | Costo | Por qué |
+|:---|:---|:---|
+| Diccionario Python | **O(1) promedio** | Hashing; peor caso no garantizado. |
+| ABB no balanceado | **O(h), h ≤ n** | Depende de la forma del árbol. |
+| Árbol balanceado | **O(log n)** | Altura acotada por logaritmos. |
+
+## Laboratorio Python
+
+<div class="eywa-kicker">PRÁCTICA · CAPÍTULO 06</div>
+
+<div class="eywa-lead">Construye una tabla de frecuencias sin asumir un orden en las claves.</div>
+
+<iframe class="eywa-frame eywa-lesson-frame" src="../labs/chapter.html?c=06" title="Ejercicio interactivo de Diccionarios" loading="lazy"></iframe>
+
+<div class="eywa-slide-link"><a href="../labs/chapter.html?c=06" target="_blank" rel="noopener noreferrer">Abrir ejercicio aislado ↗</a></div>
+
+## Comprobación de aprendizaje
+
+<div class="eywa-kicker">DOMINIO MÍNIMO</div>
+
+- Separar interfaz diccionario de implementación.
+- Describir una colisión en hashing.
+- Explicar la ventaja de un árbol balanceado.
+
+<div class="eywa-chapter-nav">
+<a href="../index.html">← Índice EYWA AED</a>
+<a href="07-ordenacion.html">Siguiente capítulo →</a>
+</div>
+
+<div class="eywa-source">Adaptación didáctica original. Temario de referencia: <a href="https://github.com/ivansipiran/AED-Apuntes" target="_blank" rel="noopener">AED-Apuntes (DCC · U. de Chile)</a>.</div>

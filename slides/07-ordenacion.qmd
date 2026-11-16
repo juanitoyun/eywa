@@ -1,0 +1,83 @@
+---
+title: "07 / Ordenación"
+subtitle: "Quicksort · Heapsort · Mergesort · Radix"
+author: "EYWA · Algoritmos y Estructuras de Datos"
+---
+
+## Mapa esencial
+
+<div class="eywa-kicker">AED / CAPÍTULO 07</div>
+
+<div class="eywa-course-grid">
+<div class="eywa-card"><div class="eywa-number">01</div><h3>Por comparación</h3><p>Quicksort, heapsort y mergesort.</p></div>
+<div class="eywa-card"><div class="eywa-number">02</div><h3>Selección</h3><p>Encontrar el k-ésimo sin ordenar todo.</p></div>
+<div class="eywa-card"><div class="eywa-number">03</div><h3>Sin comparación</h3><p>Radix aprovecha la estructura de las claves.</p></div>
+</div>
+
+## Idea que debes retener
+
+<div class="eywa-kicker">CONCEPTO</div>
+
+<div class="eywa-declaration">El algoritmo adecuado depende de estabilidad, memoria disponible, distribuciones de entrada y garantías de peor caso.</div>
+
+<div class="eywa-course-grid">
+<div class="eywa-card"><div class="eywa-number">01</div><p>Quicksort suele rendir bien; peor caso cuadrático.</p></div>
+<div class="eywa-card"><div class="eywa-number">02</div><p>Mergesort garantiza O(n log n) y puede ser estable.</p></div>
+<div class="eywa-card"><div class="eywa-number">03</div><p>Heapsort garantiza O(n log n) con espacio auxiliar constante en arreglo.</p></div>
+</div>
+
+## Código en Python
+
+<div class="eywa-kicker">IMPLEMENTACIÓN DE REFERENCIA · EDITABLE EN EL LAB</div>
+
+```python
+def merge_sort(xs):
+    if len(xs) <= 1:
+        return xs[:]
+    mid = len(xs) // 2
+    a = merge_sort(xs[:mid])
+    b = merge_sort(xs[mid:])
+    i = j = 0
+    out = []
+    while i < len(a) and j < len(b):
+        if a[i] <= b[j]:
+            out.append(a[i]); i += 1
+        else:
+            out.append(b[j]); j += 1
+    return out + a[i:] + b[j:]
+```
+
+## Complejidad y decisiones
+
+<div class="eywa-kicker">TIME / SPACE · COMPARACIONES</div>
+
+| Operación o enfoque | Costo | Por qué |
+|:---|:---|:---|
+| Quicksort | **O(n log n) esperado** | Peor caso O(n²). |
+| Mergesort | **O(n log n) peor caso** | Espacio auxiliar O(n). |
+| Radix sort | **O(d(n+k))** | No está restringido a comparaciones. |
+
+## Laboratorio Python
+
+<div class="eywa-kicker">PRÁCTICA · CAPÍTULO 07</div>
+
+<div class="eywa-lead">Implementa un ordenamiento por división y mezcla; mide el costo conceptual.</div>
+
+<iframe class="eywa-frame eywa-lesson-frame" src="../labs/chapter.html?c=07" title="Ejercicio interactivo de Ordenación" loading="lazy"></iframe>
+
+<div class="eywa-slide-link"><a href="../labs/chapter.html?c=07" target="_blank" rel="noopener noreferrer">Abrir ejercicio aislado ↗</a></div>
+
+## Comprobación de aprendizaje
+
+<div class="eywa-kicker">DOMINIO MÍNIMO</div>
+
+- Justificar cota Ω(n log n) por comparación.
+- Distinguir estabilidad de ordenamiento in-place.
+- Explicar pivote y partición en Quicksort.
+
+<div class="eywa-chapter-nav">
+<a href="../index.html">← Índice EYWA AED</a>
+<a href="08-busqueda-texto.html">Siguiente capítulo →</a>
+</div>
+
+<div class="eywa-source">Adaptación didáctica original. Temario de referencia: <a href="https://github.com/ivansipiran/AED-Apuntes" target="_blank" rel="noopener">AED-Apuntes (DCC · U. de Chile)</a>.</div>

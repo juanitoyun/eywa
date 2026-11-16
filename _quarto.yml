@@ -3,6 +3,8 @@ project:
   output-dir: _site
   render:
     - index.qmd
+    - demo.qmd
+    - slides/*.qmd
   resources:
     - labs/**
     - assets/**

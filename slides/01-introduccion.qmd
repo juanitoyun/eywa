@@ -1,0 +1,79 @@
+---
+title: "01 / Introducción"
+subtitle: "Python · invariantes · recursividad"
+author: "EYWA · Algoritmos y Estructuras de Datos"
+---
+
+## Mapa esencial
+
+<div class="eywa-kicker">AED / CAPÍTULO 01</div>
+
+<div class="eywa-course-grid">
+<div class="eywa-card"><div class="eywa-number">01</div><h3>Tipos y expresiones</h3><p>Números, booleanos, strings, listas y diccionarios.</p></div>
+<div class="eywa-card"><div class="eywa-number">02</div><h3>Control de flujo</h3><p>Condicionales, ciclos y funciones.</p></div>
+<div class="eywa-card"><div class="eywa-number">03</div><h3>Correctitud</h3><p>Invariantes, recursión y razonamiento local.</p></div>
+</div>
+
+## Idea que debes retener
+
+<div class="eywa-kicker">CONCEPTO</div>
+
+<div class="eywa-declaration">Un algoritmo no es solo código que funciona: debe terminar y entregar el resultado correcto para todas las entradas permitidas.</div>
+
+<div class="eywa-course-grid">
+<div class="eywa-card"><div class="eywa-number">01</div><p>Antes del ciclo: la propiedad invariante es verdadera.</p></div>
+<div class="eywa-card"><div class="eywa-number">02</div><p>Durante el ciclo: cada iteración conserva la propiedad.</p></div>
+<div class="eywa-card"><div class="eywa-number">03</div><p>Al salir: el invariante y la condición de término prueban el resultado.</p></div>
+</div>
+
+## Código en Python
+
+<div class="eywa-kicker">IMPLEMENTACIÓN DE REFERENCIA · EDITABLE EN EL LAB</div>
+
+```python
+def power(x, n):
+    resultado = 1
+    while n > 0:
+        if n % 2 == 1:
+            resultado *= x
+        x *= x
+        n //= 2
+    return resultado
+
+print(power(3, 5))  # 243
+```
+
+## Complejidad y decisiones
+
+<div class="eywa-kicker">TIME / SPACE · COMPARACIONES</div>
+
+| Operación o enfoque | Costo | Por qué |
+|:---|:---|:---|
+| Potencia repetida | **O(n)** | Una multiplicación por unidad de exponente. |
+| Exponenciación binaria | **O(log n)** | En cada paso, el exponente se divide por dos. |
+| Espacio iterativo | **O(1)** | Solo un número fijo de variables. |
+
+## Laboratorio Python
+
+<div class="eywa-kicker">PRÁCTICA · CAPÍTULO 01</div>
+
+<div class="eywa-lead">Implementa potencias con reducción binaria y comprueba el caso n = 0.</div>
+
+<iframe class="eywa-frame eywa-lesson-frame" src="../labs/chapter.html?c=01" title="Ejercicio interactivo de Introducción" loading="lazy"></iframe>
+
+<div class="eywa-slide-link"><a href="../labs/chapter.html?c=01" target="_blank" rel="noopener noreferrer">Abrir ejercicio aislado ↗</a></div>
+
+## Comprobación de aprendizaje
+
+<div class="eywa-kicker">DOMINIO MÍNIMO</div>
+
+- Distinguir invariante de condición de término.
+- Comparar solución iterativa y recursiva.
+- Explicar por qué dividir n por 2 reduce el costo.
+
+<div class="eywa-chapter-nav">
+<a href="../index.html">← Índice EYWA AED</a>
+<a href="02-analisis-matematico.html">Siguiente capítulo →</a>
+</div>
+
+<div class="eywa-source">Adaptación didáctica original. Temario de referencia: <a href="https://github.com/ivansipiran/AED-Apuntes" target="_blank" rel="noopener">AED-Apuntes (DCC · U. de Chile)</a>.</div>
