@@ -45,7 +45,8 @@
       if (value && !iframe) {
         iframe = document.createElement("iframe");
         iframe.title = "Consola Python EYWA";
-        iframe.src = new URL("labs/repl.html", document.baseURI).href;
+        const labUrl = location.pathname.includes("/slides/") ? "../labs/repl.html" : "labs/repl.html";
+        iframe.src = new URL(labUrl, document.baseURI).href;
         iframe.allow = "clipboard-write";
         panel.append(iframe);
       }
