@@ -1,0 +1,80 @@
+---
+title: "09 / Compresión de datos"
+subtitle: "Entropía · Huffman · Lempel–Ziv"
+author: "EYWA · Algoritmos y Estructuras de Datos"
+---
+
+## Mapa esencial
+
+<div class="eywa-kicker">AED / CAPÍTULO 09</div>
+
+<div class="eywa-course-grid">
+<div class="eywa-card"><div class="eywa-number">01</div><h3>Codificación</h3><p>Representar símbolos mediante palabras de bits.</p></div>
+<div class="eywa-card"><div class="eywa-number">02</div><h3>Entropía</h3><p>Límite informacional según probabilidades.</p></div>
+<div class="eywa-card"><div class="eywa-number">03</div><h3>Compresión</h3><p>Huffman explota frecuencias; LZ, repeticiones.</p></div>
+</div>
+
+## Idea que debes retener
+
+<div class="eywa-kicker">CONCEPTO</div>
+
+<div class="eywa-declaration">Comprimir es representar la misma información con menos bits aprovechando regularidades.</div>
+
+<div class="eywa-course-grid">
+<div class="eywa-card"><div class="eywa-number">01</div><p>Símbolos frecuentes merecen códigos cortos.</p></div>
+<div class="eywa-card"><div class="eywa-number">02</div><p>Un código prefijo evita ambigüedad al decodificar.</p></div>
+<div class="eywa-card"><div class="eywa-number">03</div><p>Un heap permite construir el árbol de Huffman por fusiones mínimas.</p></div>
+</div>
+
+## Código en Python
+
+<div class="eywa-kicker">IMPLEMENTACIÓN DE REFERENCIA · EDITABLE EN EL LAB</div>
+
+```python
+from heapq import heapify, heappop, heappush
+
+def huffman_cost(weights):
+    heap = list(weights)
+    heapify(heap)
+    cost = 0
+    while len(heap) > 1:
+        total = heappop(heap) + heappop(heap)
+        cost += total
+        heappush(heap, total)
+    return cost
+```
+
+## Complejidad y decisiones
+
+<div class="eywa-kicker">TIME / SPACE · COMPARACIONES</div>
+
+| Operación o enfoque | Costo | Por qué |
+|:---|:---|:---|
+| Entropía H | **−Σ p log₂(p)** | Límite teórico promedio de bits/símbolo. |
+| Huffman con heap | **O(k log k)** | k = número de símbolos distintos. |
+| Lempel–Ziv | **Variable** | Representa fragmentos repetidos. |
+
+## Laboratorio Python
+
+<div class="eywa-kicker">PRÁCTICA · CAPÍTULO 09</div>
+
+<div class="eywa-lead">Calcula el costo de fusiones de Huffman usando un min-heap.</div>
+
+<iframe class="eywa-frame eywa-lesson-frame" src="../labs/chapter.html?c=09" title="Ejercicio interactivo de Compresión de datos" loading="lazy"></iframe>
+
+<div class="eywa-slide-link"><a href="../labs/chapter.html?c=09" target="_blank" rel="noopener noreferrer">Abrir ejercicio aislado ↗</a></div>
+
+## Comprobación de aprendizaje
+
+<div class="eywa-kicker">DOMINIO MÍNIMO</div>
+
+- Distinguir compresión sin pérdida y con pérdida.
+- Explicar propiedad de prefijo.
+- Interpretar el costo de fusiones de Huffman.
+
+<div class="eywa-chapter-nav">
+<a href="../index.html">← Índice EYWA AED</a>
+<a href="10-grafos.html">Siguiente capítulo →</a>
+</div>
+
+<div class="eywa-source">Adaptación didáctica original. Temario de referencia: <a href="https://github.com/ivansipiran/AED-Apuntes" target="_blank" rel="noopener">AED-Apuntes (DCC · U. de Chile)</a>.</div>
