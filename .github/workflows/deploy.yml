@@ -5,21 +5,15 @@ on:
     branches: [main]
   workflow_dispatch:
 
-permissions:
-  contents: read
-  pages: write
-  id-token: write
-
 concurrency:
   group: pages
   cancel-in-progress: true
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+    permissions:
+      contents: read
     steps:
       - name: Descargar repositorio
         uses: actions/checkout@v4
@@ -27,17 +21,24 @@ jobs:
       - name: Instalar Quarto
         uses: quarto-dev/quarto-actions/setup@v2
 
-      - name: Compilar slides y copiar laboratorios
+      - name: Compilar curso EYWA
         run: quarto render
 
-      - name: Preparar GitHub Pages
-        uses: actions/configure-pages@v5
-
-      - name: Subir sitio
+      - name: Subir sitio compilado
         uses: actions/upload-pages-artifact@v3
         with:
           path: _site
 
-      - name: Publicar
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Publicar GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
