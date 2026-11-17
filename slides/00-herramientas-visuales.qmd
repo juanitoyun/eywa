@@ -1,0 +1,195 @@
+---
+title: "00 / Herramientas visuales"
+subtitle: "AED · Python + gráficos originales"
+author: "EYWA · Tutorial interactivo"
+format:
+  revealjs:
+    preload-iframes: false
+---
+
+## Del notebook al navegador
+
+<div class="eywa-kicker">CAPÍTULO 00 · 00_Tutorial.ipynb</div>
+
+<div class="eywa-declaration">19 ejemplos del tutorial visual del curso: arreglos NumPy, listas enlazadas y árboles binarios. Cada figura se acompaña de código Python editable.</div>
+
+<div class="eywa-course-grid">
+  <div class="eywa-card"><div class="eywa-number">06 / ARREGLOS</div><h3>NumPy</h3><p>Una y dos dimensiones, orientaciones e índices.</p></div>
+  <div class="eywa-card"><div class="eywa-number">02 / LISTAS</div><h3>Punteros</h3><p>Lista simple y doble, campos configurables.</p></div>
+  <div class="eywa-card"><div class="eywa-number">11 / ÁRBOLES</div><h3>Nodos y NULL</h3><p>Formas, centinelas y árboles de expresión.</p></div>
+</div>
+
+<div class="eywa-compact-note">En cada slide, el SVG inicial es la salida original del notebook. «Ejecutar y dibujar» intenta regenerarlo directamente en tu navegador usando aed-utilities v0.4.1 + Graphviz WASM; no requiere un kernel Jupyter remoto. La primera ejecución necesita Internet para cargar Python y Graphviz.</div>
+
+## Arreglo 1D · fila
+
+<div class="eywa-kicker">00 / ARREGLOS · EJEMPLO 01 / 19 · CELDA 5</div>
+
+<iframe class="eywa-00-example" title="AED · Arreglo 1D · fila" src="../labs/tutorial00/index.html?ex=01" loading="lazy" allow="clipboard-write"></iframe>
+
+<div class="eywa-slide-link"><a href="../labs/tutorial00/index.html?ex=01" target="_blank" rel="noopener noreferrer">Abrir este ejemplo independientemente ↗</a></div>
+
+## Arreglo 1D · índices
+
+<div class="eywa-kicker">00 / ARREGLOS · EJEMPLO 02 / 19 · CELDA 6</div>
+
+<iframe class="eywa-00-example" title="AED · Arreglo 1D · índices" src="../labs/tutorial00/index.html?ex=02" loading="lazy" allow="clipboard-write"></iframe>
+
+<div class="eywa-slide-link"><a href="../labs/tutorial00/index.html?ex=02" target="_blank" rel="noopener noreferrer">Abrir este ejemplo independientemente ↗</a></div>
+
+## Arreglo 1D · columna
+
+<div class="eywa-kicker">00 / ARREGLOS · EJEMPLO 03 / 19 · CELDA 7</div>
+
+<iframe class="eywa-00-example" title="AED · Arreglo 1D · columna" src="../labs/tutorial00/index.html?ex=03" loading="lazy" allow="clipboard-write"></iframe>
+
+<div class="eywa-slide-link"><a href="../labs/tutorial00/index.html?ex=03" target="_blank" rel="noopener noreferrer">Abrir este ejemplo independientemente ↗</a></div>
+
+## Arreglo 1D · columna e índices
+
+<div class="eywa-kicker">00 / ARREGLOS · EJEMPLO 04 / 19 · CELDA 8</div>
+
+<iframe class="eywa-00-example" title="AED · Arreglo 1D · columna e índices" src="../labs/tutorial00/index.html?ex=04" loading="lazy" allow="clipboard-write"></iframe>
+
+<div class="eywa-slide-link"><a href="../labs/tutorial00/index.html?ex=04" target="_blank" rel="noopener noreferrer">Abrir este ejemplo independientemente ↗</a></div>
+
+## Arreglo 2D · matriz
+
+<div class="eywa-kicker">00 / ARREGLOS · EJEMPLO 05 / 19 · CELDA 10</div>
+
+<iframe class="eywa-00-example" title="AED · Arreglo 2D · matriz" src="../labs/tutorial00/index.html?ex=05" loading="lazy" allow="clipboard-write"></iframe>
+
+<div class="eywa-slide-link"><a href="../labs/tutorial00/index.html?ex=05" target="_blank" rel="noopener noreferrer">Abrir este ejemplo independientemente ↗</a></div>
+
+## Matriz con índices
+
+<div class="eywa-kicker">00 / ARREGLOS · EJEMPLO 06 / 19 · CELDA 11</div>
+
+<iframe class="eywa-00-example" title="AED · Matriz con índices" src="../labs/tutorial00/index.html?ex=06" loading="lazy" allow="clipboard-write"></iframe>
+
+<div class="eywa-slide-link"><a href="../labs/tutorial00/index.html?ex=06" target="_blank" rel="noopener noreferrer">Abrir este ejemplo independientemente ↗</a></div>
+
+## Lista enlazada simple
+
+<div class="eywa-kicker">00 / LISTAS · EJEMPLO 07 / 19 · CELDA 19</div>
+
+<iframe class="eywa-00-example" title="AED · Lista enlazada simple" src="../labs/tutorial00/index.html?ex=07" loading="lazy" allow="clipboard-write"></iframe>
+
+<div class="eywa-slide-link"><a href="../labs/tutorial00/index.html?ex=07" target="_blank" rel="noopener noreferrer">Abrir este ejemplo independientemente ↗</a></div>
+
+## Lista doblemente enlazada
+
+<div class="eywa-kicker">00 / LISTAS · EJEMPLO 08 / 19 · CELDA 26</div>
+
+<iframe class="eywa-00-example" title="AED · Lista doblemente enlazada" src="../labs/tutorial00/index.html?ex=08" loading="lazy" allow="clipboard-write"></iframe>
+
+<div class="eywa-slide-link"><a href="../labs/tutorial00/index.html?ex=08" target="_blank" rel="noopener noreferrer">Abrir este ejemplo independientemente ↗</a></div>
+
+## Árbol AX
+
+<div class="eywa-kicker">00 / ÁRBOLES · EJEMPLO 09 / 19 · CELDA 32</div>
+
+<iframe class="eywa-00-example" title="AED · Árbol AX" src="../labs/tutorial00/index.html?ex=09" loading="lazy" allow="clipboard-write"></iframe>
+
+<div class="eywa-slide-link"><a href="../labs/tutorial00/index.html?ex=09" target="_blank" rel="noopener noreferrer">Abrir este ejemplo independientemente ↗</a></div>
+
+## Árbol AX1
+
+<div class="eywa-kicker">00 / ÁRBOLES · EJEMPLO 10 / 19 · CELDA 33</div>
+
+<iframe class="eywa-00-example" title="AED · Árbol AX1" src="../labs/tutorial00/index.html?ex=10" loading="lazy" allow="clipboard-write"></iframe>
+
+<div class="eywa-slide-link"><a href="../labs/tutorial00/index.html?ex=10" target="_blank" rel="noopener noreferrer">Abrir este ejemplo independientemente ↗</a></div>
+
+## Árbol AX2 sesgado
+
+<div class="eywa-kicker">00 / ÁRBOLES · EJEMPLO 11 / 19 · CELDA 34</div>
+
+<iframe class="eywa-00-example" title="AED · Árbol AX2 sesgado" src="../labs/tutorial00/index.html?ex=11" loading="lazy" allow="clipboard-write"></iframe>
+
+<div class="eywa-slide-link"><a href="../labs/tutorial00/index.html?ex=11" target="_blank" rel="noopener noreferrer">Abrir este ejemplo independientemente ↗</a></div>
+
+## Árbol AX3
+
+<div class="eywa-kicker">00 / ÁRBOLES · EJEMPLO 12 / 19 · CELDA 35</div>
+
+<iframe class="eywa-00-example" title="AED · Árbol AX3" src="../labs/tutorial00/index.html?ex=12" loading="lazy" allow="clipboard-write"></iframe>
+
+<div class="eywa-slide-link"><a href="../labs/tutorial00/index.html?ex=12" target="_blank" rel="noopener noreferrer">Abrir este ejemplo independientemente ↗</a></div>
+
+## Árbol AX + NULL
+
+<div class="eywa-kicker">00 / ÁRBOLES · EJEMPLO 13 / 19 · CELDA 37</div>
+
+<iframe class="eywa-00-example" title="AED · Árbol AX + NULL" src="../labs/tutorial00/index.html?ex=13" loading="lazy" allow="clipboard-write"></iframe>
+
+<div class="eywa-slide-link"><a href="../labs/tutorial00/index.html?ex=13" target="_blank" rel="noopener noreferrer">Abrir este ejemplo independientemente ↗</a></div>
+
+## Árbol AX1 + NULL
+
+<div class="eywa-kicker">00 / ÁRBOLES · EJEMPLO 14 / 19 · CELDA 38</div>
+
+<iframe class="eywa-00-example" title="AED · Árbol AX1 + NULL" src="../labs/tutorial00/index.html?ex=14" loading="lazy" allow="clipboard-write"></iframe>
+
+<div class="eywa-slide-link"><a href="../labs/tutorial00/index.html?ex=14" target="_blank" rel="noopener noreferrer">Abrir este ejemplo independientemente ↗</a></div>
+
+## Árbol AX2 + NULL
+
+<div class="eywa-kicker">00 / ÁRBOLES · EJEMPLO 15 / 19 · CELDA 39</div>
+
+<iframe class="eywa-00-example" title="AED · Árbol AX2 + NULL" src="../labs/tutorial00/index.html?ex=15" loading="lazy" allow="clipboard-write"></iframe>
+
+<div class="eywa-slide-link"><a href="../labs/tutorial00/index.html?ex=15" target="_blank" rel="noopener noreferrer">Abrir este ejemplo independientemente ↗</a></div>
+
+## Árbol AX3 + NULL
+
+<div class="eywa-kicker">00 / ÁRBOLES · EJEMPLO 16 / 19 · CELDA 40</div>
+
+<iframe class="eywa-00-example" title="AED · Árbol AX3 + NULL" src="../labs/tutorial00/index.html?ex=16" loading="lazy" allow="clipboard-write"></iframe>
+
+<div class="eywa-slide-link"><a href="../labs/tutorial00/index.html?ex=16" target="_blank" rel="noopener noreferrer">Abrir este ejemplo independientemente ↗</a></div>
+
+## Árbol con nodos centinela
+
+<div class="eywa-kicker">00 / ÁRBOLES · EJEMPLO 17 / 19 · CELDA 45</div>
+
+<iframe class="eywa-00-example" title="AED · Árbol con nodos centinela" src="../labs/tutorial00/index.html?ex=17" loading="lazy" allow="clipboard-write"></iframe>
+
+<div class="eywa-slide-link"><a href="../labs/tutorial00/index.html?ex=17" target="_blank" rel="noopener noreferrer">Abrir este ejemplo independientemente ↗</a></div>
+
+## Centinelas con NULL
+
+<div class="eywa-kicker">00 / ÁRBOLES · EJEMPLO 18 / 19 · CELDA 47</div>
+
+<iframe class="eywa-00-example" title="AED · Centinelas con NULL" src="../labs/tutorial00/index.html?ex=18" loading="lazy" allow="clipboard-write"></iframe>
+
+<div class="eywa-slide-link"><a href="../labs/tutorial00/index.html?ex=18" target="_blank" rel="noopener noreferrer">Abrir este ejemplo independientemente ↗</a></div>
+
+## Árbol de expresión
+
+<div class="eywa-kicker">00 / ÁRBOLES · EJEMPLO 19 / 19 · CELDA 51</div>
+
+<iframe class="eywa-00-example" title="AED · Árbol de expresión" src="../labs/tutorial00/index.html?ex=19" loading="lazy" allow="clipboard-write"></iframe>
+
+<div class="eywa-slide-link"><a href="../labs/tutorial00/index.html?ex=19" target="_blank" rel="noopener noreferrer">Abrir este ejemplo independientemente ↗</a></div>
+
+## Qué hemos reutilizado
+
+<div class="eywa-kicker">ORIGINAL · SIN BACKEND PYTHON</div>
+
+- **Python**: código original de las celdas del tutorial, con la preparación necesaria para ejecutar cada ejemplo independientemente.
+- **Dibujador**: clases originales `NumpyArrayDrawer`, `LinkedListDrawer` y `BinaryTreeDrawer`, procedentes de `aed-utilities v0.4.1`.
+- **Graphviz**: los métodos originales producen DOT; únicamente el renderizador se redirige a WebAssembly en el navegador.
+- **Referencia inmediata**: imágenes SVG originales del notebook, visibles incluso antes de cargar Pyodide.
+
+<div class="eywa-chapter-nav"><a href="../index.html">← Volver al índice AED</a><a href="01-introduccion.html">Capítulo 01 →</a></div>
+
+<div class="eywa-source">Fuente: `00_Tutorial.ipynb` aportado por el usuario. Biblioteca: <a href="https://github.com/ivansipiran/aed-utilities/tree/v0.4.1" target="_blank" rel="noopener">aed-utilities v0.4.1 (MIT)</a>. Los resultados dinámicos dependen de las descargas WebAssembly; el repositorio no ejecuta Python en un servidor.</div>
+
+<style>
+.reveal .eywa-00-example {display:block;width:100%;height:530px;max-height:none;border:1px solid #294660;border-radius:16px;background:#081727;box-shadow:0 15px 45px rgba(0,4,14,.3)}
+.reveal .eywa-slide-link {margin-top:8px;font-size:.43em}
+@media(max-width:960px) {.reveal .eywa-00-example {height:800px}}
+/* En este capítulo no aparece la consola flotante general: cada ejemplo tiene la propia. */
+#eywa-console-open {display:none!important}
+</style>
