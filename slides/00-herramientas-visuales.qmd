@@ -19,7 +19,7 @@ format:
   <div class="eywa-card"><div class="eywa-number">11 / ÁRBOLES</div><h3>Nodos y NULL</h3><p>Formas, centinelas y árboles de expresión.</p></div>
 </div>
 
-<div class="eywa-compact-note">El lienzo empieza completamente blanco. Pulsa «Ejecutar y dibujar» para generar el SVG en tu navegador con aed-utilities v0.4.1 + Graphviz WASM; no requiere un servidor Jupyter. La primera ejecución necesita Internet para cargar Python y Graphviz.</div>
+<div class="eywa-compact-note">La visualización empieza **colapsada**. Ejecuta Python para generar el SVG y abre «Visualización» únicamente cuando quieras examinarlo. Puedes cerrarla de nuevo; no se requiere servidor Jupyter. La primera ejecución descarga Python y Graphviz.</div>
 
 ## Arreglo 1D · fila
 
