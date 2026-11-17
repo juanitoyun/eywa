@@ -247,7 +247,7 @@ Por el teorema maestro, \(T(n)=\Theta(n^\alpha)\), que es peor que \(\Theta(n^2)
 
 <div class="eywa-kicker">EYWA / CÓDIGO COMPARTIDO</div>
 
-<iframe class="eywa-snippet-frame" src="../labs/chapter.html?c=02&amp;visual=1" title="Laboratorio principal del capítulo con guardado oficial protegido por contraseña" loading="lazy" allow="clipboard-write"></iframe>
+<iframe class="eywa-frame eywa-lesson-frame" src="../labs/chapter.html?c=02&amp;visual=1" title="Laboratorio principal del capítulo con guardado oficial protegido por contraseña" loading="lazy" allow="clipboard-write"></iframe>
 
 <div class="eywa-compact-note">El editor principal permite guardar oficialmente en GitHub mediante contraseña. Los siete editores temáticos guardan una copia local independiente.</div>
 
