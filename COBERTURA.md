@@ -55,3 +55,21 @@ Los 87 bloques de código originales no se han copiado literalmente ni todos se 
 
 Las explicaciones de los 28 ejemplos del capítulo 1 están ahora integradas como comentarios `#` en el propio Python (incluyendo notas al lado de líneas clave). Ya no se muestran tarjetas de texto en esas slides. El editor utiliza un tema oscuro similar a VS Code Dark, con colores de sintaxis y compatibilidad móvil.
 
+
+
+## Auditoría 1:1 exhaustiva · noviembre 2026
+
+Ya se construyó un manifiesto rastreable de los materiales originales. Consulta el [panel de cobertura](coverage/index.html) o los archivos de [coverage/](coverage/README.md).
+
+| Bloque | Celdas registradas | Estado |
+|---|---:|---|
+| 10 notebooks teóricos | 642 | Mayoritariamente pendientes de correspondencia celda a slide |
+| 7 notebooks de ejercicios | 149 | Pendientes de adaptación detallada |
+| 4 checkpoints + índice | 45 | Auditados como auxiliares y pendientes de revisión |
+| Tutorial 00 aportado por usuario | 53 | 19 SVG adaptados, 33 pendientes, 1 celda vacía justificada |
+
+**Otros 291 recursos:** 169 imágenes o animaciones, 106 fuentes de diagramas y 16 archivos adicionales; todos inventariados.
+
+**Advertencia de cobertura:** los 28 ejemplos propios de Introducción, los 9 laboratorios de los capítulos 02–10 y las 19 visualizaciones del tutorial son entregables existentes. Sin embargo, todavía no equivalen a migración ni verificación exhaustiva de las 791 celdas de los notebooks oficiales.
+
+El manifiesto conserva cada identificador, tipo de celda, metadatos y vínculos detectados, fijado al commit `7d8ef60e45a1923f855b5777b60696b074a7a445` del repositorio AED-Apuntes. No reproduce material fuente completo sin permiso.
