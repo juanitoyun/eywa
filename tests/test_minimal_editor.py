@@ -41,6 +41,7 @@ class TestMinimalEditor(unittest.TestCase):
                 self.assertIn("# Complejidad:", code)
                 self.assertIn("assert ", code)
                 self.assertIn("  // ", code)
+                self.assertNotIn("tests", example)
                 self.assertGreaterEqual(sum("  # " in l for l in code.splitlines()), 1)
                 compile(code, f"chapter01_{index}.py", "exec")
 
@@ -65,7 +66,7 @@ class TestMinimalEditor(unittest.TestCase):
 
     @unittest.skipUnless(shutil.which("node"), "Node.js no está disponible")
     def test_javascript_syntax(self):
-        scripts = ["assets/python-editor.js", "assets/intro-snippets.js", "assets/chapter-labs.js"]
+        scripts = ["assets/python-editor.js", "assets/python-console.js", "assets/intro-snippets.js", "assets/chapter-labs.js"]
         for filename in scripts:
             with self.subTest(file=filename):
                 subprocess.run(["node", "--check", str(ROOT / filename)], check=True,

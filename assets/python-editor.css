@@ -3,7 +3,8 @@
 .CodeMirror{height:100%;min-height:190px;max-width:100%;border:1px solid #294660;border-radius:11px;font:13px/1.55 "SFMono-Regular",Consolas,"Liberation Mono",monospace;text-align:left;direction:ltr}
 .CodeMirror pre{font-family:inherit;line-height:inherit}
 .CodeMirror-gutters{background:#091624;border-right:1px solid #294660}
-.CodeMirror-linenumber{color:#8ca4ba}
+/* Espacio de lectura: números alejados del divisor del gutter. */
+.CodeMirror-linenumber{color:#8ca4ba;padding:0 16px 0 10px!important;min-width:24px;text-align:right}
 .CodeMirror-cursor{border-left:1px solid #e0edf8}
 .CodeMirror-selected{background:#264f78!important}
 .CodeMirror-focused .CodeMirror-selected{background:#264f78!important}

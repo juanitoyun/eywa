@@ -6,7 +6,7 @@ Presentaciones **Quarto + Reveal.js** con diseño minimalista, ejercicios Python
 
 - `index.qmd`: prototipo de cinco slides, incluyendo portada.
 - `styles/eywa.scss`: tema visual reutilizable.
-- `labs/binary-search.html`: mini tester con 7 tests ejecutados en Python real.
+- `labs/binary-search.html`: editor de búsqueda binaria con `assert` visibles y consola Python.
 - `labs/repl.html`: consola Python con Pyodide; importa archivos públicos desde GitHub.
 - `assets/console-loader.html`: panel lateral que mantiene su sesión al navegar entre slides.
 - `eywa/search.py`: módulo importable de búsqueda binaria.
@@ -103,7 +103,7 @@ Reutilizar el tema y mini testers con pilas, colas, árboles, grafos y ordenamie
 
 La página inicial, al publicarse, funciona como índice navegable: https://juanitoyun.github.io/eywa/
 
-Cada capítulo tiene **una presentación Quarto Reveal.js** con cinco secciones de aprendizaje, más portada, y un mini tester Python autocorregible.
+Cada capítulo tiene **una presentación Quarto Reveal.js** con cinco secciones de aprendizaje, más portada, y un editor Python ejecutable con `assert` visibles.
 
 | Capítulo | Presentación | Tester |
 | --- | --- | --- |
@@ -160,7 +160,7 @@ La validación automática de pull requests comprueba tanto el render Quarto com
 ## Capítulo 01: versión ampliada y móvil (sin notebooks)
 
 - 28 mini editores Python ejecutables dentro de diapositivas Quarto.
-- Cada ejemplo tiene sus comprobaciones; no requiere Colab, Jupyter ni PC.
+- Cada ejemplo incluye `assert` visibles; no requiere Colab, Jupyter ni PC.
 - Reveal.js ofrece vista vertical para móviles mediante `?view=scroll` (activación automática en pantallas pequeñas).
 - El código también puede abrirse en una página independiente a pantalla completa.
 - [Estado real de la adaptación](COBERTURA.md): los capítulos 02–10 mantienen por ahora la síntesis inicial.
@@ -178,8 +178,18 @@ Los códigos son implementaciones originales de los conceptos del curso, no repr
 - **Editor con colores de sintaxis Python**: CodeMirror con una paleta inspirada en VS Code Dark+ (comentarios verdes, cadenas naranjas, palabras clave violetas).
 - **Interfaz uniforme**: mini tester por slide, tester por capítulo, consola libre y búsqueda binaria reutilizan el mismo editor.
 - **Celular primero**: optamos por CodeMirror, ya que Monaco —el editor de VS Code— no ofrece soporte oficial para navegadores móviles.
-- **Fallback**: si el CDN del editor no carga, sigue disponible el `textarea` y los tests Python.
+- **Fallback**: si el CDN del editor no carga, sigue disponible el `textarea` y la ejecución de Python.
 - **Slides sin distracciones**: cada uno de los 28 temas del capítulo 1 muestra el título y su editor; diagramas comparativos y cierre se mantienen como excepciones didácticas.
 
 La biblioteca CodeMirror está fijada a `5.65.21`; el diseño no depende de instalar VS Code.
 
+
+## Consola Python sin tests ocultos
+
+Todos los laboratorios ejecutan exclusivamente el código que se ve en el editor. Los `assert` escritos en él son las únicas verificaciones durante la ejecución en el navegador.
+
+- Un `assert` correcto no imprime nada; sin `print()` ni excepciones, la consola queda vacía.
+- `print(...)` muestra únicamente lo que imprime Python.
+- Un `assert` falso u otro fallo muestra su traza de error Python.
+
+No hay contadores, «Test 1» ni evaluaciones adicionales. Los tests de GitHub Actions verifican el propio proyecto, no agregan comprobaciones a los ejercicios del navegador.

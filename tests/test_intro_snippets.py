@@ -1,4 +1,4 @@
-"""Comprueba que cada código visible en las slides sea ejecutable y tenga tests."""
+"""Comprueba que cada ejemplo ejecuta únicamente sus asserts visibles."""
 
 import contextlib
 import io
@@ -33,7 +33,8 @@ class TestIntroSlides(unittest.TestCase):
                 self.assertTrue(item["idea"])
                 self.assertGreaterEqual(len(item["bullets"]), 1)
                 self.assertTrue(item["code"])
-                self.assertGreaterEqual(len(item["tests"]), 1)
+                self.assertNotIn("tests", item)
+                self.assertIn("assert ", item["code"])
                 compile(item["code"], f"intro-slide-{index}", "exec")
 
     def test_every_example_is_embedded(self):
@@ -54,8 +55,7 @@ class TestIntroSlides(unittest.TestCase):
                 ns = {"__name__": "__main__"}
                 with contextlib.redirect_stdout(io.StringIO()):
                     exec(compile(item["code"], f"slide-{index}", "exec"), ns)
-                    for check in item["tests"]:
-                        exec(compile(check, f"check-{index}", "exec"), ns)
+
 
 
 if __name__ == "__main__":

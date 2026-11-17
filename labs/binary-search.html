@@ -14,6 +14,7 @@
 <script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.21/lib/codemirror.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.21/mode/python/python.js"></script>
 <script src="../assets/python-editor.js"></script>
+<script src="../assets/python-console.js"></script>
 <script src="https://cdn.jsdelivr.net/pyodide/v314.0.8/full/pyodide.js"></script>
 </head>
 <body>
@@ -45,72 +46,44 @@ assert binary_search([2, 4, 6, 8], 6) == 2
 assert binary_search([], 1) == -1</textarea>
   </div>
   <div class="right">
-    <label>Evaluación automática</label>
-    <p class="description">La función recibe una lista ordenada y un objetivo. Debe devolver su índice o <code>-1</code> si no existe.</p>
-    <div class="tests"><pre id="output" aria-live="polite">7 casos de prueba preparados.
-
-Pulsa Ejecutar tests para comenzar.</pre></div>
-    <div class="actions">
-      <span class="tiny" id="score">0 / 7 tests</span>
-      <button id="run">▶ Ejecutar tests</button>
-    </div>
+    <label>Consola</label>
+    <div class="tests"><pre id="output" aria-live="polite"></pre></div>
+    <div class="actions"><button id="run">▶ Ejecutar</button></div>
   </div>
 </div>
 <script>
 const source = document.getElementById("code");
-const codeEditor = window.EYWA_EDITOR?.create(source,{height:"275px",run:()=>test(),label:"Búsqueda binaria Python"}) ||
-  {getValue:()=>source.value,setValue:value=>{source.value=value}};
 const output = document.getElementById("output");
 const button = document.getElementById("run");
-const score = document.getElementById("score");
 const statusEl = document.getElementById("status");
 const statusText = document.getElementById("statusText");
-let pyPromise=null,running=false;
-function setStatus(text,ready=false){statusText.textContent=text;statusEl.classList.toggle("ready",ready);}
+let pyPromise = null, running = false;
+const codeEditor = window.EYWA_EDITOR?.create(source,{
+  height:"275px",run:()=>run(),label:"Búsqueda binaria Python"
+}) || {getValue:()=>source.value,setValue:value=>{source.value=value;}};
+function setStatus(value,ready=false){
+  statusText.textContent=value;
+  statusEl.classList.toggle("ready",ready);
+}
 function runtime(){
- if(!pyPromise){
-   setStatus("Cargando Python…");
-   pyPromise=loadPyodide().then(py=>{setStatus("Python listo",true);return py;})
-    .catch(err=>{pyPromise=null;setStatus("Error de carga");throw err;});
- }
- return pyPromise;
+  if(!pyPromise){
+    setStatus("Cargando Python…");
+    if(typeof loadPyodide!=="function") return Promise.reject(new Error("No se pudo cargar Python."));
+    pyPromise=loadPyodide().then(py=>{setStatus("Python listo",true);return py;})
+      .catch(error=>{pyPromise=null;setStatus("Sin conexión");throw error;});
+  }
+  return pyPromise;
 }
-async function test(){
- if(running)return;
- running=true;button.disabled=true;
- output.className="";output.textContent="Preparando el entorno Python…";
- try{
-  const py=await runtime();
-  py.globals.set("__eywa_source",codeEditor.getValue());
-  const result=await py.runPythonAsync([
-   "import io, contextlib",
-   "__eywa_log = io.StringIO()",
-   "globals().pop('binary_search', None)",
-   "with contextlib.redirect_stdout(__eywa_log):",
-   "    exec(compile(__eywa_source, '<editor>', 'exec'), globals())",
-   "    cases = [",
-   "        ([2, 4, 6, 8, 10], 8, 3),",
-   "        ([1], 1, 0),",
-   "        ([1], 2, -1),",
-   "        ([], 7, -1),",
-   "        ([3, 7, 11, 18, 20, 25], 3, 0),",
-   "        ([3, 7, 11, 18, 20, 25], 25, 5),",
-   "        ([0, 3, 6, 9, 12], 5, -1),",
-   "    ]",
-   "    for i, (arr, target, expected) in enumerate(cases, 1):",
-   "        received = binary_search(arr, target)",
-   "        assert received == expected, f'Test {i} falló: {received=} / {expected=}'",
-   "        print(f'✓ Test {i} superado')",
-   "__eywa_log.getvalue()"
-  ].join("\n"));
-  output.textContent=result+"\n✓ 7/7 · Todos los tests superados";
-  output.className="success";score.textContent="7 / 7 tests";
- }catch(e){
-  output.textContent=String(e);
-  output.className="error";score.textContent="Revisar implementación";
- }finally{running=false;button.disabled=false;}
+async function run(){
+  if(running)return;
+  running=true;button.disabled=true;output.textContent="";
+  try{
+    const py=await runtime();
+    output.textContent=await window.EYWA_RUN_PYTHON(py,codeEditor.getValue());
+  }catch(error){output.textContent=String(error);}
+  finally{running=false;button.disabled=false;}
 }
-button.addEventListener("click",test);
+button.addEventListener("click",run);
 </script>
 </body>
 </html>

@@ -33,6 +33,7 @@ button:disabled{opacity:.65;cursor:progress}
 <script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.21/lib/codemirror.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.21/mode/python/python.js"></script>
 <script src="../assets/python-editor.js"></script>
+<script src="../assets/python-console.js"></script>
 <script src="../assets/intro-snippets.js"></script>
 <script src="https://cdn.jsdelivr.net/pyodide/v314.0.8/full/pyodide.js"></script>
 </head>
@@ -43,74 +44,59 @@ button:disabled{opacity:.65;cursor:progress}
 </div>
 <div class="cols">
  <div class="area"><label for="code">main.py</label><textarea id="code" wrap="off" spellcheck="false" autocapitalize="off" autocomplete="off"></textarea></div>
- <div class="area"><label>Resultado</label><pre id="output" class="output" aria-live="polite">Pulsa «Ejecutar» para iniciar Python.</pre></div>
+ <div class="area"><label>Consola</label><pre id="output" class="output" aria-live="polite"></pre></div>
 </div>
 <div class="actions">
  <button class="primary" id="run" type="button">▶ Ejecutar</button>
  <button id="reset" type="button">Restablecer</button>
  <a class="open" id="expand" href="#" target="_blank" rel="noopener noreferrer">↗ Ampliar</a>
- <span id="score" class="score">Pruebas automáticas listas</span>
 </div>
 <div class="footer">Python en el navegador (Pyodide) · Ctrl/⌘ + Enter · No requiere notebook ni servidor</div>
 <script>
 (() => {
- const el=(id)=>document.getElementById(id);
- const index=Number.parseInt(new URLSearchParams(location.search).get("s")||"1",10)-1;
- const lesson=window.EYWA_SNIPPETS?.slides?.[index];
- if(!lesson){el("output").textContent="Ejemplo no encontrado.";el("run").disabled=true;return;}
- document.title="EYWA · "+lesson.t;
- el("title").textContent=lesson.t;
- el("code").value=lesson.code;
- el("expand").href=location.href;
- let instance=null,busy=false;
- const editor=window.EYWA_EDITOR?.create(el("code"),{height:"322px",label:"Editor Python",run:()=>run()}) ||
-   {getValue:()=>el("code").value,setValue:value=>{el("code").value=value;}};
- async function getRuntime(){
-   if(!instance){
-     el("status").textContent="Cargando Python…";
-     instance=loadPyodide().then(py=>{el("status").textContent="Python listo";return py;})
-       .catch(err=>{instance=null;el("status").textContent="Sin conexión";throw err;});
+ const el = id => document.getElementById(id);
+ const index = Number.parseInt(new URLSearchParams(location.search).get("s") || "1", 10) - 1;
+ const lesson = window.EYWA_SNIPPETS?.slides?.[index];
+ if (!lesson) { el("output").textContent = "Ejemplo no encontrado."; el("run").disabled = true; return; }
+ document.title = "EYWA · " + lesson.t;
+ el("title").textContent = lesson.t;
+ el("code").value = lesson.code;
+ el("expand").href = location.href;
+
+ let runtimePromise = null, busy = false;
+ const editor = window.EYWA_EDITOR?.create(el("code"), {
+   height: "322px", label: "Python", run: () => run()
+ }) || { getValue: () => el("code").value, setValue: value => {el("code").value=value;} };
+
+ async function python() {
+   if (!runtimePromise) {
+     el("status").textContent = "Cargando Python…";
+     if (typeof loadPyodide !== "function") throw new Error("No se pudo cargar Python.");
+     runtimePromise = loadPyodide().then(py => {
+       el("status").textContent = "Python listo";
+       return py;
+     }).catch(error => {runtimePromise=null;el("status").textContent="Sin conexión";throw error;});
    }
-   return instance;
+   return runtimePromise;
  }
- const runner=[
- "import contextlib, io, json, traceback",
- "__eywa_env = {'__name__':'__main__'}",
- "__eywa_log = io.StringIO()",
- "__eywa_results = []",
- "try:",
- "    with contextlib.redirect_stdout(__eywa_log):",
- "        exec(compile(__eywa_source, '<editor>', 'exec'), __eywa_env)",
- "        for number, check in enumerate(json.loads(__eywa_checks), 1):",
- "            try:",
- "                exec(compile(check, '<test>', 'exec'), __eywa_env)",
- "                __eywa_results.append('✓ Test ' + str(number))",
- "            except Exception as error:",
- "                __eywa_results.append('✗ Test ' + str(number) + ': ' + str(error)[:100])",
- "    __eywa_payload = {'stdout': __eywa_log.getvalue(), 'checks':__eywa_results}",
- "except Exception:",
- "    __eywa_payload = {'stdout': __eywa_log.getvalue(), 'checks':['Error de ejecución:\\n' + traceback.format_exc(limit=5)]}",
- "json.dumps(__eywa_payload, ensure_ascii=False)"
- ].join("\n");
- async function run(){
-  if(busy)return;busy=true;el("run").disabled=true;el("output").textContent="Preparando Python…";el("output").className="output";
-  try{
-   const py=await getRuntime();
-   if(lesson.packages?.length){el("output").textContent="Cargando "+lesson.packages.join(", ")+"…";await py.loadPackage(lesson.packages);}
-   py.globals.set("__eywa_source",editor.getValue());
-   py.globals.set("__eywa_checks",JSON.stringify(lesson.tests||[]));
-   const data=JSON.parse(await py.runPythonAsync(runner));
-   const passed=data.checks.filter(line=>line.startsWith("✓")).length;
-   const total=lesson.tests?.length||0;
-   el("score").textContent=passed+" / "+total+" pruebas";
-   el("output").className="output "+(passed===total?"ok":"bad");
-   el("output").textContent=(data.stdout?"Salida:\n"+data.stdout+"\n":"")+(data.checks.length?"Tests:\n"+data.checks.join("\n"):"Ejecución completada.");
-  }catch(error){el("output").className="output bad";el("output").textContent=String(error);}
-  finally{busy=false;el("run").disabled=false;}
+ async function run() {
+   if (busy) return;
+   busy = true;el("run").disabled=true;
+   el("output").textContent = "";
+   try {
+     const py = await python();
+     if (lesson.packages?.length) await py.loadPackage(lesson.packages);
+     el("output").textContent = await window.EYWA_RUN_PYTHON(py,editor.getValue());
+   } catch (error) {
+     el("output").textContent = String(error);
+   } finally {
+     busy=false;el("run").disabled=false;
+   }
  }
  el("run").addEventListener("click",run);
- el("reset").addEventListener("click",()=>{editor.setValue(lesson.code);el("score").textContent="Código original restaurado";el("output").textContent="Pulsa «Ejecutar».";el("output").className="output";});
-
+ el("reset").addEventListener("click", () => {
+   editor.setValue(lesson.code);el("output").textContent = "";
+ });
 })();
 </script>
 </body>
