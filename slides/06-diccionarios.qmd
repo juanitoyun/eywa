@@ -28,17 +28,7 @@ author: "EYWA · Algoritmos y Estructuras de Datos"
 
 ## Código en Python
 
-<div class="eywa-kicker">IMPLEMENTACIÓN DE REFERENCIA · EDITABLE EN EL LAB</div>
-
-```python
-def frequencies(items):
-    freq = {}
-    for item in items:
-        freq[item] = freq.get(item, 0) + 1
-    return freq
-
-print(frequencies(["a", "b", "a"]))
-```
+<iframe class="eywa-frame eywa-lesson-frame" src="../labs/chapter.html?c=06" title="Editor Python anotado, capítulo 06" loading="lazy" allow="clipboard-write"></iframe>
 
 ## Complejidad y decisiones
 
@@ -49,16 +39,6 @@ print(frequencies(["a", "b", "a"]))
 | Diccionario Python | **O(1) promedio** | Hashing; peor caso no garantizado. |
 | ABB no balanceado | **O(h), h ≤ n** | Depende de la forma del árbol. |
 | Árbol balanceado | **O(log n)** | Altura acotada por logaritmos. |
-
-## Laboratorio Python
-
-<div class="eywa-kicker">PRÁCTICA · CAPÍTULO 06</div>
-
-<div class="eywa-lead">Construye una tabla de frecuencias sin asumir un orden en las claves.</div>
-
-<iframe class="eywa-frame eywa-lesson-frame" src="../labs/chapter.html?c=06" title="Ejercicio interactivo de Diccionarios" loading="lazy"></iframe>
-
-<div class="eywa-slide-link"><a href="../labs/chapter.html?c=06" target="_blank" rel="noopener noreferrer">Abrir ejercicio aislado ↗</a></div>
 
 ## Comprobación de aprendizaje
 

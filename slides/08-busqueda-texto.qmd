@@ -28,20 +28,7 @@ author: "EYWA · Algoritmos y Estructuras de Datos"
 
 ## Código en Python
 
-<div class="eywa-kicker">IMPLEMENTACIÓN DE REFERENCIA · EDITABLE EN EL LAB</div>
-
-```python
-def find_pattern(text, pattern):
-    if pattern == "":
-        return 0
-    m = len(pattern)
-    for i in range(len(text) - m + 1):
-        if text[i:i + m] == pattern:
-            return i
-    return -1
-
-print(find_pattern("algoritmos", "rit"))
-```
+<iframe class="eywa-frame eywa-lesson-frame" src="../labs/chapter.html?c=08" title="Editor Python anotado, capítulo 08" loading="lazy" allow="clipboard-write"></iframe>
 
 ## Complejidad y decisiones
 
@@ -52,16 +39,6 @@ print(find_pattern("algoritmos", "rit"))
 | Fuerza bruta | **O(nm) peor caso** | Repite comparaciones en distintas posiciones. |
 | KMP | **O(n+m)** | Preprocesa prefijos del patrón. |
 | Boyer–Moore | **Depende de variante** | Saltos guiados por el patrón. |
-
-## Laboratorio Python
-
-<div class="eywa-kicker">PRÁCTICA · CAPÍTULO 08</div>
-
-<div class="eywa-lead">Construye un buscador de subcadenas y después compara su estrategia con KMP.</div>
-
-<iframe class="eywa-frame eywa-lesson-frame" src="../labs/chapter.html?c=08" title="Ejercicio interactivo de Búsqueda en texto" loading="lazy"></iframe>
-
-<div class="eywa-slide-link"><a href="../labs/chapter.html?c=08" target="_blank" rel="noopener noreferrer">Abrir ejercicio aislado ↗</a></div>
 
 ## Comprobación de aprendizaje
 

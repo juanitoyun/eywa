@@ -28,21 +28,7 @@ author: "EYWA · Algoritmos y Estructuras de Datos"
 
 ## Código en Python
 
-<div class="eywa-kicker">IMPLEMENTACIÓN DE REFERENCIA · EDITABLE EN EL LAB</div>
-
-```python
-from heapq import heapify, heappop, heappush
-
-def huffman_cost(weights):
-    heap = list(weights)
-    heapify(heap)
-    cost = 0
-    while len(heap) > 1:
-        total = heappop(heap) + heappop(heap)
-        cost += total
-        heappush(heap, total)
-    return cost
-```
+<iframe class="eywa-frame eywa-lesson-frame" src="../labs/chapter.html?c=09" title="Editor Python anotado, capítulo 09" loading="lazy" allow="clipboard-write"></iframe>
 
 ## Complejidad y decisiones
 
@@ -53,16 +39,6 @@ def huffman_cost(weights):
 | Entropía H | **−Σ p log₂(p)** | Límite teórico promedio de bits/símbolo. |
 | Huffman con heap | **O(k log k)** | k = número de símbolos distintos. |
 | Lempel–Ziv | **Variable** | Representa fragmentos repetidos. |
-
-## Laboratorio Python
-
-<div class="eywa-kicker">PRÁCTICA · CAPÍTULO 09</div>
-
-<div class="eywa-lead">Calcula el costo de fusiones de Huffman usando un min-heap.</div>
-
-<iframe class="eywa-frame eywa-lesson-frame" src="../labs/chapter.html?c=09" title="Ejercicio interactivo de Compresión de datos" loading="lazy"></iframe>
-
-<div class="eywa-slide-link"><a href="../labs/chapter.html?c=09" target="_blank" rel="noopener noreferrer">Abrir ejercicio aislado ↗</a></div>
 
 ## Comprobación de aprendizaje
 

@@ -28,12 +28,21 @@
   <button id="reset">Reiniciar Python</button>
 </div>
 <div class="label">Editor · Python</div>
-<textarea id="editor" spellcheck="false">from collections import deque
+<textarea id="editor" spellcheck="false" wrap="off">""" EYWA · Pila con deque """
 
-pila = deque([2, 4, 6])
-pila.append(8)
-print("Último:", pila.pop())
-print("Restantes:", list(pila))</textarea>
+# pila: list[int] -> list[int]
+# INPUT : tres elementos iniciales
+# OUTPUT: último insertado y pila restante
+
+from collections import deque
+
+pila = deque([2, 4, 6])                         # Crea la colección  // O(n)
+pila.append(8)                                  # Push al final  // O(1)
+print("Último:", pila.pop())                     # Pop devuelve 8  // O(1)
+print("Restantes:", list(pila))
+
+# Complejidad: O(1) por append/pop; O(n) al copiar
+assert list(pila) == [2, 4, 6]</textarea>
 <div class="label">Salida</div>
 <pre class="output" id="output" aria-live="polite">Pulsa «Ejecutar» para iniciar Python.</pre>
 <p class="small">Runtime en navegador · <a href="https://github.com/juanitoyun/eywa" target="_blank" rel="noopener">Repositorio EYWA</a></p>

@@ -28,21 +28,7 @@ author: "EYWA · Algoritmos y Estructuras de Datos"
 
 ## Código en Python
 
-<div class="eywa-kicker">IMPLEMENTACIÓN DE REFERENCIA · EDITABLE EN EL LAB</div>
-
-```python
-def binary_search(xs, target):
-    low, high = 0, len(xs) - 1
-    while low <= high:
-        mid = (low + high) // 2
-        if xs[mid] == target:
-            return mid
-        if xs[mid] < target:
-            low = mid + 1
-        else:
-            high = mid - 1
-    return -1
-```
+<iframe class="eywa-frame eywa-lesson-frame" src="../labs/chapter.html?c=04" title="Editor Python anotado, capítulo 04" loading="lazy" allow="clipboard-write"></iframe>
 
 ## Complejidad y decisiones
 
@@ -53,16 +39,6 @@ def binary_search(xs, target):
 | Acceso por índice en arreglo | **Θ(1)** | Dirección calculable. |
 | Buscar en lista enlazada | **O(n)** | Recorrido secuencial. |
 | Búsqueda binaria ordenada | **O(log n)** | Intervalo reducido por mitades. |
-
-## Laboratorio Python
-
-<div class="eywa-kicker">PRÁCTICA · CAPÍTULO 04</div>
-
-<div class="eywa-lead">Verifica el invariante del intervalo de búsqueda sobre un arreglo ordenado.</div>
-
-<iframe class="eywa-frame eywa-lesson-frame" src="../labs/chapter.html?c=04" title="Ejercicio interactivo de Estructuras elementales" loading="lazy"></iframe>
-
-<div class="eywa-slide-link"><a href="../labs/chapter.html?c=04" target="_blank" rel="noopener noreferrer">Abrir ejercicio aislado ↗</a></div>
 
 ## Comprobación de aprendizaje
 

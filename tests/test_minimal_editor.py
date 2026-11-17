@@ -35,9 +35,33 @@ class TestMinimalEditor(unittest.TestCase):
         for index, example in enumerate(lessons, 1):
             with self.subTest(example=index):
                 code = example["code"]
-                self.assertTrue(code.startswith("#"), "La explicación debe estar en código")
+                self.assertTrue(code.startswith('""" AED /'), "Se requiere encabezado de estilo")
+                self.assertIn("# INPUT :", code)
+                self.assertIn("# OUTPUT:", code)
+                self.assertIn("# Complejidad:", code)
+                self.assertIn("assert ", code)
+                self.assertIn("  // ", code)
                 self.assertGreaterEqual(sum("  # " in l for l in code.splitlines()), 1)
                 compile(code, f"chapter01_{index}.py", "exec")
+
+    def test_horizontal_scrolling_and_fallback(self):
+        js = (ROOT / "assets/python-editor.js").read_text(encoding="utf-8")
+        css = (ROOT / "assets/python-editor.css").read_text(encoding="utf-8")
+        self.assertIn("lineWrapping: false", js)
+        self.assertIn('setAttribute("wrap", "off")', js)
+        self.assertIn("overflowX", js)
+        self.assertIn("white-space:pre", css)
+        self.assertIn("font-style:italic", css)
+
+    def test_chapter_decks_use_executable_editors(self):
+        slides_dir = ROOT / "slides"
+        for number in range(2, 11):
+            paths = list(slides_dir.glob(f"{number:02}-*.qmd"))
+            self.assertEqual(len(paths), 1)
+            qmd = paths[0].read_text(encoding="utf-8")
+            self.assertIn(f'../labs/chapter.html?c={number:02}', qmd)
+            self.assertNotIn("## Laboratorio Python", qmd)
+            self.assertNotIn("`" * 3 + "python", qmd)
 
     @unittest.skipUnless(shutil.which("node"), "Node.js no está disponible")
     def test_javascript_syntax(self):

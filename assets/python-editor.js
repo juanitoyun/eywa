@@ -6,13 +6,17 @@
     create(textarea, options = {}) {
       if (!textarea) throw new Error("EYWA Editor requires a textarea");
       const lineHeight = options.height || "237px";
+      textarea.setAttribute("wrap", "off");  // Fallback: sin ajuste automático.
+      textarea.style.whiteSpace = "pre";
+      textarea.style.overflowX = "auto";
       let cm = null;
       if (typeof window.CodeMirror !== "undefined") {
         try {
           cm = window.CodeMirror.fromTextArea(textarea, {
             mode: { name: "python", version: 3, singleLineStringErrors: false },
             lineNumbers: true,
-            lineWrapping: true,
+            lineWrapping: false,  // No cortar líneas: desplazamiento horizontal libre.
+            scrollbarStyle: "native",
             tabSize: 4,
             indentUnit: 4,
             indentWithTabs: false,

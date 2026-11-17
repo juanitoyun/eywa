@@ -131,7 +131,7 @@ $code-block-bg: #f0f5f2;
   max-width: 80em;
   margin-top: 35px;
 }
-.reveal .eywa-lesson-frame {height: 385px; max-height: 52vh;}
+.reveal .eywa-lesson-frame {height: 492px; max-height: none;}
 .reveal .eywa-lesson-frame + .eywa-slide-link {margin-top: 8px;}
 .reveal table {font-size: .69em; width: 100%;}
 .reveal table th {font-weight: 800; color:#087e72;}
@@ -172,7 +172,7 @@ $code-block-bg: #f0f5f2;
 .reveal .eywa-snippet-frame{
   display:block;
   width:100%;
-  height:344px;
+  height:480px;
   border:1px solid #d5e8dc;
   border-radius:16px;
   background:#fff;
@@ -191,5 +191,9 @@ $code-block-bg: #f0f5f2;
 @media(max-width:960px){
   .reveal .eywa-compact-points {grid-template-columns:1fr; gap:9px}
   .reveal .eywa-concept {font-size:.71em}
-  .reveal .eywa-snippet-frame {height:495px}
+  .reveal .eywa-snippet-frame {height:660px}
+  .reveal .eywa-lesson-frame {height:670px}
 }
+
+/* EYWA-CODE/1: consola contenida; las líneas largas se desplazan dentro del editor. */
+.reveal .eywa-snippet-frame, .reveal .eywa-lesson-frame{overflow:hidden;max-width:100%}

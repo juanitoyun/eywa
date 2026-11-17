@@ -28,18 +28,7 @@ author: "EYWA · Algoritmos y Estructuras de Datos"
 
 ## Código en Python
 
-<div class="eywa-kicker">IMPLEMENTACIÓN DE REFERENCIA · EDITABLE EN EL LAB</div>
-
-```python
-def count_halvings(n):
-    pasos = 0
-    while n > 1:
-        n //= 2
-        pasos += 1
-    return pasos
-
-print(count_halvings(128))  # 7
-```
+<iframe class="eywa-frame eywa-lesson-frame" src="../labs/chapter.html?c=02" title="Editor Python anotado, capítulo 02" loading="lazy" allow="clipboard-write"></iframe>
 
 ## Complejidad y decisiones
 
@@ -50,16 +39,6 @@ print(count_halvings(128))  # 7
 | Una búsqueda lineal | **Θ(n)** | Puede mirar cada elemento. |
 | Mitades sucesivas | **Θ(log n)** | Reduce el tamaño por un factor constante. |
 | Dos mitades + combinar | **Θ(n log n)** | Recurrencia 2T(n/2)+Θ(n). |
-
-## Laboratorio Python
-
-<div class="eywa-kicker">PRÁCTICA · CAPÍTULO 02</div>
-
-<div class="eywa-lead">Cuenta cuántas veces debes reducir un entero positivo a la mitad.</div>
-
-<iframe class="eywa-frame eywa-lesson-frame" src="../labs/chapter.html?c=02" title="Ejercicio interactivo de Análisis matemático" loading="lazy"></iframe>
-
-<div class="eywa-slide-link"><a href="../labs/chapter.html?c=02" target="_blank" rel="noopener noreferrer">Abrir ejercicio aislado ↗</a></div>
 
 ## Comprobación de aprendizaje
 
