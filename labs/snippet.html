@@ -46,17 +46,18 @@ button:disabled{opacity:.65;cursor:progress}
 </div>
 <div class="cols">
  <div class="area"><label for="code">main.py</label><textarea id="code" wrap="off" spellcheck="false" autocapitalize="off" autocomplete="off"></textarea></div>
- <div class="area"><label>Consola</label><pre id="output" class="output" aria-live="polite"></pre></div>
+ <div class="area"><label>Consola</label><pre id="output" class="output" aria-live="polite"></pre>
+  <details class="eywa-visual-details" id="visual-details" hidden>
+  <summary>Visualización <span class="eywa-visual-ready" aria-live="polite"></span></summary>
+  <div class="eywa-visual-canvas" aria-label="SVG generado por el código Python"></div>
+</details></div>
 </div>
 <div class="actions">
  <button class="primary" id="run" type="button">▶ Ejecutar</button>
  <button id="reset" type="button">Restablecer</button>
  <a class="open" id="expand" href="#" target="_blank" rel="noopener noreferrer">↗ Ampliar</a>
 </div>
-<details class="eywa-visual-details" id="visual-details" hidden>
-  <summary>Visualización <span class="eywa-visual-ready" aria-live="polite"></span></summary>
-  <div class="eywa-visual-canvas" aria-label="SVG generado por el código Python"></div>
-</details>
+
 <div class="footer">Python en el navegador (Pyodide) · Ctrl/⌘ + Enter · No requiere notebook ni servidor</div>
 <script>
 (() => {
