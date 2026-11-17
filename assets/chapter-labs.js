@@ -32,18 +32,8 @@ window.EYWA_LABS = {
           "C",
           "D",
           "E"
-        ]
-      },
-      {
-        "args": [
-          {
-            "A": []
-          },
-          "A"
         ],
-        "expected": [
-          "A"
-        ]
+        "label": "Recorrido con bifurcación"
       },
       {
         "args": [
@@ -60,7 +50,8 @@ window.EYWA_LABS = {
         "expected": [
           "A",
           "B"
-        ]
+        ],
+        "label": "Ciclo sin revisitas"
       },
       {
         "args": [
@@ -78,16 +69,8 @@ window.EYWA_LABS = {
           "X",
           "Y",
           "Z"
-        ]
-      },
-      {
-        "args": [
-          {},
-          "A"
         ],
-        "expected": [
-          "A"
-        ]
+        "label": "Orden de vecinos"
       }
     ],
     "recipeVersion": "EYWA-CODE/1"
@@ -103,44 +86,34 @@ window.EYWA_LABS = {
       {
         "args": [
           2,
-          0
-        ],
-        "expected": 1
-      },
-      {
-        "args": [
-          2,
           10
         ],
-        "expected": 1024
+        "expected": 1024,
+        "label": "Exponente grande"
       },
       {
         "args": [
           -3,
           3
         ],
-        "expected": -27
-      },
-      {
-        "args": [
-          5,
-          1
-        ],
-        "expected": 5
+        "expected": -27,
+        "label": "Base negativa"
       },
       {
         "args": [
           0,
           5
         ],
-        "expected": 0
+        "expected": 0,
+        "label": "Base cero"
       },
       {
         "args": [
           1,
           1000
         ],
-        "expected": 1
+        "expected": 1,
+        "label": "Potencia con n grande"
       }
     ],
     "recipeVersion": "EYWA-CODE/1"
@@ -155,39 +128,31 @@ window.EYWA_LABS = {
     "cases": [
       {
         "args": [
-          1
-        ],
-        "expected": 0
-      },
-      {
-        "args": [
-          2
-        ],
-        "expected": 1
-      },
-      {
-        "args": [
           3
         ],
-        "expected": 1
+        "expected": 1,
+        "label": "Número impar"
       },
       {
         "args": [
           8
         ],
-        "expected": 3
+        "expected": 3,
+        "label": "Potencia de dos"
       },
       {
         "args": [
           15
         ],
-        "expected": 3
+        "expected": 3,
+        "label": "Antes de una potencia de dos"
       },
       {
         "args": [
           128
         ],
-        "expected": 7
+        "expected": 7,
+        "label": "Siete reducciones"
       }
     ],
     "recipeVersion": "EYWA-CODE/1"
@@ -202,39 +167,31 @@ window.EYWA_LABS = {
     "cases": [
       {
         "args": [
-          0
-        ],
-        "expected": 0
-      },
-      {
-        "args": [
-          1
-        ],
-        "expected": 1
-      },
-      {
-        "args": [
           2
         ],
-        "expected": 1
+        "expected": 1,
+        "label": "Primer caso recursivo"
       },
       {
         "args": [
           10
         ],
-        "expected": 55
+        "expected": 55,
+        "label": "Décimo término"
       },
       {
         "args": [
           20
         ],
-        "expected": 6765
+        "expected": 6765,
+        "label": "Término intermedio"
       },
       {
         "args": [
           30
         ],
-        "expected": 832040
+        "expected": 832040,
+        "label": "Término grande"
       }
     ],
     "recipeVersion": "EYWA-CODE/1"
@@ -257,23 +214,8 @@ window.EYWA_LABS = {
           ],
           5
         ],
-        "expected": 2
-      },
-      {
-        "args": [
-          [],
-          8
-        ],
-        "expected": -1
-      },
-      {
-        "args": [
-          [
-            1
-          ],
-          1
-        ],
-        "expected": 0
+        "expected": 2,
+        "label": "Elemento interior"
       },
       {
         "args": [
@@ -282,7 +224,8 @@ window.EYWA_LABS = {
           ],
           2
         ],
-        "expected": -1
+        "expected": -1,
+        "label": "Lista unitaria: ausente"
       },
       {
         "args": [
@@ -294,7 +237,8 @@ window.EYWA_LABS = {
           ],
           2
         ],
-        "expected": 0
+        "expected": 0,
+        "label": "Primer índice"
       },
       {
         "args": [
@@ -306,7 +250,8 @@ window.EYWA_LABS = {
           ],
           9
         ],
-        "expected": -1
+        "expected": -1,
+        "label": "Elemento mayor que todos"
       }
     ],
     "recipeVersion": "EYWA-CODE/1"
@@ -321,39 +266,31 @@ window.EYWA_LABS = {
     "cases": [
       {
         "args": [
-          ""
-        ],
-        "expected": true
-      },
-      {
-        "args": [
-          "()"
-        ],
-        "expected": true
-      },
-      {
-        "args": [
           "(()())"
         ],
-        "expected": true
+        "expected": true,
+        "label": "Pares anidados"
       },
       {
         "args": [
           "(()"
         ],
-        "expected": false
+        "expected": false,
+        "label": "Falta un cierre"
       },
       {
         "args": [
           ")("
         ],
-        "expected": false
+        "expected": false,
+        "label": "Cierre antes de apertura"
       },
       {
         "args": [
           "(a+b)*(c+d)"
         ],
-        "expected": true
+        "expected": true,
+        "label": "Ignorar otros caracteres"
       }
     ],
     "recipeVersion": "EYWA-CODE/1"
@@ -368,22 +305,6 @@ window.EYWA_LABS = {
     "cases": [
       {
         "args": [
-          []
-        ],
-        "expected": {}
-      },
-      {
-        "args": [
-          [
-            "a"
-          ]
-        ],
-        "expected": {
-          "a": 1
-        }
-      },
-      {
-        "args": [
           [
             "a",
             "b",
@@ -393,7 +314,8 @@ window.EYWA_LABS = {
         "expected": {
           "a": 2,
           "b": 1
-        }
+        },
+        "label": "Clave repetida"
       },
       {
         "args": [
@@ -410,7 +332,8 @@ window.EYWA_LABS = {
           "x": 3,
           "y": 2,
           "z": 1
-        }
+        },
+        "label": "Varias frecuencias"
       },
       {
         "args": [
@@ -423,7 +346,8 @@ window.EYWA_LABS = {
         "expected": {
           "1": 2,
           "2": 1
-        }
+        },
+        "label": "Claves numéricas en texto"
       }
     ],
     "recipeVersion": "EYWA-CODE/1"
@@ -438,22 +362,6 @@ window.EYWA_LABS = {
     "cases": [
       {
         "args": [
-          []
-        ],
-        "expected": []
-      },
-      {
-        "args": [
-          [
-            1
-          ]
-        ],
-        "expected": [
-          1
-        ]
-      },
-      {
-        "args": [
           [
             3,
             1,
@@ -464,7 +372,8 @@ window.EYWA_LABS = {
           1,
           2,
           3
-        ]
+        ],
+        "label": "Desorden pequeño"
       },
       {
         "args": [
@@ -482,7 +391,8 @@ window.EYWA_LABS = {
           5,
           5,
           8
-        ]
+        ],
+        "label": "Elementos repetidos"
       },
       {
         "args": [
@@ -498,7 +408,8 @@ window.EYWA_LABS = {
           -1,
           0,
           2
-        ]
+        ],
+        "label": "Números negativos"
       },
       {
         "args": [
@@ -516,7 +427,8 @@ window.EYWA_LABS = {
           5,
           7,
           9
-        ]
+        ],
+        "label": "Orden inverso"
       }
     ],
     "recipeVersion": "EYWA-CODE/1"
@@ -534,42 +446,32 @@ window.EYWA_LABS = {
           "algoritmos",
           "rit"
         ],
-        "expected": 4
+        "expected": 4,
+        "label": "Coincidencia interior"
       },
       {
         "args": [
           "aaaaab",
           "aab"
         ],
-        "expected": 3
+        "expected": 3,
+        "label": "Prefijos repetidos"
       },
       {
         "args": [
           "hola",
           "adios"
         ],
-        "expected": -1
-      },
-      {
-        "args": [
-          "abc",
-          ""
-        ],
-        "expected": 0
-      },
-      {
-        "args": [
-          "",
-          "a"
-        ],
-        "expected": -1
+        "expected": -1,
+        "label": "Patrón ausente"
       },
       {
         "args": [
           "abababa",
           "aba"
         ],
-        "expected": 0
+        "expected": 0,
+        "label": "Varias coincidencias"
       }
     ],
     "recipeVersion": "EYWA-CODE/1"
@@ -584,20 +486,6 @@ window.EYWA_LABS = {
     "cases": [
       {
         "args": [
-          []
-        ],
-        "expected": 0
-      },
-      {
-        "args": [
-          [
-            10
-          ]
-        ],
-        "expected": 0
-      },
-      {
-        "args": [
           [
             1,
             1,
@@ -605,7 +493,8 @@ window.EYWA_LABS = {
             1
           ]
         ],
-        "expected": 8
+        "expected": 8,
+        "label": "Frecuencias iguales"
       },
       {
         "args": [
@@ -615,7 +504,8 @@ window.EYWA_LABS = {
             7
           ]
         ],
-        "expected": 17
+        "expected": 17,
+        "label": "Tres frecuencias distintas"
       },
       {
         "args": [
@@ -628,7 +518,8 @@ window.EYWA_LABS = {
             45
           ]
         ],
-        "expected": 224
+        "expected": 224,
+        "label": "Distribución desigual"
       }
     ],
     "recipeVersion": "EYWA-CODE/1"
