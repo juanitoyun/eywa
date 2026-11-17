@@ -1,0 +1,544 @@
+{
+  "schema": "EYWA-COVERAGE-AUX-1",
+  "source": {
+    "repository": "ivansipiran/AED-Apuntes",
+    "commit": "7d8ef60e45a1923f855b5777b60696b074a7a445"
+  },
+  "note": "Archivos auxiliares registrados para revisión. No se cuentan como capítulos ni se omiten silenciosamente.",
+  "summary": {
+    "auxiliary_notebooks": 5,
+    "auxiliary_cells": 45,
+    "checkpoint_notebooks": 4,
+    "index_notebooks": 1,
+    "exact_checkpoint_duplicates": [
+      {
+        "path": "Ejercicios/.ipynb_checkpoints/02_Ejercicios-checkpoint.ipynb",
+        "duplicate_of": "Ejercicios/02_Ejercicios.ipynb"
+      }
+    ],
+    "by_notebook": [
+      {
+        "path": "Ejercicios/.ipynb_checkpoints/01_Ejercicios-checkpoint.ipynb",
+        "cells": 18,
+        "duplicate_of": null
+      },
+      {
+        "path": "Ejercicios/.ipynb_checkpoints/02_Ejercicios-checkpoint.ipynb",
+        "cells": 4,
+        "duplicate_of": "Ejercicios/02_Ejercicios.ipynb"
+      },
+      {
+        "path": "Ejercicios/.ipynb_checkpoints/03_Ejercicios-checkpoint.ipynb",
+        "cells": 6,
+        "duplicate_of": null
+      },
+      {
+        "path": "Ejercicios/.ipynb_checkpoints/04_Ejercicios-checkpoint.ipynb",
+        "cells": 14,
+        "duplicate_of": null
+      },
+      {
+        "path": "recursos/Tabla de Contenidos.ipynb",
+        "cells": 3,
+        "duplicate_of": null
+      }
+    ]
+  },
+  "notebooks": [
+    {
+      "path": "Ejercicios/.ipynb_checkpoints/01_Ejercicios-checkpoint.ipynb",
+      "git_blob_sha": "b53e47e05e734d4d6de7eddfc621c0cbfb7278de",
+      "bytes": 7979,
+      "classification": "revisar_checkpoint",
+      "exact_duplicate_of": null,
+      "cells": [
+        {
+          "id": "A1-001",
+          "index": 0,
+          "kind": "markdown",
+          "title": "Ejercicio 1.1",
+          "chars": 134,
+          "output_mimes": [],
+          "status": "pendiente",
+          "destination": null
+        },
+        {
+          "id": "A1-002",
+          "index": 1,
+          "kind": "code",
+          "title": "Encuentra el máximo de una lista a",
+          "chars": 256,
+          "output_mimes": [],
+          "status": "pendiente",
+          "destination": null
+        },
+        {
+          "id": "A1-003",
+          "index": 2,
+          "kind": "markdown",
+          "title": null,
+          "chars": 387,
+          "output_mimes": [],
+          "status": "pendiente",
+          "destination": null
+        },
+        {
+          "id": "A1-004",
+          "index": 3,
+          "kind": "code",
+          "title": "escribir la función aquí",
+          "chars": 92,
+          "output_mimes": [],
+          "status": "pendiente",
+          "destination": null
+        },
+        {
+          "id": "A1-005",
+          "index": 4,
+          "kind": "markdown",
+          "title": null,
+          "chars": 880,
+          "output_mimes": [],
+          "status": "pendiente",
+          "destination": null
+        },
+        {
+          "id": "A1-006",
+          "index": 5,
+          "kind": "code",
+          "title": "escribir la función aquí",
+          "chars": 92,
+          "output_mimes": [],
+          "status": "pendiente",
+          "destination": null
+        },
+        {
+          "id": "A1-007",
+          "index": 6,
+          "kind": "markdown",
+          "title": "Ejercicio 1.2",
+          "chars": 571,
+          "output_mimes": [],
+          "status": "pendiente",
+          "destination": null
+        },
+        {
+          "id": "A1-008",
+          "index": 7,
+          "kind": "code",
+          "title": "retorna el punto de corte, el número de elementos <p y la lista particionada",
+          "chars": 193,
+          "output_mimes": [],
+          "status": "pendiente",
+          "destination": null
+        },
+        {
+          "id": "A1-009",
+          "index": 8,
+          "kind": "code",
+          "title": "p=punto de corte, m=número de elementos <p, a=lista completa particionada",
+          "chars": 284,
+          "output_mimes": [],
+          "status": "pendiente",
+          "destination": null
+        },
+        {
+          "id": "A1-010",
+          "index": 9,
+          "kind": "code",
+          "title": null,
+          "chars": 74,
+          "output_mimes": [],
+          "status": "pendiente",
+          "destination": null
+        },
+        {
+          "id": "A1-011",
+          "index": 10,
+          "kind": "code",
+          "title": null,
+          "chars": 73,
+          "output_mimes": [],
+          "status": "pendiente",
+          "destination": null
+        },
+        {
+          "id": "A1-012",
+          "index": 11,
+          "kind": "code",
+          "title": null,
+          "chars": 75,
+          "output_mimes": [],
+          "status": "pendiente",
+          "destination": null
+        },
+        {
+          "id": "A1-013",
+          "index": 12,
+          "kind": "markdown",
+          "title": "Ejercicio 1.3",
+          "chars": 565,
+          "output_mimes": [],
+          "status": "pendiente",
+          "destination": null
+        },
+        {
+          "id": "A1-014",
+          "index": 13,
+          "kind": "code",
+          "title": "Escriba aquí su algoritmo",
+          "chars": 217,
+          "output_mimes": [],
+          "status": "pendiente",
+          "destination": null
+        },
+        {
+          "id": "A1-015",
+          "index": 14,
+          "kind": "code",
+          "title": null,
+          "chars": 26,
+          "output_mimes": [],
+          "status": "pendiente",
+          "destination": null
+        },
+        {
+          "id": "A1-016",
+          "index": 15,
+          "kind": "markdown",
+          "title": "Ejercicio 1.4",
+          "chars": 389,
+          "output_mimes": [],
+          "status": "pendiente",
+          "destination": null
+        },
+        {
+          "id": "A1-017",
+          "index": 16,
+          "kind": "code",
+          "title": "escriba aquí su algoritmo",
+          "chars": 124,
+          "output_mimes": [],
+          "status": "pendiente",
+          "destination": null
+        },
+        {
+          "id": "A1-018",
+          "index": 17,
+          "kind": "code",
+          "title": null,
+          "chars": 65,
+          "output_mimes": [],
+          "status": "pendiente",
+          "destination": null
+        }
+      ]
+    },
+    {
+      "path": "Ejercicios/.ipynb_checkpoints/02_Ejercicios-checkpoint.ipynb",
+      "git_blob_sha": "d288eddc88500d846d6275a6b1a24981390093ee",
+      "bytes": 1923,
+      "classification": "revisar_checkpoint",
+      "exact_duplicate_of": "Ejercicios/02_Ejercicios.ipynb",
+      "cells": [
+        {
+          "id": "A2-001",
+          "index": 0,
+          "kind": "markdown",
+          "title": "Ejercicio 2.1",
+          "chars": 143,
+          "output_mimes": [],
+          "status": "pendiente",
+          "destination": null
+        },
+        {
+          "id": "A2-002",
+          "index": 1,
+          "kind": "markdown",
+          "title": "Ejercicio 2.2",
+          "chars": 168,
+          "output_mimes": [],
+          "status": "pendiente",
+          "destination": null
+        },
+        {
+          "id": "A2-003",
+          "index": 2,
+          "kind": "markdown",
+          "title": "Ejercicio 2.3",
+          "chars": 533,
+          "output_mimes": [],
+          "status": "pendiente",
+          "destination": null
+        },
+        {
+          "id": "A2-004",
+          "index": 3,
+          "kind": "code",
+          "title": null,
+          "chars": 0,
+          "output_mimes": [],
+          "status": "pendiente",
+          "destination": null
+        }
+      ]
+    },
+    {
+      "path": "Ejercicios/.ipynb_checkpoints/03_Ejercicios-checkpoint.ipynb",
+      "git_blob_sha": "2f07a56395054e0ba5c05fab056c8d4aefd13777",
+      "bytes": 3491,
+      "classification": "revisar_checkpoint",
+      "exact_duplicate_of": null,
+      "cells": [
+        {
+          "id": "A3-001",
+          "index": 0,
+          "kind": "markdown",
+          "title": "Ejercicio 3.1",
+          "chars": 303,
+          "output_mimes": [],
+          "status": "pendiente",
+          "destination": null
+        },
+        {
+          "id": "A3-002",
+          "index": 1,
+          "kind": "markdown",
+          "title": "Ejercicio 3.2",
+          "chars": 208,
+          "output_mimes": [],
+          "status": "pendiente",
+          "destination": null
+        },
+        {
+          "id": "A3-003",
+          "index": 2,
+          "kind": "markdown",
+          "title": "Ejercicio 3.3",
+          "chars": 132,
+          "output_mimes": [],
+          "status": "pendiente",
+          "destination": null
+        },
+        {
+          "id": "A3-004",
+          "index": 3,
+          "kind": "code",
+          "title": null,
+          "chars": 388,
+          "output_mimes": [],
+          "status": "pendiente",
+          "destination": null
+        },
+        {
+          "id": "A3-005",
+          "index": 4,
+          "kind": "markdown",
+          "title": "Ejercicio 3.4",
+          "chars": 192,
+          "output_mimes": [],
+          "status": "pendiente",
+          "destination": null
+        },
+        {
+          "id": "A3-006",
+          "index": 5,
+          "kind": "code",
+          "title": null,
+          "chars": 501,
+          "output_mimes": [],
+          "status": "pendiente",
+          "destination": null
+        }
+      ]
+    },
+    {
+      "path": "Ejercicios/.ipynb_checkpoints/04_Ejercicios-checkpoint.ipynb",
+      "git_blob_sha": "f1a016440d76c47a29a880a676b0600631526445",
+      "bytes": 6172,
+      "classification": "revisar_checkpoint",
+      "exact_duplicate_of": null,
+      "cells": [
+        {
+          "id": "A4-001",
+          "index": 0,
+          "kind": "markdown",
+          "title": "Ejercicio 4.1",
+          "chars": 105,
+          "output_mimes": [],
+          "status": "pendiente",
+          "destination": null
+        },
+        {
+          "id": "A4-002",
+          "index": 1,
+          "kind": "markdown",
+          "title": "Ejercicio 4.2",
+          "chars": 391,
+          "output_mimes": [],
+          "status": "pendiente",
+          "destination": null
+        },
+        {
+          "id": "A4-003",
+          "index": 2,
+          "kind": "code",
+          "title": null,
+          "chars": 1280,
+          "output_mimes": [],
+          "status": "pendiente",
+          "destination": null
+        },
+        {
+          "id": "A4-004",
+          "index": 3,
+          "kind": "markdown",
+          "title": null,
+          "chars": 34,
+          "output_mimes": [],
+          "status": "pendiente",
+          "destination": null
+        },
+        {
+          "id": "A4-005",
+          "index": 4,
+          "kind": "code",
+          "title": null,
+          "chars": 148,
+          "output_mimes": [],
+          "status": "pendiente",
+          "destination": null
+        },
+        {
+          "id": "A4-006",
+          "index": 5,
+          "kind": "markdown",
+          "title": null,
+          "chars": 121,
+          "output_mimes": [],
+          "status": "pendiente",
+          "destination": null
+        },
+        {
+          "id": "A4-007",
+          "index": 6,
+          "kind": "markdown",
+          "title": "Ejercicio 4.3",
+          "chars": 401,
+          "output_mimes": [],
+          "status": "pendiente",
+          "destination": null
+        },
+        {
+          "id": "A4-008",
+          "index": 7,
+          "kind": "code",
+          "title": null,
+          "chars": 52,
+          "output_mimes": [],
+          "status": "pendiente",
+          "destination": null
+        },
+        {
+          "id": "A4-009",
+          "index": 8,
+          "kind": "markdown",
+          "title": null,
+          "chars": 24,
+          "output_mimes": [],
+          "status": "pendiente",
+          "destination": null
+        },
+        {
+          "id": "A4-010",
+          "index": 9,
+          "kind": "code",
+          "title": null,
+          "chars": 265,
+          "output_mimes": [],
+          "status": "pendiente",
+          "destination": null
+        },
+        {
+          "id": "A4-011",
+          "index": 10,
+          "kind": "markdown",
+          "title": "Ejercicio 4.4",
+          "chars": 356,
+          "output_mimes": [],
+          "status": "pendiente",
+          "destination": null
+        },
+        {
+          "id": "A4-012",
+          "index": 11,
+          "kind": "code",
+          "title": null,
+          "chars": 38,
+          "output_mimes": [],
+          "status": "pendiente",
+          "destination": null
+        },
+        {
+          "id": "A4-013",
+          "index": 12,
+          "kind": "markdown",
+          "title": null,
+          "chars": 24,
+          "output_mimes": [],
+          "status": "pendiente",
+          "destination": null
+        },
+        {
+          "id": "A4-014",
+          "index": 13,
+          "kind": "code",
+          "title": null,
+          "chars": 295,
+          "output_mimes": [],
+          "status": "pendiente",
+          "destination": null
+        }
+      ]
+    },
+    {
+      "path": "recursos/Tabla de Contenidos.ipynb",
+      "git_blob_sha": "f8fb7b170dcebedf198061b9f6f0e29033fff124",
+      "bytes": 2020,
+      "classification": "revisar_indice",
+      "exact_duplicate_of": null,
+      "cells": [
+        {
+          "id": "A5-001",
+          "index": 0,
+          "kind": "markdown",
+          "title": "Algoritmos y Estructuras de Datos",
+          "chars": 1006,
+          "output_mimes": [],
+          "status": "pendiente",
+          "destination": null
+        },
+        {
+          "id": "A5-002",
+          "index": 1,
+          "kind": "code",
+          "title": null,
+          "chars": 0,
+          "output_mimes": [],
+          "status": "pendiente",
+          "destination": null
+        },
+        {
+          "id": "A5-003",
+          "index": 2,
+          "kind": "code",
+          "title": null,
+          "chars": 0,
+          "output_mimes": [],
+          "status": "pendiente",
+          "destination": null
+        }
+      ]
+    }
+  ]
+}
