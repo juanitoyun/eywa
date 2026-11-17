@@ -8,7 +8,7 @@
 <link rel="stylesheet" href="../assets/python-editor.css">
 <style>
 :root{font-family:Inter,"Segoe UI",system-ui,sans-serif;color:#173442;background:#fff}
-*{box-sizing:border-box}body{margin:0;padding:17px 20px}.head{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:12px}.eyebrow{font:800 11px/1.3 system-ui;letter-spacing:.12em;text-transform:uppercase;color:#087e72}.subtitle{font:550 12px/1.4 system-ui;color:#637d85;margin:5px 0 0}.status{font:500 11px system-ui;white-space:nowrap;color:#617f85;border:1px solid #d8e9df;border-radius:999px;padding:7px 11px}.body{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:18px}.label{font-size:10px;font-weight:800;letter-spacing:.11em;text-transform:uppercase;color:#61808a;display:block;margin-bottom:8px}textarea{width:100%;height:264px;resize:vertical;border:1px solid #26495a;border-radius:12px;background:#102b3b;color:#dbf8ef;padding:12px 14px;font:12px/1.52 ui-monospace,SFMono-Regular,Consolas,monospace;outline:none;tab-size:4}textarea:focus{border-color:#11a98b;box-shadow:0 0 0 2px #11a98b25}.right{display:flex;flex-direction:column;min-width:0}.desc{font-size:12px;line-height:1.42;color:#526a75;margin:0 0 13px}.output{background:#f5f9f6;border:1px solid #ddeae2;border-radius:12px;padding:14px;min-height:135px;flex:1;font:12px/1.62 ui-monospace,SFMono-Regular,Consolas,monospace;white-space:pre-wrap;word-break:break-word;overflow:auto;max-height:247px}.success{color:#087658}.fail{color:#ac493d}.actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:12px}button{border:1px solid #cfe1d7;border-radius:10px;padding:9px 12px;background:#fff;color:#2a4b52;font:700 11px system-ui;cursor:pointer}button.run{background:#087e72;border-color:#087e72;color:#fff}button:disabled{opacity:.58;cursor:progress}.hint{display:none;background:#f0f7f3;border-left:3px solid #0a8e74;margin-top:9px;padding:9px 12px;color:#40635e;font:11px/1.5 system-ui}.hint.show{display:block}.foot{display:flex;justify-content:space-between;gap:10px;align-items:center;color:#73868c;font-size:10px;margin-top:10px}a{color:#087e72;text-decoration:none}@media(max-width:690px){body{padding:12px}.body{grid-template-columns:1fr}textarea{height:224px}.output{min-height:95px}.foot{flex-direction:column;align-items:flex-start}}
+*{box-sizing:border-box}body{margin:0;padding:17px 20px}.head{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:12px}.eyebrow{font:800 11px/1.3 system-ui;letter-spacing:.12em;text-transform:uppercase;color:#087e72}.subtitle{font:550 12px/1.4 system-ui;color:#637d85;margin:5px 0 0}.status{font:500 11px system-ui;white-space:nowrap;color:#617f85;border:1px solid #d8e9df;border-radius:999px;padding:7px 11px}.body{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:18px}.label{font-size:10px;font-weight:800;letter-spacing:.11em;text-transform:uppercase;color:#61808a;display:block;margin-bottom:8px}textarea{width:100%;height:320px;resize:vertical;border:1px solid #26495a;border-radius:12px;background:#102b3b;color:#dbf8ef;padding:12px 14px;font:12px/1.52 ui-monospace,SFMono-Regular,Consolas,monospace;outline:none;tab-size:4}textarea:focus{border-color:#11a98b;box-shadow:0 0 0 2px #11a98b25}.right{display:flex;flex-direction:column;min-width:0}.desc{display:none}.output{background:#f5f9f6;border:1px solid #ddeae2;border-radius:12px;padding:14px;min-height:135px;flex:1;font:12px/1.62 ui-monospace,SFMono-Regular,Consolas,monospace;white-space:pre-wrap;word-break:break-word;overflow:auto;max-height:320px}.success{color:#087658}.fail{color:#ac493d}.actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:12px}button{border:1px solid #cfe1d7;border-radius:10px;padding:9px 12px;background:#fff;color:#2a4b52;font:700 11px system-ui;cursor:pointer}button.run{background:#087e72;border-color:#087e72;color:#fff}button:disabled{opacity:.58;cursor:progress}.eywa-expand{color:#087e72;text-decoration:none;font:700 11px system-ui}.hint{display:none;background:#f0f7f3;border-left:3px solid #0a8e74;margin-top:9px;padding:9px 12px;color:#40635e;font:11px/1.5 system-ui}.hint.show{display:block}.foot{display:flex;justify-content:space-between;gap:10px;align-items:center;color:#73868c;font-size:10px;margin-top:10px}a{color:#087e72;text-decoration:none}@media(max-width:690px){body{padding:12px}.body{grid-template-columns:1fr}textarea{height:290px}.output{min-height:95px}.foot{flex-direction:column;align-items:flex-start}}
 </style>
 <script src="../assets/chapter-labs.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.21/lib/codemirror.js"></script>
@@ -22,13 +22,14 @@
  <span class="status" id="status" aria-live="polite">Python sin iniciar</span>
 </div>
 <div class="body">
- <div><label class="label" for="editor">main.py · editable</label><textarea id="editor" spellcheck="false" autocapitalize="off" autocomplete="off"></textarea></div>
+ <div><label class="label" for="editor">main.py · editable</label><textarea id="editor" wrap="off" spellcheck="false" autocapitalize="off" autocomplete="off"></textarea></div>
  <div class="right"><span class="label">Tests automáticos</span><p class="desc" id="description"></p><pre class="output" id="output" aria-live="polite">Pulsa Ejecutar para comprobar tu función.</pre></div>
 </div>
 <div class="actions">
  <button type="button" class="run" id="run">▶ Ejecutar tests</button>
  <button type="button" id="hintButton">Pista</button>
  <button type="button" id="reset">Restablecer</button>
+ <a class="eywa-expand" id="expand" target="_blank" rel="noopener noreferrer">↗ Ampliar</a>
  <span id="score" class="subtitle">—</span>
 </div>
 <div id="hint" class="hint"></div>
@@ -41,9 +42,10 @@
  const el=(x)=>document.getElementById(x);
  el("title").textContent="EYWA / "+id+" · "+lesson.title;
  el("topic").textContent=lesson.topic;
+ el("expand").href=location.href;
  el("description").textContent=lesson.description;
  el("editor").value=lesson.code;
- const codeEditor=window.EYWA_EDITOR?.create(el("editor"),{height:"264px",run:()=>run(),label:"Editor Python AED"}) ||
+ const codeEditor=window.EYWA_EDITOR?.create(el("editor"),{height:"320px",run:()=>run(),label:"Editor Python AED"}) ||
    {getValue:()=>el("editor").value,setValue:value=>el("editor").value=value};
  el("hint").textContent=lesson.hint;
  el("score").textContent=lesson.cases.length+" pruebas preparadas";
