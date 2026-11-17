@@ -21,6 +21,11 @@ format:
     progress: true
     slide-number: "c/t"
     hash: true
+    scroll-view:
+      activation-width: 960
+      layout: compact
+      snap: proximity
+      progress: true
     transition: fade
     background-transition: fade
     footer: "EYWA  /  Python · Algoritmos"
