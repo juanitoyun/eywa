@@ -2,6 +2,9 @@
 from contextlib import redirect_stdout
 from io import StringIO
 import json
+import re
+import shutil
+import subprocess
 from pathlib import Path
 import sys
 import types
@@ -67,6 +70,19 @@ class TestTutorial00(unittest.TestCase):
         for item in self.examples:
             self.assertIn('index.html?ex=' + item["id"], self.qmd)
         self.assertIn('00_Tutorial.ipynb', self.qmd)
+
+    @unittest.skipUnless(shutil.which("node"), "Node.js no está disponible")
+    def test_browser_script_syntax(self):
+        html = (ROOT / "labs/tutorial00/index.html").read_text(encoding="utf8")
+        scripts = re.findall(r"<script(?:\\s+[^>]*)?>(.*?)</script>", html, re.S | re.I)
+        for source in scripts:
+            if not source.strip():
+                continue
+            result = subprocess.run(["node", "--check"], input=source, capture_output=True, text=True)
+            self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertIn('Graphviz.load()', html)
+        self.assertIn('loadPyodide(', html)
+        self.assertIn('examples.json', html)
 
     def test_original_drawer_kept_unmodified(self):
         self.assertIn("class NumpyArrayDrawer:", self.drawer)
