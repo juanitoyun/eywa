@@ -15,6 +15,7 @@
 <script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.21/lib/codemirror.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.21/mode/python/python.js"></script>
 <script src="../assets/python-editor.js"></script>
+<script src="../assets/python-console.js"></script>
 <script src="https://cdn.jsdelivr.net/pyodide/v314.0.8/full/pyodide.js"></script>
 </head>
 <body>
@@ -24,92 +25,59 @@
 </div>
 <div class="body">
  <div><label class="label" for="editor">main.py · editable</label><textarea id="editor" wrap="off" spellcheck="false" autocapitalize="off" autocomplete="off"></textarea></div>
- <div class="right"><span class="label">Tests automáticos</span><p class="desc" id="description"></p><pre class="output" id="output" aria-live="polite">Pulsa Ejecutar para comprobar tu función.</pre></div>
+ <div class="right"><span class="label">Consola</span><pre class="output" id="output" aria-live="polite"></pre></div>
 </div>
 <div class="actions">
- <button type="button" class="run" id="run">▶ Ejecutar tests</button>
- <button type="button" id="hintButton">Pista</button>
+ <button type="button" class="run" id="run">▶ Ejecutar</button>
  <button type="button" id="reset">Restablecer</button>
  <a class="eywa-expand" id="expand" target="_blank" rel="noopener noreferrer">↗ Ampliar</a>
- <span id="score" class="subtitle">—</span>
 </div>
-<div id="hint" class="hint"></div>
 <div class="foot"><span>Python real en navegador · Ctrl/⌘ + Enter</span><a href="https://github.com/ivansipiran/AED-Apuntes" target="_blank" rel="noopener">Temario: AED-Apuntes</a></div>
 <script>
 (() => {
  const id = new URLSearchParams(location.search).get("c") || "01";
  const lesson = window.EYWA_LABS?.[id];
- if (!lesson) { document.getElementById("output").textContent="Capítulo inexistente."; return; }
- const el=(x)=>document.getElementById(x);
- el("title").textContent="EYWA / "+id+" · "+lesson.title;
- el("topic").textContent=lesson.topic;
- el("expand").href=location.href;
- el("description").textContent=lesson.description;
- el("editor").value=lesson.code;
- const codeEditor=window.EYWA_EDITOR?.create(el("editor"),{height:"320px",run:()=>run(),label:"Editor Python AED"}) ||
-   {getValue:()=>el("editor").value,setValue:value=>el("editor").value=value};
- el("hint").textContent=lesson.hint;
- el("score").textContent=lesson.cases.length+" pruebas preparadas";
- let runtimePromise=null, running=false;
- function setStatus(text){el("status").textContent=text;}
- function getPyodide(){
-  if (!runtimePromise) {
-   setStatus("Cargando Python…");
-   if (typeof loadPyodide!=="function") return Promise.reject(new Error("No se cargó Pyodide. Comprueba tu conexión y las políticas del iframe."));
-   runtimePromise=loadPyodide().then(py=>{setStatus("Python listo");return py;})
-    .catch(e=>{runtimePromise=null;setStatus("Error de conexión");throw e;});
-  }
-  return runtimePromise;
+ const el = name => document.getElementById(name);
+ if (!lesson) { el("output").textContent = "Capítulo no encontrado."; return; }
+ el("title").textContent = "EYWA / " + id + " · " + lesson.title;
+ el("topic").textContent = lesson.topic;
+ el("expand").href = location.href;
+ el("editor").value = lesson.code;
+
+ let runPromise = null, busy = false;
+ const codeEditor = window.EYWA_EDITOR?.create(el("editor"), {
+   height: "320px", label: "Python AED", run: () => execute()
+ }) || { getValue: () => el("editor").value, setValue: value => {el("editor").value = value;} };
+
+ async function python() {
+   if (!runPromise) {
+     el("status").textContent = "Cargando Python…";
+     if (typeof loadPyodide !== "function") throw new Error("No se pudo cargar Python.");
+     runPromise = loadPyodide().then(py => {
+       el("status").textContent = "Python listo";
+       return py;
+     }).catch(error => {runPromise=null;el("status").textContent="Sin conexión";throw error;});
+   }
+   return runPromise;
  }
- const runner=[
-  "import json, io, contextlib, traceback",
-  "__eywa_scope = {}",
-  "__eywa_print = io.StringIO()",
-  "__eywa_details = []",
-  "__eywa_passed = 0",
-  "try:",
-  "    with contextlib.redirect_stdout(__eywa_print):",
-  "        exec(compile(__eywa_source, '<editor>', 'exec'), __eywa_scope)",
-  "    __eywa_fun = __eywa_scope.get(__eywa_function)",
-  "    if not callable(__eywa_fun):",
-  "        raise NameError('No se encontró una función llamada ' + __eywa_function)",
-  "    for i, case in enumerate(json.loads(__eywa_cases), 1):",
-  "        try:",
-  "            actual = __eywa_fun(*case['args'])",
-  "            expected = case['expected']",
-  "            if actual == expected:",
-  "                __eywa_passed += 1",
-  "                __eywa_details.append('✓ Test ' + str(i))",
-  "            else:",
-  "                __eywa_details.append('✗ Test ' + str(i) + ': obtuvo ' + repr(actual)[:80] + ', esperado ' + repr(expected)[:80])",
-  "        except Exception as exc:",
-  "            __eywa_details.append('✗ Test ' + str(i) + ': ' + str(exc)[:100])",
-  "    __eywa_report = {'passed': __eywa_passed, 'total': len(json.loads(__eywa_cases)), 'details': __eywa_details, 'printed': __eywa_print.getvalue()}",
-  "except Exception:",
-  "    __eywa_report = {'passed': 0, 'total': len(json.loads(__eywa_cases)), 'details': [traceback.format_exc(limit=3)], 'printed': __eywa_print.getvalue()}",
-  "json.dumps(__eywa_report, ensure_ascii=False)"
- ].join("\n");
- async function run(){
-  if(running)return;
-  running=true;el("run").disabled=true;el("output").textContent="Preparando pruebas…";
-  try{
-   const py=await getPyodide();
-   py.globals.set("__eywa_source",codeEditor.getValue());
-   py.globals.set("__eywa_function",lesson.functionName);
-   py.globals.set("__eywa_cases",JSON.stringify(lesson.cases));
-   const result=JSON.parse(await py.runPythonAsync(runner));
-   const ok=result.passed===result.total;
-   el("output").className="output "+(ok?"success":"fail");
-   el("output").textContent=result.details.join("\n")+"\n\n"+result.passed+"/"+result.total+" tests superados"+(result.printed?"\n\nSalida:\n"+result.printed:"");
-   el("score").textContent=result.passed+"/"+result.total+" tests";
-  }catch(err){
-   el("output").className="output fail";
-   el("output").textContent="No fue posible ejecutar Python:\n"+String(err);
-  }finally{running=false;el("run").disabled=false;}
+ async function execute() {
+   if (busy) return;
+   busy = true; el("run").disabled = true;
+   el("output").textContent = ""; // Un assert correcto no imprime nada.
+   try {
+     const py = await python();
+     el("output").textContent = await window.EYWA_RUN_PYTHON(py, codeEditor.getValue());
+   } catch (error) {
+     el("output").textContent = String(error);
+   } finally {
+     busy = false; el("run").disabled = false;
+   }
  }
- el("run").addEventListener("click",run);
- el("reset").addEventListener("click",()=>{codeEditor.setValue(lesson.code);el("output").textContent="Código restablecido. Ejecuta nuevamente.";el("output").className="output";el("score").textContent=lesson.cases.length+" pruebas preparadas";});
- el("hintButton").addEventListener("click",()=>el("hint").classList.toggle("show"));
+ el("run").addEventListener("click", execute);
+ el("reset").addEventListener("click", () => {
+   codeEditor.setValue(lesson.code);
+   el("output").textContent = "";
+ });
 })();
 </script>
 </body>
