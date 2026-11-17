@@ -108,6 +108,66 @@
       }
     }
 
+    function requestPassword() {
+      return new Promise(resolve => {
+        const dialog = document.createElement("dialog");
+        dialog.className = "eywa-password-dialog";
+        const form = document.createElement("form");
+        form.method = "dialog";
+
+        const heading = document.createElement("strong");
+        heading.textContent = "Publicar código en EYWA";
+        const label = document.createElement("label");
+        label.textContent = "Contraseña de edición";
+        const input = document.createElement("input");
+        input.type = "password";
+        input.autocomplete = "off";
+        input.required = true;
+        input.maxLength = 512;
+        label.appendChild(input);
+        const note = document.createElement("p");
+        note.textContent = "La contraseña se utilizará solo para este guardado y no quedará almacenada.";
+        const buttons = document.createElement("div");
+        buttons.className = "eywa-password-actions";
+        const cancel = document.createElement("button");
+        cancel.type = "button";
+        cancel.textContent = "Cancelar";
+        const accept = document.createElement("button");
+        accept.type = "submit";
+        accept.textContent = "Autorizar publicación";
+        buttons.append(cancel, accept);
+        form.append(heading, label, note, buttons);
+        dialog.appendChild(form);
+        document.body.appendChild(dialog);
+
+        let completed = false;
+        function finish(value) {
+          if (completed) return;
+          completed = true;
+          input.value = "";
+          if (dialog.open) dialog.close();
+          dialog.remove();
+          resolve(value);
+        }
+        form.addEventListener("submit", event => {
+          event.preventDefault();
+          finish(input.value);
+        });
+        cancel.addEventListener("click", () => finish(null));
+        dialog.addEventListener("cancel", event => {
+          event.preventDefault();
+          finish(null);
+        });
+        dialog.addEventListener("close", () => finish(null));
+        try {
+          dialog.showModal();
+          input.focus();
+        } catch (_) {
+          finish(null);
+        }
+      });
+    }
+
     async function save() {
       if (busy) return;
       if (!fileSha) { message("Primero pulsa Actualizar oficial.", true); return; }
@@ -115,7 +175,7 @@
       if (code === officialCode) { message("Sin cambios respecto a la versión oficial."); return; }
 
       if (!window.confirm("¿Publicar este código en EYWA para todas las personas? Se conservará la versión anterior en GitHub.")) return;
-      const password = window.prompt("Contraseña de edición de EYWA (no se guardará):");
+      const password = await requestPassword();
       if (password === null) return;
       if (!password) { message("La contraseña no puede estar vacía.", true); return; }
 
