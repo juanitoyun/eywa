@@ -39,7 +39,7 @@ class TestIntroSlides(unittest.TestCase):
 
     def test_every_example_is_embedded(self):
         qmd = (ROOT / "slides" / "01-introduccion.qmd").read_text(encoding="utf-8")
-        ids = [int(match) for match in re.findall(r'../labs/snippet\.html\?s=(\d+)" title=', qmd)]
+        ids = [int(match) for match in re.findall(r'../labs/snippet\.html\?s=(\d+)&amp;visual=1" title=', qmd)]
         self.assertEqual(ids, list(range(1, len(self.slides) + 1)))
         # El enlace de ampliación se movió dentro del editor para reducir ruido visual.
         html = (ROOT / "labs" / "snippet.html").read_text(encoding="utf-8")
