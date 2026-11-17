@@ -138,7 +138,7 @@ Por ejemplo, para insertar un ejercicio independiente en Genially:
 
 Contenido y código **originales**, tomando el temario y orden como referencia de [AED-Apuntes](https://github.com/ivansipiran/AED-Apuntes) (Ivan Sipiran, curso AED del DCC de la Universidad de Chile; basado en antiguos apuntes de Patricio Poblete y Benjamín Bustos). Los cuadernos ajenos **no se reproducen ni redistribuyen** en este repositorio.
 
-Esta es la **primera síntesis visual de los diez capítulos**, no una conversión íntegra de sus textos, figuras y ejercicios. El siguiente trabajo será profundizar subtemas y crear visualizaciones/animaciones y tests específicos adicionales.
+Esta es una **síntesis visual de los diez capítulos**, con expansión adicional en 01 y 02, no una conversión íntegra de sus textos, figuras y ejercicios. El siguiente trabajo será profundizar subtemas y crear visualizaciones/animaciones y tests específicos adicionales.
 
 ### Biblioteca Python
 
@@ -163,7 +163,7 @@ La validación automática de pull requests comprueba tanto el render Quarto com
 - Cada ejemplo incluye `assert` visibles; no requiere Colab, Jupyter ni PC.
 - Reveal.js ofrece vista vertical para móviles mediante `?view=scroll` (activación automática en pantallas pequeñas).
 - El código también puede abrirse en una página independiente a pantalla completa.
-- [Estado real de la adaptación](COBERTURA.md): los capítulos 02–10 mantienen por ahora la síntesis inicial.
+- [Estado real de la adaptación](COBERTURA.md): el capítulo 02 tiene ahora desarrollo propio y los capítulos 03–10 mantienen por ahora la síntesis inicial.
 
 Enlaces después de la publicación:
 
@@ -241,3 +241,12 @@ El editor de los **56 ejemplos principales** (capítulo 00: 19; capítulo 01: 28
 El Worker acepta solo tres bancos de código: `assets/intro-snippets.js`, `assets/chapter-labs.js` y `labs/tutorial00/examples.json`. No admite modificar directamente HTML, scripts del sitio, workflows ni otros archivos. Cada guardado comprueba el SHA de GitHub para evitar sobrescribir silenciosamente cambios de otro editor.
 
 **Requisitos operativos y límites:** una contraseña robusta compartida da los mismos permisos a cualquiera que la conozca; para revocar acceso hay que cambiarla en Cloudflare. El límite de intentos local del Worker no es un rate limiter distribuido; conviene configurar el Rate Limiting binding oficial antes de abrir edición a un público amplio. El token de GitHub debe renovarse antes de su fecha de expiración. Los botones de publicación se desactivan si no se logra cargar correctamente el código oficial desde la API. El flujo extremo a extremo contra el Worker desplegado requiere prueba manual; las pruebas CI simulan lecturas, escrituras, conflictos y rechazos sin utilizar secretos.
+
+
+## Capítulo 02 · Análisis matemático ampliado
+
+- 22 secciones Quarto: O, Ω, Θ, comparación de crecimientos, recurrencias, Hanoi, Fibonacci, ecuaciones características, teorema maestro y Stooge sort.
+- Siete editores Python temáticos con `assert` visibles: `labs/math02.html?ex=01` hasta `?ex=07`.
+- Los siete editores guardan el código **solo localmente** mediante botón («Guardar local»). No piden contraseña ni escriben en GitHub.
+- El laboratorio general `labs/chapter.html?c=02` sigue teniendo guardado oficial con contraseña, sin cambios en Cloudflare.
+- Manifiesto: 19 celdas con adaptación temática, cinco exclusiones justificadas y cero celdas verificadas de este capítulo. Falta una validación académica y visual completa.

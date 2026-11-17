@@ -26,7 +26,7 @@ El directorio original de recursos contiene **291 archivos**: 169 imágenes o an
 
 ## Criterio de cobertura
 
-**Una slide existente no implica una celda verificada.** Los 28 ejemplos propios de Introducción y los nueve laboratorios de los capítulos 02–10 siguen pendientes de correspondencia explícita con el temario fuente.
+**Una slide existente no implica una celda verificada.** El capítulo 02 dispone de 19 correspondencias temáticas preliminares y 5 exclusiones justificadas. Los 28 ejemplos propios de Introducción y los laboratorios restantes siguen pendientes de correspondencia completa y verificación académica.
 
 | Estado | Significado |
 |---|---|
@@ -40,7 +40,7 @@ Los elementos adaptados o verificados deben incluir destino; las exclusiones deb
 ## Próximas entregas
 
 1. Completar capítulo 01: teoría T01-001…T01-158, ejercicios E01-001…E01-032, validando y aprovechando el código EYWA cuando sea equivalente.
-2. Repetir para capítulos 02–10, respetando el orden y ejemplos del origen.
+2. Verificar la adaptación del capítulo 02 en navegador; repetir el proceso para capítulos 03–10, respetando el orden y ejemplos del origen.
 3. Vincular los 291 recursos a una slide, laboratorio o justificación. Revisar especialmente los que no aparecen citados.
 4. Auditar los cinco notebooks auxiliares, justificando los duplicados.
 5. Verificar cada laboratorio en navegador y registrar su estado.

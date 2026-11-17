@@ -1,56 +1,267 @@
 ---
 title: "02 / Análisis matemático"
-subtitle: "Cotas asintóticas · recurrencias"
+subtitle: "Notación asintótica · recurrencias · teorema maestro"
 author: "EYWA · Algoritmos y Estructuras de Datos"
 ---
 
-## Mapa esencial
+## Métodos matemáticos {#c02-panorama}
 
 <div class="eywa-kicker">AED / CAPÍTULO 02</div>
 
-<div class="eywa-course-grid">
-<div class="eywa-card"><div class="eywa-number">01</div><h3>Crecimiento</h3><p>O, Ω y Θ clasifican ritmos asintóticos.</p></div>
-<div class="eywa-card"><div class="eywa-number">02</div><h3>Recurrencias</h3><p>El costo recursivo se expresa en términos de subproblemas.</p></div>
-<div class="eywa-card"><div class="eywa-number">03</div><h3>Teorema maestro</h3><p>Identifica patrones de división y combinación.</p></div>
-</div>
-
-## Idea que debes retener
-
-<div class="eywa-kicker">CONCEPTO</div>
-
-<div class="eywa-declaration">En análisis asintótico importa cómo escala el costo cuando crece n; las constantes y los términos menores dejan de dominar.</div>
+<div class="eywa-declaration">Una pregunta: ¿cómo crece el costo al aumentar el tamaño de entrada \(n\)?</div>
 
 <div class="eywa-course-grid">
-<div class="eywa-card"><div class="eywa-number">01</div><p>O(g(n)) entrega una cota superior.</p></div>
-<div class="eywa-card"><div class="eywa-number">02</div><p>Ω(g(n)) entrega una cota inferior.</p></div>
-<div class="eywa-card"><div class="eywa-number">03</div><p>Θ(g(n)) expresa ambas cotas a la vez.</p></div>
+<div class="eywa-card"><div class="eywa-number">01</div><h3>Cotas</h3><p>O, Ω, Θ: comparar funciones sin depender de constantes.</p></div>
+<div class="eywa-card"><div class="eywa-number">02</div><h3>Recurrencias</h3><p>Describir el costo de llamadas recursivas.</p></div>
+<div class="eywa-card"><div class="eywa-number">03</div><h3>Maestro</h3><p>Resolver muchas recurrencias de divide y vencerás.</p></div>
 </div>
 
-## Código en Python
+## Notación O: límite superior {#c02-notacion-o}
 
-<iframe class="eywa-frame eywa-lesson-frame" src="../labs/chapter.html?c=02&amp;visual=1" title="Editor Python anotado, capítulo 02" loading="lazy" allow="clipboard-write"></iframe>
+\[
+f(n)=O(g(n))
+\iff
+\exists C>0,\ n_0:\ 0\leq f(n)\leq Cg(n)\quad(n\geq n_0).
+\]
 
-## Complejidad y decisiones
+<div class="eywa-declaration">O significa «crece como mucho a ese ritmo», hasta constantes multiplicativas.</div>
 
-<div class="eywa-kicker">TIME / SPACE · COMPARACIONES</div>
+Ejemplo: \(3n^2+2n+1=O(n^2)\). Para \(n\geq1\), basta escoger \(C=6\).
 
-| Operación o enfoque | Costo | Por qué |
+**O no exige que la cota sea ajustada:** también es correcto \(3n^2+2n+1=O(n^3)\).
+
+## Notación Ω: límite inferior {#c02-notacion-omega}
+
+\[
+f(n)=\Omega(g(n))
+\iff
+\exists c>0,\ n_0:\ 0\leq cg(n)\leq f(n)\quad(n\geq n_0).
+\]
+
+<div class="eywa-declaration">Ω indica un piso asintótico para el crecimiento.</div>
+
+Ejemplo: \(3n^2+2n+1=\Omega(n^2)\), porque es al menos \(3n^2\) para \(n\geq1\).
+
+**Advertencia:** una cota inferior de una función de costo no siempre coincide con el «mejor caso» del algoritmo. Se debe precisar qué función se está acotando.
+
+## Notación Θ: cota ajustada {#c02-notacion-theta}
+
+\[
+f(n)=\Theta(g(n))
+\iff
+f(n)=O(g(n))\ \land\ f(n)=\Omega(g(n)).
+\]
+
+\[
+3n^2\leq 3n^2+2n+1\leq6n^2
+\qquad(n\geq1).
+\]
+
+<div class="eywa-declaration">Resultado: \(3n^2+2n+1=\Theta(n^2)\).</div>
+
+No es necesario que las dos cotas usen la misma constante.
+
+## Comparar ritmos de crecimiento {#c02-orden-de-crecimiento}
+
+| Familia | Ejemplo | Lectura |
 |:---|:---|:---|
-| Una búsqueda lineal | **Θ(n)** | Puede mirar cada elemento. |
-| Mitades sucesivas | **Θ(log n)** | Reduce el tamaño por un factor constante. |
-| Dos mitades + combinar | **Θ(n log n)** | Recurrencia 2T(n/2)+Θ(n). |
+| Constante | \(1\) | No depende de \(n\) |
+| Logarítmica | \(\log_2n\) | Reducir a mitades |
+| Lineal | \(n\) | Una pasada |
+| Cuasilineal | \(n\log_2n\) | Dividir y combinar |
+| Cuadrática | \(n^2\) | Pares de elementos |
+| Exponencial | \(2^n\) | Cantidad se duplica |
 
-## Comprobación de aprendizaje
+<div class="eywa-compact-note">Orden para \(n\) suficientemente grande. No determina cuál implementación es más rápida para entradas pequeñas.</div>
 
-<div class="eywa-kicker">DOMINIO MÍNIMO</div>
+## Laboratorio: crecimiento {.scrollable #c02-graficas}
 
-- Distinguir O de Θ.
-- Resolver T(n) = T(n/2) + Θ(1).
-- Reconocer cuándo aplicar un teorema maestro.
+<div class="eywa-kicker">C02 / PRÁCTICA 01 · FUNCIONES</div>
+
+<iframe class="eywa-snippet-frame" src="../labs/math02.html?ex=01" title="Python editable: crecimiento de funciones" loading="lazy" allow="clipboard-write"></iframe>
+
+<div class="eywa-compact-note">Modifica los tamaños y compara \(\log n\), \(n\), \(n\log n\) y \(n^2\). El costo de construir la tabla no es el costo representado por cada fórmula.</div>
+
+## Laboratorio: probar las cotas {.scrollable #c02-cotas-experimento}
+
+<div class="eywa-kicker">C02 / PRÁCTICA 02 · CONSTANTES</div>
+
+<iframe class="eywa-snippet-frame" src="../labs/math02.html?ex=02" title="Python editable: comprobación de cotas asintóticas" loading="lazy" allow="clipboard-write"></iframe>
+
+<div class="eywa-compact-note">Un experimento con valores finitos ilustra las cotas, pero una afirmación asintótica requiere una demostración para todos los \(n\) suficientemente grandes.</div>
+
+## Recurrencias: escribir el costo {#c02-recurrencias}
+
+Si un procedimiento resuelve subproblemas, su costo puede depender de sí mismo:
+
+\[
+T(n)=2T(n/2)+n,\qquad T(1)=\Theta(1).
+\]
+
+<div class="eywa-course-grid">
+<div class="eywa-card"><div class="eywa-number">2T(n/2)</div><p>Dos subproblemas de tamaño mitad.</p></div>
+<div class="eywa-card"><div class="eywa-number">+ n</div><p>Trabajo adicional para dividir o combinar.</p></div>
+</div>
+
+El **caso base** detiene la expansión. Sin él, la recurrencia no determina por sí sola un valor completo.
+
+## Primer orden: desenrollar {#c02-primer-orden}
+
+Considera \(a_0=0\) y \(a_n=2a_{n-1}+1\).
+
+\[
+\begin{aligned}
+a_n&=2a_{n-1}+1\\
+&=4a_{n-2}+2+1\\
+&=2^n a_0+\sum_{j=0}^{n-1}2^j\\
+&=2^n-1.
+\end{aligned}
+\]
+
+Para \(a_n=b\,a_{n-1}+c\), con \(b\neq 1\) constante:
+
+\[
+a_n=b^na_0+c\frac{b^n-1}{b-1}.
+\]
+
+Si \(b=1\): \(a_n=a_0+nc\). No confundir el **valor** de una sucesión con el **costo** de calcularla.
+
+## Laboratorio: recurrencia {.scrollable #c02-primer-orden-lab}
+
+<iframe class="eywa-snippet-frame" src="../labs/math02.html?ex=03" title="Python editable: recurrencia de primer orden" loading="lazy" allow="clipboard-write"></iframe>
+
+## Hanoi: costo recursivo {#c02-hanoi}
+
+Para mover \(n\) discos entre tres postes:
+
+\[
+M(0)=0,\qquad M(n)=2M(n-1)+1.
+\]
+
+<div class="eywa-declaration">Primero mueve \(n-1\) discos, mueve el disco mayor y repite el subproblema.</div>
+
+\[
+M(n)=2^n-1=\Theta(2^n).
+\]
+
+**Importante:** generar toda la secuencia requiere tiempo exponencial porque hay exponencialmente muchos movimientos. Calcular solo la cantidad con una fórmula es otro problema.
+
+## Laboratorio: Hanoi {.scrollable #c02-hanoi-lab}
+
+<iframe class="eywa-snippet-frame" src="../labs/math02.html?ex=04" title="Python editable: Torres de Hanoi y movimientos" loading="lazy" allow="clipboard-write"></iframe>
+
+## Recurrencias homogéneas {#c02-homogeneas}
+
+Cuando los términos siguen una combinación lineal, se buscan soluciones de forma \(\lambda^n\).
+
+Ejemplo: Fibonacci \(F_n=F_{n-1}+F_{n-2}\).
+
+\[
+\lambda^2-\lambda-1=0,\qquad
+\lambda_{1,2}=\frac{1\pm\sqrt5}{2}.
+\]
+
+Con \(F_0=0\), \(F_1=1\):
+
+\[
+F_n=\frac{\varphi^n-\psi^n}{\sqrt5},\quad
+\varphi=\frac{1+\sqrt5}{2},\ \psi=\frac{1-\sqrt5}{2}.
+\]
+
+## Fibonacci: exactitud y redondeo {.scrollable #c02-fibonacci}
+
+<iframe class="eywa-snippet-frame" src="../labs/math02.html?ex=05" title="Python editable: Fibonacci exacto y Binet" loading="lazy" allow="clipboard-write"></iframe>
+
+<div class="eywa-compact-note">La fórmula cerrada con <code>float</code> es aproximada. La iteración con enteros preserva el valor exacto; la cantidad de operaciones y su costo en bits son medidas diferentes.</div>
+
+## Hanoi como recurrencia homogénea {#c02-hanoi-homogenea}
+
+La recurrencia \(M_n=2M_{n-1}+1\) también se puede escribir como:
+
+\[
+M_n-3M_{n-1}+2M_{n-2}=0.
+\]
+
+Su ecuación característica es:
+
+\[
+(\lambda-1)(\lambda-2)=0.
+\]
+
+Por tanto, \(M_n=A+B2^n\). Con \(M_0=0\), \(M_1=1\), resulta \(M_n=2^n-1\).
+
+**Mismo resultado por dos caminos:** desenrollar o resolver la ecuación característica.
+
+## Teorema maestro {#c02-teorema-maestro}
+
+Para tamaños equilibrados y costos de combinación polinómicos:
+
+\[
+T(n)=pT(n/q)+\Theta(n^r),
+\quad p\ge1,\ q>1,\ r\ge0.
+\]
+
+Define \(\alpha=\log_qp\). Compara \(\alpha\) y \(r\):
+
+| Condición | Costo asintótico |
+|:---|:---|
+| \(\alpha>r\) | \(\Theta(n^\alpha)\) |
+| \(\alpha=r\) | \(\Theta(n^r\log n)\) |
+| \(\alpha<r\) | \(\Theta(n^r)\) |
+
+<div class="eywa-compact-note">Este resumen cubre la forma polinómica indicada, bajo las hipótesis usuales de división equilibrada y regularidad. No sustituye las versiones más generales del teorema.</div>
+
+## Laboratorio: teorema maestro {.scrollable #c02-master-lab}
+
+<iframe class="eywa-snippet-frame" src="../labs/math02.html?ex=06" title="Python editable: casos del teorema maestro" loading="lazy" allow="clipboard-write"></iframe>
+
+## Ejercicio guiado: Stooge sort {#c02-stooge}
+
+Stooge sort ordena mediante **tres llamadas** sobre segmentos solapados de longitud aproximada \(2n/3\).
+
+\[
+T(n)=3T(2n/3)+\Theta(1)
+\]
+
+\[
+\alpha=\log_{3/2}3\approx2.710.
+\]
+
+Por el teorema maestro, \(T(n)=\Theta(n^\alpha)\), que es peor que \(\Theta(n^2)\).
+
+<div class="eywa-declaration">Lección: la cantidad y el tamaño de los subproblemas importan tanto como el trabajo local.</div>
+
+## Laboratorio: Stooge sort {.scrollable #c02-stooge-lab}
+
+<iframe class="eywa-snippet-frame" src="../labs/math02.html?ex=07" title="Python editable: Stooge sort y análisis de recurrencia" loading="lazy" allow="clipboard-write"></iframe>
+
+## Tres ejercicios de dominio {#c02-ejercicios}
+
+1. **Primer orden variable:** para \(a_n=b_n a_{n-1}+c_n\), con \(b_n\neq0\), deduce una expresión mediante productos acumulados.
+2. **Hanoi homogénea:** resuelve \(a_n-3a_{n-1}+2a_{n-2}=0\), con \(a_0=0\) y \(a_1=1\).
+3. **Stooge sort:** explica por qué tres subproblemas solapados de tamaño \(2n/3\) dan exponente mayor que dos.
+
+<div class="eywa-compact-note">Estos problemas están reformulados; sus ideas se relacionan con el cuaderno de ejercicios 02. Los laboratorios anteriores muestran herramientas para contrastar los resultados.</div>
+
+## Editor oficial del capítulo {.scrollable #c02-editor-oficial}
+
+<div class="eywa-kicker">EYWA / CÓDIGO COMPARTIDO</div>
+
+<iframe class="eywa-frame eywa-lesson-frame" src="../labs/chapter.html?c=02&amp;visual=1" title="Laboratorio principal del capítulo con guardado oficial protegido por contraseña" loading="lazy" allow="clipboard-write"></iframe>
+
+<div class="eywa-compact-note">El editor principal permite guardar oficialmente en GitHub mediante contraseña. Los siete editores temáticos guardan una copia local independiente.</div>
+
+## Dominio mínimo {#c02-dominio}
+
+- Puedo demostrar una cota O, Ω o Θ con constantes explícitas.
+- Puedo separar el costo de un algoritmo del valor numérico que calcula.
+- Puedo desenrollar una recurrencia lineal sencilla.
+- Puedo encontrar raíces características en una recurrencia homogénea.
+- Sé cuándo aplicar el teorema maestro y cuándo no.
 
 <div class="eywa-chapter-nav">
 <a href="../index.html">← Índice EYWA AED</a>
-<a href="03-diseno-eficiente.html">Siguiente capítulo →</a>
+<a href="03-diseno-eficiente.html">Capítulo 03 →</a>
 </div>
 
-<div class="eywa-source">Adaptación didáctica original. Temario de referencia: <a href="https://github.com/ivansipiran/AED-Apuntes" target="_blank" rel="noopener">AED-Apuntes (DCC · U. de Chile)</a>.</div>
+<div class="eywa-source">Explicaciones, código y formulaciones originales. Referencia temática: <a href="https://github.com/ivansipiran/AED-Apuntes" target="_blank" rel="noopener noreferrer">AED-Apuntes (DCC · U. de Chile)</a>. La trazabilidad de las celdas se encuentra en el <a href="../coverage/index.html">manifiesto de cobertura</a>.</div>

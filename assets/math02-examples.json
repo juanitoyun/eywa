@@ -1,0 +1,42 @@
+{
+  "chapter": "02",
+  "title": "Métodos matemáticos para el análisis de algoritmos",
+  "origin": "Adaptaciones originales del temario AED-Apuntes",
+  "examples": [
+    {
+      "id": "01",
+      "title": "Crecimiento de funciones",
+      "code": "\"\"\"02 · Comparar ritmos de crecimiento\"\"\"\nfrom math import log2\n\n# Para n = 2**k, el logaritmo se vuelve k.\n# Crecer más rápido no siempre significa ser más grande para n pequeño.\ndef costes(n):\n    return (log2(n), n, n * log2(n), n**2)\n\nfor n in (2, 4, 8, 16, 32):\n    print(f\"n={n:2} | log={costes(n)[0]:2.0f} | n={n:2} | nlogn={costes(n)[2]:3.0f} | n²={n*n:4}\")\n\nassert costes(8) == (3, 8, 24, 64)\nassert costes(16)[-1] == 256\n# Calcular esta tabla cuesta Θ(k); cada coste es O(1).\n"
+    },
+    {
+      "id": "02",
+      "title": "Cotas O, Ω y Θ",
+      "code": "\"\"\"02 · Cotas asintóticas y constantes\"\"\"\n# f(n) = 3n² + 2n + 1.\n# Para n >= 1: 3n² <= f(n) <= 6n².\n# Por tanto, f(n) pertenece a Θ(n²).\ndef f(n):\n    return 3*n*n + 2*n + 1\n\ndef g(n):\n    return n*n\n\nfor n in (1, 2, 10, 100):\n    ratio = f(n) / g(n)\n    print(f\"n={n:3} | f(n)/n² = {ratio:.4f}\")\n    assert 3*g(n) <= f(n) <= 6*g(n)\n\n# O es cota superior; Ω inferior; Θ reúne ambas.\n"
+    },
+    {
+      "id": "03",
+      "title": "Recurrencia de primer orden",
+      "code": "\"\"\"02 · Desenrollar a(n) = 2a(n-1) + 1\"\"\"\n# a(0) = 0\n# a(n) = 2 a(n-1) + 1\n# Solución cerrada: a(n) = 2**n - 1.\ndef recurrencia(n):\n    a = 0\n    for _ in range(n):        # Θ(n) iteraciones\n        a = 2*a + 1\n    return a\n\nfor n in range(8):\n    print(n, recurrencia(n), 2**n - 1)\n    assert recurrencia(n) == 2**n - 1\n\n# Valor de a(n): exponencial.\n# Costo de este procedimiento iterativo: Θ(n) operaciones aritméticas\n# suponiendo operaciones sobre enteros de costo constante.\n"
+    },
+    {
+      "id": "04",
+      "title": "Torres de Hanoi",
+      "code": "\"\"\"02 · Hanoi y su cantidad mínima de movimientos\"\"\"\n# Para mover n discos: dos problemas de n-1 y una transferencia.\n# M(0)=0, M(n)=2*M(n-1)+1.\ndef movimientos(n):\n    return (1 << n) - 1\n\ndef construir(n, inicio=\"A\", destino=\"C\", auxiliar=\"B\"):\n    if n == 0:\n        return []\n    return (construir(n-1, inicio, auxiliar, destino)\n            + [(inicio, destino)]\n            + construir(n-1, auxiliar, destino, inicio))\n\nfor n in range(5):\n    pasos = construir(n)\n    print(f\"{n} discos -> {len(pasos)} movimientos\")\n    assert len(pasos) == movimientos(n)\n\n# Construir la secuencia necesita Θ(2**n) tiempo y salida.\n# Calcular solo la cantidad mediante 2**n-1 es otra operación.\n"
+    },
+    {
+      "id": "05",
+      "title": "Fibonacci exacto y fórmula cerrada",
+      "code": "\"\"\"02 · Fibonacci: recurrencia y errores numéricos\"\"\"\nfrom math import sqrt\n\ndef fib(n):\n    a, b = 0, 1\n    for _ in range(n):       # Θ(n) sumas de enteros\n        a, b = b, a+b\n    return a\n\ndef binet(n):\n    raiz = sqrt(5)\n    phi = (1 + raiz) / 2\n    psi = (1 - raiz) / 2\n    return (phi**n - psi**n) / raiz\n\nfor n in (0, 1, 5, 10, 20, 50, 70):\n    exacto = fib(n)\n    aproximado = round(binet(n))\n    print(n, exacto, aproximado, aproximado == exacto)\n\nfor n in range(21):\n    assert round(binet(n)) == fib(n)\n\n# Binet usa float: pierde exactitud para n suficientemente grande.\n# fib(n) conserva precisión entera arbitraria (hasta memoria disponible).\n"
+    },
+    {
+      "id": "06",
+      "title": "Teorema maestro",
+      "code": "\"\"\"02 · T(n) = p T(n/q) + Θ(n**r)\"\"\"\nfrom math import log, isclose\n\ndef clasificar(p, q, r):\n    assert p >= 1 and q > 1 and r >= 0\n    alfa = log(p, q)                     # Logaritmo en base q\n    if isclose(alfa, r, abs_tol=1e-10):\n        return f\"Θ(n^{r:g} log n)\"       # Trabajo equilibrado\n    if alfa > r:\n        return f\"Θ(n^{alfa:.3g})\"       # Dominan las hojas\n    return f\"Θ(n^{r:g})\"               # Domina combinar\n\nejemplos = [(2,2,0), (2,2,1), (2,2,2), (3,2,1)]\nfor p,q,r in ejemplos:\n    print(f\"T(n)={p}T(n/{q})+n^{r} -> {clasificar(p,q,r)}\")\n\nassert clasificar(2, 2, 0) == \"Θ(n^1)\"\nassert clasificar(2, 2, 1) == \"Θ(n^1 log n)\"\nassert clasificar(2, 2, 2) == \"Θ(n^2)\"\n# Caso polinómico puro, con subproblemas equilibrados.\n"
+    },
+    {
+      "id": "07",
+      "title": "Stooge sort y recurrencia",
+      "code": "\"\"\"02 · Stooge sort: tres subproblemas solapados\"\"\"\nfrom math import log\n\ndef stooge_sort(datos):\n    xs = datos[:]                            # No muta la lista original\n    def ordenar(i, j):\n        if xs[i] > xs[j]:\n            xs[i], xs[j] = xs[j], xs[i]\n        n = j - i + 1\n        if n > 2:\n            k = n // 3\n            ordenar(i, j-k)\n            ordenar(i+k, j)\n            ordenar(i, j-k)\n    if xs:\n        ordenar(0, len(xs)-1)\n    return xs\n\nfor xs in ([], [1], [3, 2, 1], [4, 1, 3, 2], [2, 2, 1]):\n    assert stooge_sort(xs) == sorted(xs)\nprint(\"Exponente asintótico ≈\", round(log(3, 1.5), 4))\n\n# T(n) ≈ 3 T(2n/3) + Θ(1)\n# Exponente log_(3/2)(3) ≈ 2.7095, peor que Θ(n²).\n"
+    }
+  ]
+}

@@ -11,7 +11,7 @@ author: "Curso visual · Python · 10 capítulos + herramientas"
 <div class="eywa-index-grid">
 <a class="eywa-index-card" href="slides/00-herramientas-visuales.html"><span class="eywa-number">00 / AED</span><strong>Herramientas visuales</strong><small>19 imágenes · Python + Graphviz</small></a>
 <a class="eywa-index-card" href="slides/01-introduccion.html"><span class="eywa-number">01 / AED</span><strong>Introducción</strong><small>Python · invariantes · recursión</small></a>
-<a class="eywa-index-card" href="slides/02-analisis-matematico.html"><span class="eywa-number">02 / AED</span><strong>Análisis matemático</strong><small>O, Ω, Θ · recurrencias</small></a>
+<a class="eywa-index-card" href="slides/02-analisis-matematico.html"><span class="eywa-number">02 / AED</span><strong>Análisis matemático</strong><small>22 secciones · 7 laboratorios</small></a>
 <a class="eywa-index-card" href="slides/03-diseno-eficiente.html"><span class="eywa-number">03 / AED</span><strong>Diseño eficiente</strong><small>DP · greedy · backtracking</small></a>
 <a class="eywa-index-card" href="slides/04-estructuras-elementales.html"><span class="eywa-number">04 / AED</span><strong>Estructuras elementales</strong><small>Arreglos · listas · árboles</small></a>
 <a class="eywa-index-card" href="slides/05-pilas-colas-prioridad.html"><span class="eywa-number">05 / AED</span><strong>Pilas, colas y prioridad</strong><small>LIFO · FIFO · heaps</small></a>
