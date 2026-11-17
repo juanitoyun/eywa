@@ -1,12 +1,12 @@
 /*-- scss:defaults --*/
-$body-bg: #f8faf9;
-$body-color: #172b37;
-$link-color: #087e72;
-$presentation-heading-color: #102637;
+$body-bg: #081727;
+$body-color: #e6f0fa;
+$link-color: #76d9f8;
+$presentation-heading-color: #f2f8ff;
 $presentation-font-size-root: 32px;
 $presentation-heading-font: "Aptos Display", "Segoe UI", "Helvetica Neue", sans-serif;
 $font-family-sans-serif: "Aptos", "Segoe UI", "Helvetica Neue", sans-serif;
-$code-block-bg: #f0f5f2;
+$code-block-bg: #0c1b2d;
 
 /*-- scss:rules --*/
 .reveal { letter-spacing: -.012em; }
@@ -197,3 +197,161 @@ $code-block-bg: #f0f5f2;
 
 /* EYWA-CODE/1: consola contenida; las líneas largas se desplazan dentro del editor. */
 .reveal .eywa-snippet-frame, .reveal .eywa-lesson-frame{overflow:hidden;max-width:100%}
+
+
+/* ==========================================================================
+   EYWA / DEEP NAVY — single dark theme for EVERY Quarto/Reveal.js slide.
+   Semantic palette: depth / surface / elevation / ice / teal / muted text.
+   The prior spacing, navigation, typographic scale and slide compositions stay.
+   ========================================================================== */
+:root {
+  color-scheme: dark;
+  --eywa-abyss: #071421;
+  --eywa-base: #081727;
+  --eywa-base-alt: #0b2034;
+  --eywa-surface: #11273e;
+  --eywa-surface-high: #172f49;
+  --eywa-editor: #0b1829;
+  --eywa-border: #294660;
+  --eywa-text: #e6f0fa;
+  --eywa-heading: #f2f8ff;
+  --eywa-muted: #adc2d4;
+  --eywa-ice: #76d9f8;
+  --eywa-teal: #72e1c6;
+  --eywa-warm: #f4c98a;
+  --eywa-error: #ff9e9b;
+  --eywa-deep-shadow: 0 14px 40px rgba(0, 4, 14, .23);
+}
+html, body, body.reveal-viewport, .reveal-viewport, .reveal {
+  color: var(--eywa-text);
+  background-color: var(--eywa-base) !important;
+}
+.reveal-viewport, .reveal {
+  background-image:
+    radial-gradient(ellipse 75% 65% at 95% 1%, rgba(29, 77, 115, .23) 0%, transparent 76%),
+    linear-gradient(128deg, var(--eywa-abyss) 0%, var(--eywa-base-alt) 58%, var(--eywa-base) 100%) !important;
+}
+.reveal .slides, .reveal .slides section, .reveal .scroll-page, .reveal .scroll-page-content {
+  color: var(--eywa-text);
+  background-color: transparent;
+}
+/* In mobile Scroll View, each scroll page should remain navy, never white. */
+.reveal.reveal-scroll .scroll-page, .reveal-viewport.reveal-scroll {
+  background-color: var(--eywa-base) !important;
+}
+.reveal h1, .reveal h2, .reveal h3, .reveal h4,
+.reveal .title, .reveal .quarto-title-block .title,
+.reveal .eywa-card h3, .reveal .eywa-index-card strong {
+  color: var(--eywa-heading);
+}
+.reveal .title {
+  text-shadow: 0 6px 40px rgba(62, 126, 172, .12);
+}
+.reveal .subtitle, .reveal .quarto-title-block .subtitle {
+  color: var(--eywa-ice);
+}
+.reveal .quarto-title-block::after {
+  content: "";
+  display: block;
+  width: 80px;
+  height: 3px;
+  margin: 30px 0 0;
+  border-radius: 99px;
+  background: linear-gradient(90deg, var(--eywa-ice), var(--eywa-teal));
+}
+.reveal .quarto-title-author-name, .reveal .slide-number, .reveal .footer {
+  color: var(--eywa-muted);
+}
+.reveal p, .reveal li, .reveal span, .reveal strong { color: inherit; }
+.reveal a, .reveal a:visited { color: var(--eywa-ice); }
+.reveal a:hover { color: var(--eywa-teal); }
+.reveal a:focus-visible, .reveal button:focus-visible {
+  outline: 2px solid var(--eywa-ice);
+  outline-offset: 4px;
+}
+.reveal .progress { color: var(--eywa-teal); background-color: var(--eywa-surface); }
+.reveal .progress span { background-color: var(--eywa-teal); }
+.reveal .controls { color: var(--eywa-ice); }
+.reveal .eywa-kicker, .reveal .eywa-number,
+.reveal table th, .reveal .eywa-compact-points span { color: var(--eywa-teal); }
+.reveal .eywa-muted, .reveal .eywa-lead, .reveal .eywa-source,
+.reveal .eywa-compact-note, .reveal .eywa-index-card small,
+.reveal .eywa-course-grid .eywa-card p { color: var(--eywa-muted); }
+.reveal .eywa-declaration, .reveal .eywa-concept { color: var(--eywa-text); }
+.reveal .eywa-card, .reveal .eywa-index-grid .eywa-index-card {
+  color: var(--eywa-text);
+  background: linear-gradient(150deg, var(--eywa-surface-high) 0%, var(--eywa-surface) 100%);
+  border: 1px solid var(--eywa-border);
+  box-shadow: var(--eywa-deep-shadow);
+}
+.reveal .eywa-card p, .reveal .eywa-index-grid .eywa-index-card small,
+.reveal .eywa-step small { color: var(--eywa-muted); }
+.reveal .eywa-index-grid .eywa-index-card:hover {
+  border-color: var(--eywa-ice);
+  background: linear-gradient(150deg, #1c3c58 0%, #122b43 100%);
+  box-shadow: 0 12px 32px rgba(0, 11, 29, .36);
+}
+.reveal .eywa-index-grid .eywa-index-card,
+.reveal .eywa-index-grid .eywa-index-card strong { color: var(--eywa-heading); }
+.reveal .eywa-index-grid .eywa-index-card small { color: var(--eywa-muted); }
+.reveal .eywa-array span {
+  color: var(--eywa-heading);
+  background: var(--eywa-surface-high);
+  border-color: var(--eywa-border);
+  box-shadow: 0 8px 22px rgba(0, 6, 17, .22);
+}
+.reveal .eywa-array span.is-mid {
+  color: #071727;
+  background: var(--eywa-teal);
+  border-color: var(--eywa-teal);
+}
+.reveal .eywa-pill {
+  color: var(--eywa-ice);
+  background: #16364d;
+  border-color: #326984;
+}
+.reveal .eywa-step { border-left-color: var(--eywa-teal); }
+.reveal .eywa-step small { color: var(--eywa-muted); }
+.reveal .eywa-code-card, .reveal .eywa-compact-points div {
+  color: var(--eywa-text);
+  background: var(--eywa-surface);
+  border: 1px solid var(--eywa-border);
+}
+.reveal .eywa-compact-points div { color: var(--eywa-muted); }
+.reveal .eywa-compact-note { border-left-color: var(--eywa-teal); }
+.reveal .eywa-chapter-nav a { border-bottom-color: var(--eywa-ice); }
+.reveal .eywa-snippet-frame, .reveal .eywa-lesson-frame, .reveal .eywa-frame {
+  background: var(--eywa-editor);
+  border: 1px solid var(--eywa-border);
+  box-shadow: var(--eywa-deep-shadow);
+}
+.reveal table { border-color: var(--eywa-border); }
+.reveal table th, .reveal table td {
+  border-color: var(--eywa-border);
+  background-color: transparent;
+}
+.reveal table tr:nth-child(even) td { background-color: rgba(21, 50, 73, .43); }
+.reveal table tr { border-color: var(--eywa-border); }
+/* Built-in code blocks from Quarto demo, and inline code, must be dark as well. */
+.reveal pre, .reveal pre.sourceCode, .reveal pre code,
+.reveal div.sourceCode, .reveal .cell-output pre {
+  background-color: var(--eywa-editor) !important;
+  color: var(--eywa-text);
+  border-color: var(--eywa-border);
+}
+.reveal pre, .reveal pre.sourceCode, .reveal div.sourceCode {
+  border: 1px solid var(--eywa-border);
+  box-shadow: 0 9px 24px rgba(0, 4, 12, .18);
+}
+.reveal :not(pre) > code, .reveal p code, .reveal li code {
+  color: var(--eywa-ice);
+  background-color: var(--eywa-surface-high);
+  border-radius: .22em;
+}
+.reveal blockquote {
+  color: var(--eywa-text);
+  background: var(--eywa-surface);
+  border-left: 3px solid var(--eywa-teal);
+  box-shadow: none;
+}
+.reveal hr, .reveal .slide-background { border-color: var(--eywa-border); }
