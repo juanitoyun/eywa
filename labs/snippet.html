@@ -31,11 +31,13 @@ button:disabled{opacity:.65;cursor:progress}
 </style>
 <link rel="stylesheet" href="../assets/eywa-dark.css">
 <link rel="stylesheet" href="../assets/eywa-visual-panel.css">
+<link rel="stylesheet" href="../assets/eywa-repo-save.css">
 <script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.21/lib/codemirror.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.21/mode/python/python.js"></script>
 <script src="../assets/python-editor.js"></script>
 <script src="../assets/python-console.js"></script>
 <script src="../assets/eywa-visual-panel.js"></script>
+<script src="../assets/eywa-repo-save.js"></script>
 <script src="../assets/intro-snippets.js"></script>
 <script src="https://cdn.jsdelivr.net/pyodide/v314.0.8/full/pyodide.js"></script>
 </head>
@@ -78,6 +80,12 @@ button:disabled{opacity:.65;cursor:progress}
  const editor = window.EYWA_EDITOR?.create(el("code"), {
    height: "322px", label: "Python", run: () => run()
  }) || { getValue: () => el("code").value, setValue: value => {el("code").value=value;} };
+
+ const repoSave = window.EYWA_REPO_SAVE.configure({
+   kind: "intro", id: String(index + 1), actions: document.querySelector(".actions"),
+   getCode: () => editor.getValue(), setCode: value => editor.setValue(value),
+   onOfficial: value => { lesson.code = value; }
+ });
 
  async function python() {
    if (!runtimePromise) {

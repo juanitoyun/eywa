@@ -1,0 +1,54 @@
+/* EYWA / admin publication controls, adapted to the shared Deep Navy palette. */
+.eywa-save-status {
+  display:block;
+  margin:6px 0 2px;
+  padding:0 2px;
+  min-height:13px;
+  color:#8dd09b;
+  font:600 10px/1.45 system-ui,sans-serif;
+}
+.eywa-save-status.is-error { color:#ffadad; }
+a.eywa-save-history {
+  display:inline-flex;
+  color:#76d9f8;
+  text-decoration:none;
+  font:700 11px/1.4 system-ui,sans-serif;
+  white-space:nowrap;
+}
+a.eywa-save-history:hover { text-decoration:underline; }
+.eywa-save-status a:focus-visible,
+a.eywa-save-history:focus-visible {
+  outline:2px solid #76d9f8;
+  outline-offset:3px;
+}
+.eywa-password-dialog {
+  box-sizing:border-box;
+  width:min(410px,calc(100vw - 32px));
+  padding:22px;
+  border:1px solid #355a76;
+  border-radius:14px;
+  background:#081727;
+  color:#e6f0fa;
+  box-shadow:0 20px 65px rgba(0,0,0,.5);
+  font:13px/1.5 system-ui,sans-serif;
+  color-scheme:dark;
+}
+.eywa-password-dialog::backdrop { background:rgba(0,5,14,.78); }
+.eywa-password-dialog form { display:flex;flex-direction:column;gap:13px; }
+.eywa-password-dialog strong { font-size:16px; }
+.eywa-password-dialog label { display:flex;flex-direction:column;gap:6px;color:#e6f0fa;font-size:12px; }
+.eywa-password-dialog input {
+  font:14px system-ui,sans-serif;
+  padding:11px;
+  background:#11273e;color:#fff;
+  border:1px solid #355a76;border-radius:8px;
+}
+.eywa-password-dialog input:focus-visible { outline:2px solid #76d9f8;outline-offset:2px; }
+.eywa-password-dialog p { margin:0;color:#adc2d4;font-size:11px; }
+.eywa-password-actions { display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap; }
+.eywa-password-actions button {
+  background:#172f49;color:#e6f0fa;
+  border:1px solid #355a76;border-radius:8px;
+  padding:9px 12px;cursor:pointer;font:700 12px system-ui,sans-serif;
+}
+.eywa-password-actions button[type="submit"] { background:#227da3;border-color:#348eaf;color:#fff; }
