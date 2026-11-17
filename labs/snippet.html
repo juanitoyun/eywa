@@ -30,10 +30,12 @@ button:disabled{opacity:.65;cursor:progress}
 @media(max-width:670px){body{padding:11px}.cols{grid-template-columns:1fr}.output{max-height:175px;min-height:65px}.area textarea{height:280px}.actions{gap:6px}}
 </style>
 <link rel="stylesheet" href="../assets/eywa-dark.css">
+<link rel="stylesheet" href="../assets/eywa-visual-panel.css">
 <script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.21/lib/codemirror.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.21/mode/python/python.js"></script>
 <script src="../assets/python-editor.js"></script>
 <script src="../assets/python-console.js"></script>
+<script src="../assets/eywa-visual-panel.js"></script>
 <script src="../assets/intro-snippets.js"></script>
 <script src="https://cdn.jsdelivr.net/pyodide/v314.0.8/full/pyodide.js"></script>
 </head>
@@ -44,17 +46,26 @@ button:disabled{opacity:.65;cursor:progress}
 </div>
 <div class="cols">
  <div class="area"><label for="code">main.py</label><textarea id="code" wrap="off" spellcheck="false" autocapitalize="off" autocomplete="off"></textarea></div>
- <div class="area"><label>Consola</label><pre id="output" class="output" aria-live="polite"></pre></div>
+ <div class="area"><label>Consola</label><pre id="output" class="output" aria-live="polite"></pre>
+  <details class="eywa-visual-details" id="visual-details" hidden>
+  <summary>Visualización <span class="eywa-visual-ready" aria-live="polite"></span></summary>
+  <div class="eywa-visual-canvas" aria-label="SVG generado por el código Python"></div>
+</details></div>
 </div>
 <div class="actions">
  <button class="primary" id="run" type="button">▶ Ejecutar</button>
  <button id="reset" type="button">Restablecer</button>
  <a class="open" id="expand" href="#" target="_blank" rel="noopener noreferrer">↗ Ampliar</a>
 </div>
+
 <div class="footer">Python en el navegador (Pyodide) · Ctrl/⌘ + Enter · No requiere notebook ni servidor</div>
 <script>
 (() => {
  const el = id => document.getElementById(id);
+ const visualDetails=el("visual-details");
+ const enableVisual=new URLSearchParams(location.search).get("visual")==="1";
+ visualDetails.hidden=!enableVisual;
+ const visualPanel=enableVisual ? window.EYWA_VISUAL_PANEL.mount(visualDetails) : null;
  const index = Number.parseInt(new URLSearchParams(location.search).get("s") || "1", 10) - 1;
  const lesson = window.EYWA_SNIPPETS?.slides?.[index];
  if (!lesson) { el("output").textContent = "Ejemplo no encontrado."; el("run").disabled = true; return; }
@@ -83,10 +94,19 @@ button:disabled{opacity:.65;cursor:progress}
    if (busy) return;
    busy = true;el("run").disabled=true;
    el("output").textContent = "";
+   if(visualPanel) visualPanel.clear(false);
    try {
      const py = await python();
      if (lesson.packages?.length) await py.loadPackage(lesson.packages);
-     el("output").textContent = await window.EYWA_RUN_PYTHON(py,editor.getValue());
+     const source=editor.getValue();
+     if(visualPanel){
+       const result=await window.EYWA_RUN_PYTHON_WITH_VISUAL(py,source);
+       el("output").textContent=result.console;
+       if(result.svg)visualPanel.setSvg(result.svg);
+       else if(result.dot)await visualPanel.setDot(result.dot);
+     }else{
+       el("output").textContent=await window.EYWA_RUN_PYTHON(py,source);
+     }
    } catch (error) {
      el("output").textContent = String(error);
    } finally {
@@ -96,6 +116,7 @@ button:disabled{opacity:.65;cursor:progress}
  el("run").addEventListener("click",run);
  el("reset").addEventListener("click", () => {
    editor.setValue(lesson.code);el("output").textContent = "";
+   if(visualPanel)visualPanel.clear();
  });
 })();
 </script>

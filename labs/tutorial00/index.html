@@ -42,9 +42,11 @@ button:focus-visible,a:focus-visible{outline:2px solid #76d9f8;outline-offset:3p
 }
 </style>
 <link rel="stylesheet" href="../../assets/eywa-dark.css">
+<link rel="stylesheet" href="../../assets/eywa-visual-panel.css">
 <script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.21/lib/codemirror.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.21/mode/python/python.js"></script>
 <script src="../../assets/python-editor.js"></script>
+<script src="../../assets/eywa-visual-panel.js"></script>
 <script src="https://cdn.jsdelivr.net/pyodide/v314.0.8/full/pyodide.js"></script>
 </head>
 <body>
@@ -63,19 +65,23 @@ button:focus-visible,a:focus-visible{outline:2px solid #76d9f8;outline-offset:3p
   </div>
  </section>
  <section class="panel">
-  <div class="label">Visualización SVG · aed-utilities</div>
-  <div class="visual" id="visual" aria-label="Resultado visual del código ejecutado"></div>
-  <p class="source-note" id="note"></p>
   <div class="label">Consola Python</div>
   <pre id="output" class="console" aria-live="polite"></pre>
+  <details class="eywa-visual-details" id="visual-details">
+  <summary>Visualización <span class="eywa-visual-ready" aria-live="polite"></span></summary>
+  <div class="eywa-visual-canvas" id="visual" aria-label="Resultado visual del código ejecutado"></div>
+  <p class="source-note" id="note" style="padding:0 12px"></p>
+</details>
  </section>
 </main>
+
 <script>
 (() => {
 "use strict";
 const el=id=>document.getElementById(id);
 const exampleId=(new URLSearchParams(location.search).get("ex")||"01").padStart(2,"0");
-let example=null, editor=null, pythonPromise=null, graphvizPromise=null, busy=false, pictureURL=null;
+let example=null, editor=null, pythonPromise=null, busy=false;
+const visualPanel=window.EYWA_VISUAL_PANEL.mount(el("visual-details"));
 const runButton=el("run");
 const setStatus=msg=>{el("status").textContent=msg};
 const textarea=el("code");
@@ -93,17 +99,6 @@ function makeEditor(){
   }
  });
  editor.setSize("100%",window.innerWidth<750?"260px":"355px");
-}
-function showSvg(svg){
- if(!svg||!svg.includes("<svg"))throw new Error("La salida de Graphviz no contiene SVG.");
- if(pictureURL)URL.revokeObjectURL(pictureURL);
- pictureURL=URL.createObjectURL(new Blob([svg],{type:"image/svg+xml"}));
- const img=new Image();
- img.alt="Gráfico de "+example.title;
- img.src=pictureURL;
- const visual=el("visual");
- visual.replaceChildren(img);
- el("note").textContent="SVG generado en el navegador mediante aed-utilities y Graphviz WASM";
 }
 async function selectExample(){
  try{
@@ -123,7 +118,7 @@ async function selectExample(){
    editor.scrollIntoView({line:editor.lineCount()-1,ch:0},110);
   }
   // No mostrar los SVG guardados del notebook. El lienzo queda vacío hasta ejecutar.
-  el("visual").replaceChildren();
+  visualPanel.clear();
   el("note").textContent="";
   setStatus("Código listo para ejecutar");
  }catch(error){
@@ -174,24 +169,15 @@ async function getPython(){
  }
  return pythonPromise;
 }
-async function getGraphviz(){
- if(!graphvizPromise){
-  graphvizPromise=(async()=>{
-   setStatus("Iniciando Graphviz WebAssembly…");
-   const module=await import("https://cdn.jsdelivr.net/npm/@hpcc-js/wasm-graphviz@1.30.0/dist/index.js");
-   return await module.Graphviz.load();
-  })().catch(error=>{graphvizPromise=null;throw error});
- }
- return graphvizPromise;
-}
 async function execute(){
  if(busy||!example)return;
  busy=true;runButton.disabled=true;el("output").textContent="";
+ visualPanel.clear(false);
+ el("note").textContent="";
  try{
   const source=code();
   const py=await getPython();
   if(/^\s*(?:import numpy|from numpy)/m.test(source))await py.loadPackage("numpy");
-  const gv=await getGraphviz();
   py.globals.set("__eywa_user_code",source);
   const result=await py.runPythonAsync([
    "import io, contextlib, traceback, json",
@@ -208,9 +194,10 @@ async function execute(){
   el("output").textContent=data.console||"";
   if(data.graphs.length){
    const last=data.graphs[data.graphs.length-1];
-   const svg=await gv.layout(last.dot,"svg",last.engine||"dot");
-   showSvg(svg);
-   setStatus("SVG actualizado en tu navegador");
+   setStatus("Generando SVG…");
+   await visualPanel.setDot(last.dot,last.engine||"dot");
+   el("note").textContent="SVG generado con aed-utilities + Graphviz WASM";
+   setStatus("Imagen disponible · abre Visualización");
   }else setStatus("Código ejecutado · sin dibujo nuevo");
  }catch(error){
   el("output").textContent=String(error);
@@ -222,8 +209,7 @@ el("reset").addEventListener("click",()=>{
  if(!example)return;
  setCode(example.source);
  el("output").textContent="";
- if(pictureURL){URL.revokeObjectURL(pictureURL);pictureURL=null;}
- el("visual").replaceChildren();
+ visualPanel.clear();
  el("note").textContent="";
  setStatus("Código restaurado");
 });

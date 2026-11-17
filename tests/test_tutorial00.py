@@ -80,20 +80,23 @@ class TestTutorial00(unittest.TestCase):
                 continue
             result = subprocess.run(["node", "--check"], input=source, capture_output=True, text=True)
             self.assertEqual(result.returncode, 0, result.stderr)
-        self.assertIn('Graphviz.load()', html)
+        visual_js = (ROOT / "assets/eywa-visual-panel.js").read_text(encoding="utf8")
+        self.assertIn("Graphviz.load()", visual_js)
         self.assertIn('loadPyodide(', html)
         self.assertIn('examples.json', html)
 
-    def test_visual_panel_starts_white_and_requires_click(self):
+    def test_visual_panel_starts_closed_and_requires_click(self):
         html = (ROOT / "labs/tutorial00/index.html").read_text(encoding="utf8")
-        self.assertIn('class="visual" id="visual" aria-label="Resultado visual del código ejecutado"></div>', html)
-        self.assertIn("background:#fff;", html)
-        self.assertNotIn('showSvg(example.svg', html)
-        self.assertIn('el("visual").replaceChildren()', html)
-        self.assertIn('showSvg(svg);', html)
+        visual_css = (ROOT / "assets/eywa-visual-panel.css").read_text(encoding="utf8")
+        self.assertIn('class="eywa-visual-details" id="visual-details"', html)
+        self.assertIn('class="eywa-visual-canvas" id="visual"', html)
+        self.assertIn('window.EYWA_VISUAL_PANEL.mount(el("visual-details"))', html)
+        self.assertIn("await visualPanel.setDot(last.dot", html)
         self.assertIn('runButton.addEventListener("click",execute)', html)
+        self.assertIn("visualPanel.clear();", html)
+        self.assertIn("background:#fff !important", visual_css)
+        self.assertNotIn("showSvg(example.svg", html)
         self.assertNotIn('Cargando imagen del notebook', html)
-        self.assertNotIn('SVG original de 00_Tutorial.ipynb · pulsa Ejecutar', html)
 
     def test_original_drawer_kept_unmodified(self):
         self.assertIn("class NumpyArrayDrawer:", self.drawer)

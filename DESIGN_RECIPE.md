@@ -74,3 +74,17 @@ Mantener la estética minimalista de Quarto, pero **sin fondos claros**: cada po
 Reglas: fondo navy, tarjetas más claras, texto blanco-azulado, cian principal y menta secundaria. Gradientes muy suaves, sin brillos neón ni adornos excesivos. El código conserva panel oscuro estilo VS Code, comentarios verdes y líneas sin ajuste horizontal.
 
 Archivos: `styles/eywa.scss` (slides, portada e índice), `assets/eywa-dark.css` (todos los laboratorios Python), `assets/python-editor.css` (código) y `assets/console-loader.html` (consola flotante). Los nuevos laboratorios deben cargar `../assets/eywa-dark.css` **después** de su CSS local para evitar paneles claros.
+
+
+## Visualizaciones desplegables (componente reutilizable EYWA)
+
+Los resultados visuales se muestran mediante `assets/eywa-visual-panel.js` y `assets/eywa-visual-panel.css`. El componente usa un panel HTML `details/summary`, con fondo Deep Navy y lienzo blanco cuando está desplegado.
+
+- **Contraído por defecto:** el lector abre y cierra «Visualización» manualmente.
+- **Sin apertura automática:** ejecutar Python puede generar SVG y marcar «Imagen disponible», pero no despliega el panel.
+- **Opcional:** añadir `&visual=1` al iframe de cualquier laboratorio de código existente para habilitarlo; sin ese parámetro no aparece.
+- **Fuente explícita:** código Python puede asignar `__eywa_svg` (SVG) o `__eywa_dot` (Graphviz DOT). Ningún test adicional se ejecuta de forma oculta.
+- **Ejemplos originales:** el Capítulo 00 genera DOT con `aed-utilities` v0.4.1. El mismo componente lo convierte a SVG en el navegador.
+- **Restablecer:** limpia la imagen y vuelve a colapsar el panel, conservando el editor y la consola.
+
+Para un test numerado interactivo se ofrece `templates/test-slide-visual.qmd` (no se renderiza hasta recibir número y código).
