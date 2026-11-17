@@ -70,7 +70,7 @@ class TestWholeCourseUnifiedFormat(unittest.TestCase):
             with self.subTest(lab=path):
                 self.assertNotIn('id="visual-details" hidden', src)
                 self.assertIn('!=="0"', src.replace(" ", ""))
-                self.assertIn("hidden=", src)
+                self.assertIn("hidden=", src.replace(" ", ""))
 
     def test_viewer_only_opens_by_manual_user_action(self):
         visual=(ROOT / "assets/eywa-visual-panel.js").read_text(encoding="utf8")
