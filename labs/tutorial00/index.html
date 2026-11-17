@@ -20,7 +20,7 @@ h1{margin:3px 0 2px;color:#f2f8ff;font-size:17px;letter-spacing:-.03em}
 .label{font-size:10px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:#adc2d4;margin:0 0 7px}
 textarea{width:100%;height:350px;display:block;white-space:pre;overflow:auto;border:1px solid #294660;border-radius:12px;padding:13px;background:#0b1829;color:#e6f0fa;font:12px/1.55 Consolas,monospace;resize:vertical}
 .CodeMirror{border-radius:11px}
-.visual{height:316px;overflow:auto;background:#fdfdfd;border:1px solid #294660;border-radius:12px;display:flex;align-items:center;justify-content:center;padding:16px}
+.visual{height:316px;overflow:auto;background:#fff;border:1px solid #294660;border-radius:12px;display:flex;align-items:center;justify-content:center;padding:16px}
 .visual img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;display:block}
 .visual-empty{color:#3c5465;font:12px system-ui;text-align:center}
 .source-note{font:10px/1.4 system-ui;color:#adc2d4;margin:8px 0 10px}
@@ -50,7 +50,7 @@ button:focus-visible,a:focus-visible{outline:2px solid #76d9f8;outline-offset:3p
 <body>
 <header>
  <div><div class="kicker" id="category">EYWA / 00 · HERRAMIENTAS VISUALES</div><h1 id="title">Cargando ejemplo…</h1><div class="sub" id="explain">Dibujos originales del tutorial AED</div></div>
- <div class="status" id="status">Preparando vista previa…</div>
+ <div class="status" id="status">Cargando ejemplo…</div>
 </header>
 <main class="cols">
  <section class="panel">
@@ -64,8 +64,8 @@ button:focus-visible,a:focus-visible{outline:2px solid #76d9f8;outline-offset:3p
  </section>
  <section class="panel">
   <div class="label">Visualización SVG · aed-utilities</div>
-  <div class="visual" id="visual" aria-label="Visualización original del tutorial"><span class="visual-empty">Cargando imagen del notebook…</span></div>
-  <p class="source-note" id="note">La vista previa corresponde al SVG guardado en el notebook.</p>
+  <div class="visual" id="visual" aria-label="Resultado visual del código ejecutado"></div>
+  <p class="source-note" id="note"></p>
   <div class="label">Consola Python</div>
   <pre id="output" class="console" aria-live="polite"></pre>
  </section>
@@ -94,7 +94,7 @@ function makeEditor(){
  });
  editor.setSize("100%",window.innerWidth<750?"260px":"355px");
 }
-function showSvg(svg,sourceType){
+function showSvg(svg){
  if(!svg||!svg.includes("<svg"))throw new Error("La salida de Graphviz no contiene SVG.");
  if(pictureURL)URL.revokeObjectURL(pictureURL);
  pictureURL=URL.createObjectURL(new Blob([svg],{type:"image/svg+xml"}));
@@ -103,9 +103,7 @@ function showSvg(svg,sourceType){
  img.src=pictureURL;
  const visual=el("visual");
  visual.replaceChildren(img);
- el("note").textContent=sourceType==="reference"
- ? "SVG original de 00_Tutorial.ipynb · pulsa Ejecutar para regenerarlo"
- : "SVG regenerado: Python original → aed-utilities v0.4.1 → Graphviz WASM";
+ el("note").textContent="SVG generado en el navegador mediante aed-utilities y Graphviz WASM";
 }
 async function selectExample(){
  try{
@@ -124,8 +122,10 @@ async function selectExample(){
    editor.setCursor(editor.lineCount()-1,0);
    editor.scrollIntoView({line:editor.lineCount()-1,ch:0},110);
   }
-  showSvg(example.svg,"reference");
-  setStatus("Referencia original lista");
+  // No mostrar los SVG guardados del notebook. El lienzo queda vacío hasta ejecutar.
+  el("visual").replaceChildren();
+  el("note").textContent="";
+  setStatus("Código listo para ejecutar");
  }catch(error){
   setStatus("No disponible");
   el("output").textContent=String(error);
@@ -209,7 +209,7 @@ async function execute(){
   if(data.graphs.length){
    const last=data.graphs[data.graphs.length-1];
    const svg=await gv.layout(last.dot,"svg",last.engine||"dot");
-   showSvg(svg,"computed");
+   showSvg(svg);
    setStatus("SVG actualizado en tu navegador");
   }else setStatus("Código ejecutado · sin dibujo nuevo");
  }catch(error){
@@ -222,8 +222,10 @@ el("reset").addEventListener("click",()=>{
  if(!example)return;
  setCode(example.source);
  el("output").textContent="";
- showSvg(example.svg,"reference");
- setStatus("Ejemplo restaurado");
+ if(pictureURL){URL.revokeObjectURL(pictureURL);pictureURL=null;}
+ el("visual").replaceChildren();
+ el("note").textContent="";
+ setStatus("Código restaurado");
 });
 makeEditor();
 selectExample();
