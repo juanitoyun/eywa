@@ -1,4 +1,3 @@
-/* EYWA / Python examples with explanations as real # comments */
 window.EYWA_SNIPPETS = {
   "id": "01",
   "title": "Introducción",
