@@ -9,7 +9,7 @@
 .CodeMirror-focused .CodeMirror-selected{background:#264f78!important}
 .CodeMirror-activeline-background{background:#272727}
 .CodeMirror-matchingbracket{color:#ffd700!important;border-bottom:1px solid #ffd700}
-.CodeMirror .cm-comment{color:#6a9955}
+.CodeMirror .cm-comment{color:#6a9955;font-style:italic}
 .CodeMirror .cm-keyword{color:#c586c0}
 .CodeMirror .cm-builtin{color:#4ec9b0}
 .CodeMirror .cm-def{color:#dcdcaa}
@@ -30,3 +30,8 @@
  .CodeMirror{font-size:12px;line-height:1.6;min-height:190px}
  .CodeMirror-lines{padding:9px 0}
 }
+
+/* Anchura de línea ilimitada: CodeMirror administra ambas barras de desplazamiento. */
+.CodeMirror-scroll{overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch}
+.CodeMirror-lines .CodeMirror-line{white-space:pre}
+textarea[wrap="off"]{white-space:pre;overflow-x:auto;overflow-y:auto;word-break:normal;overflow-wrap:normal}
