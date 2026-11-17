@@ -1,0 +1,110 @@
+/* EYWA / DARK LABS — shared visual theme for standalone and embedded Python.
+   Keep UI/layout in each lab; override only palette and contrast here.
+   Loaded AFTER each lab's inline stylesheet so no iframe stays white. */
+:root {
+  color-scheme: dark;
+  --eywa-abyss: #071421;
+  --eywa-bg: #081727;
+  --eywa-blue: #0b2034;
+  --eywa-panel: #11273e;
+  --eywa-panel-high: #172f49;
+  --eywa-code: #0b1829;
+  --eywa-line: #294660;
+  --eywa-text: #e6f0fa;
+  --eywa-heading: #f2f8ff;
+  --eywa-muted: #adc2d4;
+  --eywa-ice: #76d9f8;
+  --eywa-teal: #72e1c6;
+  --eywa-error: #ffaaa9;
+}
+html, body {
+  background-color: var(--eywa-bg) !important;
+  color: var(--eywa-text) !important;
+}
+body {
+  background-image: linear-gradient(135deg, var(--eywa-abyss), var(--eywa-blue)) !important;
+}
+::selection { background: #285472; color: #f8fcff; }
+.top h1, .title, .header .title, .head .title { color: var(--eywa-heading); }
+.kicker, .eyebrow, .header .title { color: var(--eywa-ice); }
+label, .label, .description, .desc, .subtitle, .status,
+.score, .tiny, .small, .foot, .hint:not(.show) {
+  color: var(--eywa-muted);
+}
+.head .status, .header .status, .top .status, .status {
+  color: var(--eywa-muted);
+  border-color: var(--eywa-line);
+  background: var(--eywa-panel);
+}
+.status.ready, .status.ready span { color: var(--eywa-teal); }
+.status .dot { background-color: #f0c888; }
+.status.ready .dot { background-color: var(--eywa-teal); }
+a, a:visited, .open, .eywa-expand { color: var(--eywa-ice); }
+a:hover, .open:hover, .eywa-expand:hover { color: var(--eywa-teal); }
+.output, pre.output, .tests, .hint, .hint.show {
+  color: var(--eywa-text);
+  background-color: var(--eywa-panel) !important;
+  border-color: var(--eywa-line) !important;
+}
+.output, pre.output, .tests { box-shadow: inset 0 1px 0 rgba(175, 212, 242, .025); }
+.output pre, .tests pre { color: inherit; }
+.ok, .success, .output.ok, .output.success, #output.success {
+  color: #95edc5 !important;
+}
+.fail, .error, .output.bad, .output.fail, #output.error {
+  color: var(--eywa-error) !important;
+}
+.hint { border-left-color: var(--eywa-teal) !important; }
+textarea {
+  background: var(--eywa-code) !important;
+  color: var(--eywa-text) !important;
+  border: 1px solid var(--eywa-line) !important;
+}
+textarea:focus {
+  border-color: var(--eywa-ice) !important;
+  box-shadow: 0 0 0 2px rgba(118, 217, 248, .2) !important;
+}
+button, .toolbar button, .actions button, .actions button:not(.run) {
+  color: var(--eywa-text);
+  background: var(--eywa-panel-high);
+  border: 1px solid var(--eywa-line);
+  box-shadow: none;
+  transition: background .18s ease, border-color .18s ease, color .18s ease;
+}
+button:hover:not(:disabled), .toolbar button:hover:not(:disabled),
+.actions button:hover:not(:disabled) {
+  border-color: var(--eywa-ice);
+  background: #20425b;
+}
+button.primary, .toolbar button.primary, .actions button.primary,
+.actions button.run, #run {
+  background: #227da3;
+  border-color: #348eaf;
+  color: #f5fcff;
+}
+button.primary:hover:not(:disabled), .toolbar button.primary:hover:not(:disabled),
+.actions button.run:hover:not(:disabled), #run:hover:not(:disabled) {
+  background: #329abc;
+  border-color: var(--eywa-ice);
+  color: #fff;
+}
+button:focus-visible, a:focus-visible {
+  outline: 2px solid var(--eywa-ice);
+  outline-offset: 3px;
+}
+button:disabled { opacity: .5; }
+.CodeMirror {
+  box-shadow: 0 7px 22px rgba(0, 6, 18, .15);
+}
+.CodeMirror-focused {
+  border-color: var(--eywa-ice);
+  box-shadow: 0 0 0 2px rgba(118, 217, 248, .16);
+}
+/* Keep horizontal code scrolling in both the editor and plain textarea fallback. */
+.CodeMirror-lines .CodeMirror-line { white-space: pre; }
+textarea[wrap="off"] { white-space: pre; overflow-x: auto; overflow-y: auto; }
+/* Let long code scroll inside its own panel; never stretch iframe or page. */
+.cols > .area, .body > div, .layout > div { min-width: 0; }
+@media (prefers-reduced-motion: reduce) {
+  button, .toolbar button { transition: none; }
+}
