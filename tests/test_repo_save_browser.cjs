@@ -13,25 +13,38 @@ function setup(getResponse) {
  const elements=[];
  const calls=[];
  let currentCode="print('stale')";
- let currentOfficial=null, prompted=0;
+ let currentOfficial=null, modalCount=0, dialog=null;
  const actions={
   elements:[],
   appendChild(el){this.elements.push(el);},
   after(el){this.status=el;}
  };
  const document={
+  body:{appendChild(el){dialog=el;modalCount++;}},
   createElement(name){
-   const el={tag:name,textContent:"",className:"",disabled:false,title:"",
+   const el={tag:name,textContent:"",className:"",disabled:false,title:"",open:false,children:[],
      classList:{toggle(){}},setAttribute(){},
+     appendChild(child){this.children.push(child);},
+     append(...children){this.children.push(...children);},
+     focus(){},remove(){},showModal(){this.open=true;},
+     close(){this.open=false;},
      addEventListener(event,cb){this[event]=cb;}};
    elements.push(el);
    return el;
   }
  };
- const window={
-  confirm(){return true;},
-  prompt(){prompted++;return "private-example-password";}
- };
+ const window={confirm(){return true;}};
+ async function submitPassword(save,secret="private-example-password"){
+   const pending=save.click();
+   assert(dialog && dialog.tag==="dialog","Debe pedir una contraseña en un diálogo");
+   const form=dialog.children[0];
+   const input=form.children[1].children[0];
+   assert.equal(input.type,"password","La contraseña debe permanecer oculta");
+   input.value=secret;
+   form.submit({preventDefault(){}});
+   await pending;
+   assert.equal(input.value,"","La contraseña debe borrarse tras el guardado");
+ }
  const fetch=async (url,opts={})=>{
    const res=await getResponse(String(url),opts);
    calls.push({url:String(url),opts, response:res});
@@ -47,7 +60,7 @@ function setup(getResponse) {
   onOfficial:code=>{currentOfficial=code}
  });
  return {app,window,actions,calls,getCode:()=>currentCode,setCode:code=>{currentCode=code},
-   getOfficial:()=>currentOfficial,getPrompted:()=>prompted};
+   getOfficial:()=>currentOfficial,getModalCount:()=>modalCount,submitPassword};
 }
 const tick=()=>new Promise(resolve=>setImmediate(resolve));
 const oldSha="a".repeat(40),newSha="b".repeat(40);
@@ -77,16 +90,16 @@ const ok=async (url,opts)=>{
  assert.equal(x.getOfficial(),"print('repo original')");
  assert.equal(save.disabled,false);
  assert.equal(x.calls.length,1);
- assert.equal(x.getPrompted(),0);
+ assert.equal(x.getModalCount(),0);
  x.setCode("print('my change')");
- await save.click();
+ await x.submitPassword(save);
  assert.equal(x.calls.length,2);
- assert.equal(x.getPrompted(),1);
+ assert.equal(x.getModalCount(),1);
  assert.equal(x.app.getSha(),newSha);
  assert.equal(x.getOfficial(),"print('my change')");
  assert.equal(x.actions.status.textContent.includes("Guardado"),true);
  await save.click();
- assert.equal(x.getPrompted(),1,"No solicita contraseña cuando no hubo cambios");
+ assert.equal(x.getModalCount(),1,"No solicita contraseña cuando no hubo cambios");
  x.setCode("draft");
  x.app.restore();
  assert.equal(x.getCode(),"print('my change')");
@@ -104,7 +117,7 @@ const ok=async (url,opts)=>{
    : {status:401,body:{error:"Contraseña incorrecta."}});
  await tick();await tick();
  bad.setCode("unsaved draft");
- await bad.actions.elements[0].click();
+ await bad.submitPassword(bad.actions.elements[0]);
  assert.equal(bad.getCode(),"unsaved draft");
  assert.equal(bad.getOfficial(),"official");
  assert(bad.actions.status.textContent.includes("No se guardó"));
@@ -114,7 +127,7 @@ const ok=async (url,opts)=>{
    : {status:409,body:{error:"Conflicto al guardar."}});
  await tick();await tick();
  conflict.setCode("my draft");
- await conflict.actions.elements[0].click();
+ await conflict.submitPassword(conflict.actions.elements[0]);
  assert.equal(conflict.getCode(),"my draft");
  assert.equal(conflict.app.getSha(),oldSha);
  assert(conflict.actions.status.textContent.includes("Conflicto"));
