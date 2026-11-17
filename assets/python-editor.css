@@ -1,15 +1,15 @@
 /* EYWA: syntax highlighting inspired by VS Code Dark+ */
-.CodeMirror,.CodeMirror-scroll{background:#1e1e1e!important;color:#d4d4d4!important}
-.CodeMirror{height:100%;min-height:190px;max-width:100%;border:1px solid #30363d;border-radius:11px;font:13px/1.55 "SFMono-Regular",Consolas,"Liberation Mono",monospace;text-align:left;direction:ltr}
+.CodeMirror,.CodeMirror-scroll{background:#0b1829!important;color:#e6f0fa!important}
+.CodeMirror{height:100%;min-height:190px;max-width:100%;border:1px solid #294660;border-radius:11px;font:13px/1.55 "SFMono-Regular",Consolas,"Liberation Mono",monospace;text-align:left;direction:ltr}
 .CodeMirror pre{font-family:inherit;line-height:inherit}
-.CodeMirror-gutters{background:#1e1e1e;border-right:1px solid #303030}
-.CodeMirror-linenumber{color:#858585}
-.CodeMirror-cursor{border-left:1px solid #aeafad}
+.CodeMirror-gutters{background:#091624;border-right:1px solid #294660}
+.CodeMirror-linenumber{color:#8ca4ba}
+.CodeMirror-cursor{border-left:1px solid #e0edf8}
 .CodeMirror-selected{background:#264f78!important}
 .CodeMirror-focused .CodeMirror-selected{background:#264f78!important}
-.CodeMirror-activeline-background{background:#272727}
+.CodeMirror-activeline-background{background:#152c43}
 .CodeMirror-matchingbracket{color:#ffd700!important;border-bottom:1px solid #ffd700}
-.CodeMirror .cm-comment{color:#6a9955;font-style:italic}
+.CodeMirror .cm-comment{color:#8dd09b;font-style:italic}
 .CodeMirror .cm-keyword{color:#c586c0}
 .CodeMirror .cm-builtin{color:#4ec9b0}
 .CodeMirror .cm-def{color:#dcdcaa}
@@ -25,7 +25,7 @@
 .CodeMirror .cm-error{color:#f48771}
 .CodeMirror-lines{padding:10px 5px}
 .CodeMirror-line{padding:0 4px}
-.CodeMirror-vscrollbar,.CodeMirror-hscrollbar{scrollbar-color:#555 #1e1e1e}
+.CodeMirror-vscrollbar,.CodeMirror-hscrollbar{scrollbar-color:#45617e #0b1829}
 @media(max-width:690px){
  .CodeMirror{font-size:12px;line-height:1.6;min-height:190px}
  .CodeMirror-lines{padding:9px 0}
