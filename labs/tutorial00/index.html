@@ -21,7 +21,7 @@ h1{margin:3px 0 2px;color:#f2f8ff;font-size:17px;letter-spacing:-.03em}
 textarea{width:100%;height:350px;display:block;white-space:pre;overflow:auto;border:1px solid #294660;border-radius:12px;padding:13px;background:#0b1829;color:#e6f0fa;font:12px/1.55 Consolas,monospace;resize:vertical}
 .CodeMirror{border-radius:11px}
 .visual{height:316px;overflow:auto;background:#fdfdfd;border:1px solid #294660;border-radius:12px;display:flex;align-items:center;justify-content:center;padding:16px}
-.visual img{max-width:none;max-height:none;width:auto;height:auto;object-fit:contain;display:block}
+.visual img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;display:block}
 .visual-empty{color:#3c5465;font:12px system-ui;text-align:center}
 .source-note{font:10px/1.4 system-ui;color:#adc2d4;margin:8px 0 10px}
 .console{height:78px;max-height:160px;overflow:auto;white-space:pre-wrap;word-break:break-word;background:#11273e;color:#e6f0fa;padding:10px 12px;border:1px solid #294660;border-radius:10px;font:11px/1.5 Consolas,monospace;margin:0}
@@ -92,7 +92,7 @@ function makeEditor(){
    "Cmd-Enter"(){execute()}
   }
  });
- editor.setSize("100%","355px");
+ editor.setSize("100%",window.innerWidth<750?"260px":"355px");
 }
 function showSvg(svg,sourceType){
  if(!svg||!svg.includes("<svg"))throw new Error("La salida de Graphviz no contiene SVG.");
