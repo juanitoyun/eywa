@@ -7,7 +7,7 @@ import subprocess
 import unittest
 
 ROOT = Path(__file__).resolve().parents[1]
-LABS = ("labs/test.html", "labs/snippet.html", "labs/chapter.html")
+LABS = ("labs/test.html", "labs/snippet.html", "labs/chapter.html", "labs/binary-search.html")
 
 
 def python_visual_runner():
@@ -27,20 +27,36 @@ def run_visible(source):
 
 
 class TestOptionalVisualPanel(unittest.TestCase):
-    def test_existing_labs_opt_in_only(self):
+    def test_existing_labs_visual_available_by_default(self):
         for path in LABS:
             with self.subTest(path=path):
                 html = (ROOT / path).read_text(encoding="utf8")
                 self.assertIn("../assets/eywa-visual-panel.css", html)
                 self.assertIn("../assets/eywa-visual-panel.js", html)
-                self.assertIn('class="eywa-visual-details" id="visual-details" hidden', html)
+                self.assertIn('class="eywa-visual-details" id="visual-details"', html)
+                self.assertNotIn('id="visual-details" hidden', html)
+                self.assertNotIn('id="visual-details" open', html)
                 self.assertIn('get("visual")', html)
+                self.assertIn('!=="0"', html.replace(" ", ""))
                 self.assertIn("visualDetails.hidden=", html.replace(" ", ""))
                 self.assertIn("EYWA_RUN_PYTHON_WITH_VISUAL", html)
                 self.assertIn("EYWA_RUN_PYTHON(", html)
                 self.assertIn("visualPanel.clear()", html)
                 self.assertIn("visualPanel.setSvg(", html)
                 self.assertIn("visualPanel.setDot(", html)
+
+    def test_repl_keeps_state_and_explicit_visual(self):
+        html = (ROOT / "labs/repl.html").read_text(encoding="utf8")
+        self.assertIn("../assets/eywa-visual-panel.js", html)
+        self.assertIn("../assets/eywa-visual-panel.css", html)
+        self.assertIn('class="eywa-visual-details" id="visual-details"', html)
+        self.assertIn('get("visual") !== "0"', html)
+        self.assertIn("visualPanel.setSvg(", html)
+        self.assertIn("visualPanel.setDot(", html)
+        self.assertIn("py.runPythonAsync(codeEditor.getValue())", html)
+        self.assertIn("__eywa_dot", html)
+        self.assertIn("__eywa_svg", html)
+        self.assertIn('get("example")==="github-import"', html)
 
     def test_tutorial_visual_starts_closed(self):
         html = (ROOT / "labs/tutorial00/index.html").read_text(encoding="utf8")
