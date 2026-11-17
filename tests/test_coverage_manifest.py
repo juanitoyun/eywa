@@ -4,6 +4,8 @@ from collections import Counter
 import json
 from pathlib import Path
 import re
+import shutil
+import subprocess
 import unittest
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -136,6 +138,15 @@ class TestFullCoverageManifest(unittest.TestCase):
         self.assertIn("- coverage/**", qmd)
         index = (ROOT / "index.qmd").read_text(encoding="utf8")
         self.assertIn("coverage/index.html", index)
+
+    @unittest.skipUnless(shutil.which("node"), "Node.js no disponible")
+    def test_dashboard_javascript_syntax(self):
+        html = (COVERAGE / "index.html").read_text(encoding="utf8")
+        scripts = re.findall(r"<script[^>]*>(.*?)</script>", html, flags=re.DOTALL)
+        self.assertEqual(len(scripts), 1)
+        result = subprocess.run(["node", "--check"], input=scripts[0],
+                                capture_output=True, text=True)
+        self.assertEqual(result.returncode, 0, result.stderr)
 
     def test_builder_parses_and_never_embeds_notebook_source(self):
         script = (COVERAGE / "build_manifest.py").read_text(encoding="utf8")
