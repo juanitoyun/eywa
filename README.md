@@ -226,3 +226,18 @@ El editor estándar puede abrir una subventana **Visualización** manual, sin al
 Ejemplo de plantilla: `https://juanitoyun.github.io/eywa/labs/test.html`.
 
 Para generar un dibujo, el código visible puede asignar `__eywa_dot = 'digraph { A -> B }'` o `__eywa_svg = '<svg ...></svg>'`. El resultado queda preparado, pero la subventana no se abre automáticamente. Detalles en [templates/README.md](templates/README.md).
+
+## Guardar cambios oficiales desde una slide
+
+El editor de los **56 ejemplos principales** (capítulo 00: 19; capítulo 01: 28; capítulos 02–10: 9) incluye controles compartidos:
+
+- **Actualizar oficial**: recupera el código más reciente desde GitHub a través del Worker, sin sobrescribir modificaciones del usuario.
+- **Guardar en GitHub**: confirma la publicación, solicita una contraseña compartida y crea un commit oficial, visible para todo el mundo cuando GitHub Pages se actualice.
+- **Restablecer**: recupera el último código oficial sincronizado.
+- **Historial Git**: abre los commits previos para revisión y recuperación.
+
+**Worker público:** `https://eywa-editor-api.juan-reyes-marchant.workers.dev`. La lectura `GET /source?kind=chapter&id=10` es pública, pero `POST /save` exige una contraseña y el Worker aplica una lista cerrada de archivos editables. El cliente `assets/eywa-repo-save.js` no almacena ni envía la contraseña a GitHub Pages: la transmite por HTTPS al Worker únicamente al publicar. El token GitHub reside exclusivamente en los secretos de Cloudflare, nunca en el repositorio.
+
+El Worker acepta solo tres bancos de código: `assets/intro-snippets.js`, `assets/chapter-labs.js` y `labs/tutorial00/examples.json`. No admite modificar directamente HTML, scripts del sitio, workflows ni otros archivos. Cada guardado comprueba el SHA de GitHub para evitar sobrescribir silenciosamente cambios de otro editor.
+
+**Requisitos operativos y límites:** una contraseña robusta compartida da los mismos permisos a cualquiera que la conozca; para revocar acceso hay que cambiarla en Cloudflare. El límite de intentos local del Worker no es un rate limiter distribuido; conviene configurar el Rate Limiting binding oficial antes de abrir edición a un público amplio. El token de GitHub debe renovarse antes de su fecha de expiración. Los botones de publicación se desactivan si no se logra cargar correctamente el código oficial desde la API. El flujo extremo a extremo contra el Worker desplegado requiere prueba manual; las pruebas CI simulan lecturas, escrituras, conflictos y rechazos sin utilizar secretos.
