@@ -50,3 +50,8 @@ Los 87 bloques de código originales no se han copiado literalmente ni todos se 
 5. Validar carga y lectura en pantallas pequeñas y funcionamiento dentro de Genially.
 
 **Diez presentaciones disponibles no significa diez capítulos totalmente convertidos.** El capítulo 1 es el primero desarrollado a fondo.
+
+### Cambio visual
+
+Las explicaciones de los 28 ejemplos del capítulo 1 están ahora integradas como comentarios `#` en el propio Python (incluyendo notas al lado de líneas clave). Ya no se muestran tarjetas de texto en esas slides. El editor utiliza un tema oscuro similar a VS Code Dark, con colores de sintaxis y compatibilidad móvil.
+
