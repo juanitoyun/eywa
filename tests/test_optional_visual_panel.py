@@ -37,7 +37,7 @@ class TestOptionalVisualPanel(unittest.TestCase):
                 self.assertNotIn('id="visual-details" hidden', html)
                 self.assertNotIn('id="visual-details" open', html)
                 self.assertIn('get("visual")', html)
-                self.assertIn('!== "0"', html)
+                self.assertIn('!=="0"', html.replace(" ", ""))
                 self.assertIn("visualDetails.hidden=", html.replace(" ", ""))
                 self.assertIn("EYWA_RUN_PYTHON_WITH_VISUAL", html)
                 self.assertIn("EYWA_RUN_PYTHON(", html)
