@@ -1,0 +1,23 @@
+/* EYWA / admin publication controls, adapted to the shared Deep Navy palette. */
+.eywa-save-status {
+  display:block;
+  margin:6px 0 2px;
+  padding:0 2px;
+  min-height:13px;
+  color:#8dd09b;
+  font:600 10px/1.45 system-ui,sans-serif;
+}
+.eywa-save-status.is-error { color:#ffadad; }
+a.eywa-save-history {
+  display:inline-flex;
+  color:#76d9f8;
+  text-decoration:none;
+  font:700 11px/1.4 system-ui,sans-serif;
+  white-space:nowrap;
+}
+a.eywa-save-history:hover { text-decoration:underline; }
+.eywa-save-status a:focus-visible,
+a.eywa-save-history:focus-visible {
+  outline:2px solid #76d9f8;
+  outline-offset:3px;
+}
