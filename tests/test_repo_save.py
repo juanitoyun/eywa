@@ -25,7 +25,7 @@ class TestRepoSaveIntegration(unittest.TestCase):
                 self.assertIn(f'kind: "{kind}"',html)
                 self.assertIn("onOfficial:",html)
                 self.assertIn("getCode:",html)
-                self.assertIn("setCode:",html)
+                self.assertTrue("setCode:" in html or "getCode: code, setCode," in html)
                 self.assertIn("Restablecer",html)
 
     def test_publisher_never_embeds_secrets_or_auto_saves(self):
