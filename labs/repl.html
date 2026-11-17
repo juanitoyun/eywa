@@ -45,7 +45,7 @@ print("Restantes:", list(pila))
 # Complejidad: O(1) por append/pop; O(n) al copiar
 assert list(pila) == [2, 4, 6]</textarea>
 <div class="label">Salida</div>
-<pre class="output" id="output" aria-live="polite">Pulsa «Ejecutar» para iniciar Python.</pre>
+<pre class="output" id="output" aria-live="polite"></pre>
 <p class="small">Runtime en navegador · <a href="https://github.com/juanitoyun/eywa" target="_blank" rel="noopener">Repositorio EYWA</a></p>
 <script>
 const editor = document.getElementById("editor");
@@ -71,12 +71,12 @@ async function run(){
   running=true;runBtn.disabled=true;
   try{
     const py=await runtime();
-    output.textContent="Ejecutando…";
+    output.textContent="";
     py.runPython("import sys, io\n__eywa_saved = sys.stdout\nsys.stdout = io.StringIO()");
     let returned;let error=null;
     try{returned=await py.runPythonAsync(codeEditor.getValue());}catch(e){error=e;}
     const printed=py.runPython("__eywa_text = sys.stdout.getvalue()\nsys.stdout = __eywa_saved\n__eywa_text");
-    output.textContent=(printed||"")+(error?"\n"+String(error):(returned!==undefined&&returned!==null?"\n"+String(returned):""))||"✓ Ejecutado sin salida. Usa print(...).";
+    output.textContent=(printed||"")+(error?"\n"+String(error):(returned!==undefined&&returned!==null?"\n"+String(returned):""))||"";
   }catch(e){output.textContent="No fue posible ejecutar Python:\n"+String(e);}
   finally{running=false;runBtn.disabled=false;}
 }
