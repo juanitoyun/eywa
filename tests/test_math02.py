@@ -49,7 +49,7 @@ class TestMath02(unittest.TestCase):
             with self.subTest(cell=c["id"]):
                 if c["status"] == "adaptado":
                     anchor = c["destination"].split("#")[1]
-                    self.assertIn("{#" + anchor + "}", self.qmd)
+                    self.assertRegex(self.qmd, r"\\{[^}]*#" + re.escape(anchor) + r"\\}")
                 else:
                     self.assertTrue(c["exclusion_reason"])
 
