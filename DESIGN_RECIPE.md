@@ -82,9 +82,9 @@ Los resultados visuales se muestran mediante `assets/eywa-visual-panel.js` y `as
 
 - **Contraído por defecto:** el lector abre y cierra «Visualización» manualmente.
 - **Sin apertura automática:** ejecutar Python puede generar SVG y marcar «Imagen disponible», pero no despliega el panel.
-- **Opcional:** añadir `&visual=1` al iframe de cualquier laboratorio de código existente para habilitarlo; sin ese parámetro no aparece.
+- **Universal:** la sección «Visualización» está disponible, colapsada por defecto, en todos los laboratorios: Capítulos 00–10, demo, consola persistente, búsqueda binaria y plantillas para Genially. Solo se dibuja si el código produce SVG o DOT; no se inventa una imagen.
 - **Fuente explícita:** código Python puede asignar `__eywa_svg` (SVG) o `__eywa_dot` (Graphviz DOT). Ningún test adicional se ejecuta de forma oculta.
 - **Ejemplos originales:** el Capítulo 00 genera DOT con `aed-utilities` v0.4.1. El mismo componente lo convierte a SVG en el navegador.
 - **Restablecer:** limpia la imagen y vuelve a colapsar el panel, conservando el editor y la consola.
 
-Para un test numerado interactivo se ofrece `templates/test-slide-visual.qmd` (no se renderiza hasta recibir número y código).
+Los moldes `templates/test-slide.qmd` y `templates/test-slide-visual.qmd` ya utilizan el mismo formato universal. No se renderiza ningún test numerado hasta recibir número y código.
