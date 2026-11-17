@@ -6,7 +6,7 @@
 
 - Quarto / Reveal.js: una presentación independiente de una sola diapositiva por test.
 - GitHub Pages: publicación y enlace permanente.
-- `labs/test.html`: editor Python y consola reutilizables, CodeMirror navy + Pyodide.
+- `labs/test.html`: editor Python y consola reutilizables, CodeMirror navy + Pyodide, con panel SVG/DOT optativo mediante `visual=1`.
 - `labs/tests/test-NNN.py`: archivo Python autónomo por test, creado **solo cuando se solicite**.
 - `slides/tests/test-NNN.qmd`: presentación Quarto independiente, creada en esa misma solicitud.
 
