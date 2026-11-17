@@ -33,19 +33,7 @@ Una lista **ordenada** permite descartar la mitad del espacio de búsqueda en ca
 
 <div class="eywa-kicker">02 / Modelo mental</div>
 
-```{.python}
-def binary_search(xs, target):
-    left, right = 0, len(xs) - 1
-    while left <= right:
-        mid = (left + right) // 2
-        if xs[mid] == target:
-            return mid
-        if xs[mid] < target:
-            left = mid + 1
-        else:
-            right = mid - 1
-    return -1
-```
+<div class="eywa-compact-note">El código completo está en el editor del siguiente apartado. El invariante mantiene la búsqueda dentro del intervalo <code>[left, right]</code> y cada comparación descarta una mitad.</div>
 
 <div class="eywa-steps">
   <div class="eywa-step fragment"><b>01</b> Inspecciona el centro<small>mid = (left + right) // 2</small></div>
@@ -57,11 +45,11 @@ def binary_search(xs, target):
 
 <div class="eywa-kicker">03 / Mini tester</div>
 
-<div class="eywa-lead">Edita la función y pulsa <strong>Ejecutar tests</strong>. Python corre dentro de tu navegador, sin servidor.</div>
+<div class="eywa-lead">Edita y ejecuta Python. La consola reproduce únicamente su salida; la visualización opcional se abre manualmente.</div>
 
-<iframe class="eywa-frame" src="labs/binary-search.html" title="Mini tester Python: búsqueda binaria" loading="eager" allow="clipboard-write"></iframe>
+<iframe class="eywa-frame" src="labs/binary-search.html?visual=1" title="Mini tester Python: búsqueda binaria" loading="eager" allow="clipboard-write"></iframe>
 
-<div class="eywa-slide-link"><a href="labs/binary-search.html" target="_blank" rel="noopener noreferrer">Abrir el mini tester por separado ↗</a></div>
+<div class="eywa-slide-link"><a href="labs/binary-search.html?visual=1" target="_blank" rel="noopener noreferrer">Abrir el mini tester por separado ↗</a></div>
 
 ## Una consola. Todos tus módulos.
 
@@ -69,23 +57,11 @@ def binary_search(xs, target):
 
 Utiliza la pestaña flotante **⌘ Consola Python** en la esquina inferior izquierda.
 
-<div class="eywa-code-card">
+<div class="eywa-compact-note">Prueba el importador desde el editor, sin copiar el código desde una diapositiva estática. La descarga utiliza GitHub como origen y Pyodide como intérprete local.</div>
 
-```{.python}
-# Ejemplo: importar un módulo público de GitHub
-from pyodide.http import pyfetch
-import importlib
+<iframe class="eywa-frame eywa-demo-repl" src="labs/repl.html?visual=1&amp;example=github-import" title="Consola Python editable: importar módulo de GitHub" loading="lazy" allow="clipboard-write"></iframe>
 
-url = "https://raw.githubusercontent.com/juanitoyun/eywa/main/eywa/search.py"
-respuesta = await pyfetch(url)
-open("search.py", "wb").write(await respuesta.bytes())
-
-importlib.invalidate_caches()
-from search import binary_search
-print(binary_search([2, 4, 6, 8], 6))
-```
-
-</div>
+<div class="eywa-slide-link"><a href="labs/repl.html?visual=1&amp;example=github-import" target="_blank" rel="noopener noreferrer">Abrir editor independiente ↗</a></div>
 
 <div class="eywa-grid">
   <div class="eywa-card">
@@ -99,3 +75,8 @@ print(binary_search([2, 4, 6, 8], 6))
 </div>
 
 <div class="eywa-slide-link"><a href="labs/repl.html" target="_blank" rel="noopener noreferrer">Abrir consola independiente ↗</a></div>
+
+<style>
+.reveal .eywa-demo-repl{height:535px;max-height:none}
+@media(max-width:960px){.reveal .eywa-demo-repl{height:780px}}
+</style>
