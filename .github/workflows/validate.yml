@@ -36,3 +36,7 @@ jobs:
           test -f _site/labs/tutorial00/index.html
           test -f _site/labs/tutorial00/examples.json
           test -f _site/labs/tutorial00/visualizacion.py
+          test -f _site/coverage/index.html
+          test -f _site/coverage/manifest.json
+          test -f _site/coverage/auxiliary.json
+          test -f _site/coverage/tutorial00.json
