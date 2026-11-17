@@ -1,4 +1,4 @@
-"""Verifica la receta común y las pruebas de los diez mini laboratorios AED."""
+"""Verifica la receta común y que sus asserts visibles sean ejecutables."""
 import contextlib
 import io
 import json
@@ -31,17 +31,17 @@ class TestAnnotatedChapterLabs(unittest.TestCase):
                 self.assertIn("  // ", source)
                 self.assertIn("assert ", source)
                 self.assertEqual(entry["recipeVersion"], "EYWA-CODE/1")
+                self.assertNotIn("cases", entry)
+                self.assertNotIn("tests", entry)
                 compile(source, f"chapter-{chapter}", "exec")
 
-    def test_visible_code_and_test_cases_execute(self):
+    def test_all_visible_asserts_execute(self):
         for chapter, entry in self.labs.items():
             with self.subTest(chapter=chapter):
                 namespace = {"__name__": "__main__"}
                 with contextlib.redirect_stdout(io.StringIO()):
                     exec(compile(entry["code"], f"chapter-{chapter}", "exec"), namespace)
-                    func = namespace[entry["functionName"]]
-                    for case in entry["cases"]:
-                        self.assertEqual(func(*case["args"]), case["expected"])
+
 
 
 if __name__ == "__main__":
