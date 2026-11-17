@@ -1,0 +1,71 @@
+/* EYWA / optional visual output for any Python lab.
+   Closed by default. The white canvas only exists in the expanded section. */
+.eywa-visual-details{
+  min-width:0;
+  margin-top:12px;
+  padding:0;
+  color:#e6f0fa;
+  background:#10243a;
+  border:1px solid #294660;
+  border-radius:12px;
+  overflow:hidden;
+}
+.eywa-visual-details[hidden]{display:none!important}
+.eywa-visual-details>summary{
+  list-style:none;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  cursor:pointer;
+  user-select:none;
+  padding:11px 13px;
+  color:#76d9f8;
+  font:750 11px/1.4 system-ui,sans-serif;
+}
+.eywa-visual-details>summary::-webkit-details-marker{display:none}
+.eywa-visual-details>summary::before{
+  content:"▸";
+  color:#76d9f8;
+  font-size:13px;
+  display:inline-block;
+  transition:transform .15s ease;
+}
+.eywa-visual-details[open]>summary::before{transform:rotate(90deg)}
+.eywa-visual-details>summary:focus-visible{
+  outline:2px solid #76d9f8;
+  outline-offset:-3px;
+}
+.eywa-visual-details[open]>summary{
+  border-bottom:1px solid #294660;
+}
+.eywa-visual-ready{
+  margin-left:auto;
+  color:#72e1c6;
+  font:650 10px/1.4 system-ui,sans-serif;
+}
+.eywa-visual-canvas{
+  width:100%;
+  min-height:250px;
+  height:330px;
+  max-height:62vh;
+  overflow:auto;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:#fff !important;
+  padding:16px;
+}
+.eywa-visual-canvas img{
+  display:block;
+  max-width:100%;
+  max-height:100%;
+  width:auto;
+  height:auto;
+  object-fit:contain;
+}
+@media(max-width:750px){
+  .eywa-visual-canvas{height:270px;min-height:200px}
+}
+@media(prefers-reduced-motion:reduce){
+  .eywa-visual-details>summary::before{transition:none}
+}
