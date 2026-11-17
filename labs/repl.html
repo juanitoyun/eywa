@@ -105,7 +105,7 @@ async function run(){
   finally{running=false;runBtn.disabled=false;}
 }
 runBtn.addEventListener("click",run);
-document.getElementById("example").addEventListener("click",()=>{
+function showGitHubExample(){
  codeEditor.setValue([
   "from pyodide.http import pyfetch",
   "import importlib",
@@ -119,7 +119,9 @@ document.getElementById("example").addEventListener("click",()=>{
   "print(binary_search([2, 4, 6, 8], 6))"
  ].join("\n"));
  codeEditor.focus();
-});
+}
+document.getElementById("example").addEventListener("click",showGitHubExample);
+if(new URLSearchParams(location.search).get("example")==="github-import")showGitHubExample();
 document.getElementById("clear").addEventListener("click",()=>{output.textContent="";if(visualPanel)visualPanel.clear();});
 document.getElementById("reset").addEventListener("click",()=>{location.reload();});
 </script>
