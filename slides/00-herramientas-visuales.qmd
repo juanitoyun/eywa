@@ -19,7 +19,7 @@ format:
   <div class="eywa-card"><div class="eywa-number">11 / ÁRBOLES</div><h3>Nodos y NULL</h3><p>Formas, centinelas y árboles de expresión.</p></div>
 </div>
 
-<div class="eywa-compact-note">En cada slide, el SVG inicial es la salida original del notebook. «Ejecutar y dibujar» intenta regenerarlo directamente en tu navegador usando aed-utilities v0.4.1 + Graphviz WASM; no requiere un kernel Jupyter remoto. La primera ejecución necesita Internet para cargar Python y Graphviz.</div>
+<div class="eywa-compact-note">El lienzo empieza completamente blanco. Pulsa «Ejecutar y dibujar» para generar el SVG en tu navegador con aed-utilities v0.4.1 + Graphviz WASM; no requiere un servidor Jupyter. La primera ejecución necesita Internet para cargar Python y Graphviz.</div>
 
 ## Arreglo 1D · fila
 
@@ -180,7 +180,7 @@ format:
 - **Python**: código original de las celdas del tutorial, con la preparación necesaria para ejecutar cada ejemplo independientemente.
 - **Dibujador**: clases originales `NumpyArrayDrawer`, `LinkedListDrawer` y `BinaryTreeDrawer`, procedentes de `aed-utilities v0.4.1`.
 - **Graphviz**: los métodos originales producen DOT; únicamente el renderizador se redirige a WebAssembly en el navegador.
-- **Referencia inmediata**: imágenes SVG originales del notebook, visibles incluso antes de cargar Pyodide.
+- **Salida bajo demanda**: el panel permanece blanco hasta pulsar «Ejecutar y dibujar». «Restablecer» vuelve a dejarlo vacío.
 
 <div class="eywa-chapter-nav"><a href="../index.html">← Volver al índice AED</a><a href="01-introduccion.html">Capítulo 01 →</a></div>
 
