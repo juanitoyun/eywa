@@ -14,51 +14,51 @@ author: "EYWA · Curso AED"
 
 ## Números y expresiones {.scrollable #c01-01-numeros-y-expresiones}
 
-<iframe class="eywa-snippet-frame" src="../labs/snippet.html?s=1" title="Código Python ejecutable: Números y expresiones" loading="lazy" allow="clipboard-write"></iframe>
+<iframe class="eywa-snippet-frame" src="../labs/snippet.html?s=1&visual=1" title="Código Python ejecutable: Números y expresiones" loading="lazy" allow="clipboard-write"></iframe>
 
 ## Lógica booleana {.scrollable #c01-02-logica-booleana}
 
-<iframe class="eywa-snippet-frame" src="../labs/snippet.html?s=2" title="Código Python ejecutable: Lógica booleana" loading="lazy" allow="clipboard-write"></iframe>
+<iframe class="eywa-snippet-frame" src="../labs/snippet.html?s=2&visual=1" title="Código Python ejecutable: Lógica booleana" loading="lazy" allow="clipboard-write"></iframe>
 
 ## Strings y secuencias {.scrollable #c01-03-strings-y-secuencias}
 
-<iframe class="eywa-snippet-frame" src="../labs/snippet.html?s=3" title="Código Python ejecutable: Strings y secuencias" loading="lazy" allow="clipboard-write"></iframe>
+<iframe class="eywa-snippet-frame" src="../labs/snippet.html?s=3&visual=1" title="Código Python ejecutable: Strings y secuencias" loading="lazy" allow="clipboard-write"></iframe>
 
 ## Listas {.scrollable #c01-04-listas}
 
-<iframe class="eywa-snippet-frame" src="../labs/snippet.html?s=4" title="Código Python ejecutable: Listas" loading="lazy" allow="clipboard-write"></iframe>
+<iframe class="eywa-snippet-frame" src="../labs/snippet.html?s=4&visual=1" title="Código Python ejecutable: Listas" loading="lazy" allow="clipboard-write"></iframe>
 
 ## Funciones incorporadas {.scrollable #c01-05-funciones-incorporadas}
 
-<iframe class="eywa-snippet-frame" src="../labs/snippet.html?s=5" title="Código Python ejecutable: Funciones incorporadas" loading="lazy" allow="clipboard-write"></iframe>
+<iframe class="eywa-snippet-frame" src="../labs/snippet.html?s=5&visual=1" title="Código Python ejecutable: Funciones incorporadas" loading="lazy" allow="clipboard-write"></iframe>
 
 ## Definir funciones {.scrollable #c01-06-definir-funciones}
 
-<iframe class="eywa-snippet-frame" src="../labs/snippet.html?s=6" title="Código Python ejecutable: Definir funciones" loading="lazy" allow="clipboard-write"></iframe>
+<iframe class="eywa-snippet-frame" src="../labs/snippet.html?s=6&visual=1" title="Código Python ejecutable: Definir funciones" loading="lazy" allow="clipboard-write"></iframe>
 
 ## Expresión condicional {.scrollable #c01-07-expresion-condicional}
 
-<iframe class="eywa-snippet-frame" src="../labs/snippet.html?s=7" title="Código Python ejecutable: Expresión condicional" loading="lazy" allow="clipboard-write"></iframe>
+<iframe class="eywa-snippet-frame" src="../labs/snippet.html?s=7&visual=1" title="Código Python ejecutable: Expresión condicional" loading="lazy" allow="clipboard-write"></iframe>
 
 ## Diccionarios {.scrollable #c01-08-diccionarios}
 
-<iframe class="eywa-snippet-frame" src="../labs/snippet.html?s=8" title="Código Python ejecutable: Diccionarios" loading="lazy" allow="clipboard-write"></iframe>
+<iframe class="eywa-snippet-frame" src="../labs/snippet.html?s=8&visual=1" title="Código Python ejecutable: Diccionarios" loading="lazy" allow="clipboard-write"></iframe>
 
 ## Condicional if {.scrollable #c01-09-condicional-if}
 
-<iframe class="eywa-snippet-frame" src="../labs/snippet.html?s=9" title="Código Python ejecutable: Condicional if" loading="lazy" allow="clipboard-write"></iframe>
+<iframe class="eywa-snippet-frame" src="../labs/snippet.html?s=9&visual=1" title="Código Python ejecutable: Condicional if" loading="lazy" allow="clipboard-write"></iframe>
 
 ## Ciclo for {.scrollable #c01-10-ciclo-for}
 
-<iframe class="eywa-snippet-frame" src="../labs/snippet.html?s=10" title="Código Python ejecutable: Ciclo for" loading="lazy" allow="clipboard-write"></iframe>
+<iframe class="eywa-snippet-frame" src="../labs/snippet.html?s=10&visual=1" title="Código Python ejecutable: Ciclo for" loading="lazy" allow="clipboard-write"></iframe>
 
 ## Ciclo while {.scrollable #c01-11-ciclo-while}
 
-<iframe class="eywa-snippet-frame" src="../labs/snippet.html?s=11" title="Código Python ejecutable: Ciclo while" loading="lazy" allow="clipboard-write"></iframe>
+<iframe class="eywa-snippet-frame" src="../labs/snippet.html?s=11&visual=1" title="Código Python ejecutable: Ciclo while" loading="lazy" allow="clipboard-write"></iframe>
 
 ## Invariantes de ciclos {.scrollable #c01-12-invariantes-de-ciclos}
 
-<iframe class="eywa-snippet-frame" src="../labs/snippet.html?s=12" title="Código Python ejecutable: Invariantes de ciclos" loading="lazy" allow="clipboard-write"></iframe>
+<iframe class="eywa-snippet-frame" src="../labs/snippet.html?s=12&visual=1" title="Código Python ejecutable: Invariantes de ciclos" loading="lazy" allow="clipboard-write"></iframe>
 
 ## Anatomía de un invariante
 
@@ -74,39 +74,39 @@ author: "EYWA · Curso AED"
 
 ## Particionar por pivote {.scrollable #c01-13-particionar-por-pivote}
 
-<iframe class="eywa-snippet-frame" src="../labs/snippet.html?s=13" title="Código Python ejecutable: Particionar por pivote" loading="lazy" allow="clipboard-write"></iframe>
+<iframe class="eywa-snippet-frame" src="../labs/snippet.html?s=13&visual=1" title="Código Python ejecutable: Particionar por pivote" loading="lazy" allow="clipboard-write"></iframe>
 
 ## Potencia por multiplicaciones {.scrollable #c01-14-potencia-por-multiplicaciones}
 
-<iframe class="eywa-snippet-frame" src="../labs/snippet.html?s=14" title="Código Python ejecutable: Potencia por multiplicaciones" loading="lazy" allow="clipboard-write"></iframe>
+<iframe class="eywa-snippet-frame" src="../labs/snippet.html?s=14&visual=1" title="Código Python ejecutable: Potencia por multiplicaciones" loading="lazy" allow="clipboard-write"></iframe>
 
 ## Exponenciación binaria {.scrollable #c01-15-exponenciacion-binaria}
 
-<iframe class="eywa-snippet-frame" src="../labs/snippet.html?s=15" title="Código Python ejecutable: Exponenciación binaria" loading="lazy" allow="clipboard-write"></iframe>
+<iframe class="eywa-snippet-frame" src="../labs/snippet.html?s=15&visual=1" title="Código Python ejecutable: Exponenciación binaria" loading="lazy" allow="clipboard-write"></iframe>
 
 ## Exponentes y representación binaria {.scrollable #c01-16-exponentes-y-representacion-binaria}
 
-<iframe class="eywa-snippet-frame" src="../labs/snippet.html?s=16" title="Código Python ejecutable: Exponentes y representación binaria" loading="lazy" allow="clipboard-write"></iframe>
+<iframe class="eywa-snippet-frame" src="../labs/snippet.html?s=16&visual=1" title="Código Python ejecutable: Exponentes y representación binaria" loading="lazy" allow="clipboard-write"></iframe>
 
 ## Evaluar polinomios: Horner {.scrollable #c01-17-evaluar-polinomios-horner}
 
-<iframe class="eywa-snippet-frame" src="../labs/snippet.html?s=17" title="Código Python ejecutable: Evaluar polinomios: Horner" loading="lazy" allow="clipboard-write"></iframe>
+<iframe class="eywa-snippet-frame" src="../labs/snippet.html?s=17&visual=1" title="Código Python ejecutable: Evaluar polinomios: Horner" loading="lazy" allow="clipboard-write"></iframe>
 
 ## Arreglos NumPy {.scrollable #c01-18-arreglos-numpy}
 
-<iframe class="eywa-snippet-frame" src="../labs/snippet.html?s=18" title="Código Python ejecutable: Arreglos NumPy" loading="lazy" allow="clipboard-write"></iframe>
+<iframe class="eywa-snippet-frame" src="../labs/snippet.html?s=18&visual=1" title="Código Python ejecutable: Arreglos NumPy" loading="lazy" allow="clipboard-write"></iframe>
 
 ## Ordenación por inserción {.scrollable #c01-19-ordenacion-por-insercion}
 
-<iframe class="eywa-snippet-frame" src="../labs/snippet.html?s=19" title="Código Python ejecutable: Ordenación por inserción" loading="lazy" allow="clipboard-write"></iframe>
+<iframe class="eywa-snippet-frame" src="../labs/snippet.html?s=19&visual=1" title="Código Python ejecutable: Ordenación por inserción" loading="lazy" allow="clipboard-write"></iframe>
 
 ## Ordenación por selección {.scrollable #c01-20-ordenacion-por-seleccion}
 
-<iframe class="eywa-snippet-frame" src="../labs/snippet.html?s=20" title="Código Python ejecutable: Ordenación por selección" loading="lazy" allow="clipboard-write"></iframe>
+<iframe class="eywa-snippet-frame" src="../labs/snippet.html?s=20&visual=1" title="Código Python ejecutable: Ordenación por selección" loading="lazy" allow="clipboard-write"></iframe>
 
 ## Ordenación burbuja {.scrollable #c01-21-ordenacion-burbuja}
 
-<iframe class="eywa-snippet-frame" src="../labs/snippet.html?s=21" title="Código Python ejecutable: Ordenación burbuja" loading="lazy" allow="clipboard-write"></iframe>
+<iframe class="eywa-snippet-frame" src="../labs/snippet.html?s=21&visual=1" title="Código Python ejecutable: Ordenación burbuja" loading="lazy" allow="clipboard-write"></iframe>
 
 ## Comparación de ordenamientos
 
@@ -122,31 +122,31 @@ author: "EYWA · Curso AED"
 
 ## Recursividad y caso base {.scrollable #c01-22-recursividad-y-caso-base}
 
-<iframe class="eywa-snippet-frame" src="../labs/snippet.html?s=22" title="Código Python ejecutable: Recursividad y caso base" loading="lazy" allow="clipboard-write"></iframe>
+<iframe class="eywa-snippet-frame" src="../labs/snippet.html?s=22&visual=1" title="Código Python ejecutable: Recursividad y caso base" loading="lazy" allow="clipboard-write"></iframe>
 
 ## Potencia recursiva {.scrollable #c01-23-potencia-recursiva}
 
-<iframe class="eywa-snippet-frame" src="../labs/snippet.html?s=23" title="Código Python ejecutable: Potencia recursiva" loading="lazy" allow="clipboard-write"></iframe>
+<iframe class="eywa-snippet-frame" src="../labs/snippet.html?s=23&visual=1" title="Código Python ejecutable: Potencia recursiva" loading="lazy" allow="clipboard-write"></iframe>
 
 ## Iteración vs. recursión {.scrollable #c01-24-iteracion-vs-recursion}
 
-<iframe class="eywa-snippet-frame" src="../labs/snippet.html?s=24" title="Código Python ejecutable: Iteración vs. recursión" loading="lazy" allow="clipboard-write"></iframe>
+<iframe class="eywa-snippet-frame" src="../labs/snippet.html?s=24&visual=1" title="Código Python ejecutable: Iteración vs. recursión" loading="lazy" allow="clipboard-write"></iframe>
 
 ## Torres de Hanoi {.scrollable #c01-25-torres-de-hanoi}
 
-<iframe class="eywa-snippet-frame" src="../labs/snippet.html?s=25" title="Código Python ejecutable: Torres de Hanoi" loading="lazy" allow="clipboard-write"></iframe>
+<iframe class="eywa-snippet-frame" src="../labs/snippet.html?s=25&visual=1" title="Código Python ejecutable: Torres de Hanoi" loading="lazy" allow="clipboard-write"></iframe>
 
 ## Diagramas de estado {.scrollable #c01-26-diagramas-de-estado}
 
-<iframe class="eywa-snippet-frame" src="../labs/snippet.html?s=26" title="Código Python ejecutable: Diagramas de estado" loading="lazy" allow="clipboard-write"></iframe>
+<iframe class="eywa-snippet-frame" src="../labs/snippet.html?s=26&visual=1" title="Código Python ejecutable: Diagramas de estado" loading="lazy" allow="clipboard-write"></iframe>
 
 ## Contar palabras {.scrollable #c01-27-contar-palabras}
 
-<iframe class="eywa-snippet-frame" src="../labs/snippet.html?s=27" title="Código Python ejecutable: Contar palabras" loading="lazy" allow="clipboard-write"></iframe>
+<iframe class="eywa-snippet-frame" src="../labs/snippet.html?s=27&visual=1" title="Código Python ejecutable: Contar palabras" loading="lazy" allow="clipboard-write"></iframe>
 
 ## Síntesis del capítulo {.scrollable #c01-28-sintesis-del-capitulo}
 
-<iframe class="eywa-snippet-frame" src="../labs/snippet.html?s=28" title="Código Python ejecutable: Síntesis del capítulo" loading="lazy" allow="clipboard-write"></iframe>
+<iframe class="eywa-snippet-frame" src="../labs/snippet.html?s=28&visual=1" title="Código Python ejecutable: Síntesis del capítulo" loading="lazy" allow="clipboard-write"></iframe>
 
 ## Checklist de dominio
 
