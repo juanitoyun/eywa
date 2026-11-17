@@ -28,23 +28,7 @@ author: "EYWA · Algoritmos y Estructuras de Datos"
 
 ## Código en Python
 
-<div class="eywa-kicker">IMPLEMENTACIÓN DE REFERENCIA · EDITABLE EN EL LAB</div>
-
-```python
-from collections import deque
-from heapq import heappush, heappop
-
-stack = []
-stack.append(8)
-print(stack.pop())
-
-queue = deque([2, 4])
-print(queue.popleft())
-
-pq = []
-heappush(pq, (1, "urgente"))
-print(heappop(pq))
-```
+<iframe class="eywa-frame eywa-lesson-frame" src="../labs/chapter.html?c=05" title="Editor Python anotado, capítulo 05" loading="lazy" allow="clipboard-write"></iframe>
 
 ## Complejidad y decisiones
 
@@ -55,16 +39,6 @@ print(heappop(pq))
 | Pila: append / pop al final | **O(1) amortizado** | Lista de Python. |
 | Cola: append / popleft | **O(1)** | collections.deque. |
 | Heap: push / pop | **O(log n)** | heapq, mínima prioridad primero. |
-
-## Laboratorio Python
-
-<div class="eywa-kicker">PRÁCTICA · CAPÍTULO 05</div>
-
-<div class="eywa-lead">Usa una pila para reconocer paréntesis balanceados.</div>
-
-<iframe class="eywa-frame eywa-lesson-frame" src="../labs/chapter.html?c=05" title="Ejercicio interactivo de Pilas, colas y prioridad" loading="lazy"></iframe>
-
-<div class="eywa-slide-link"><a href="../labs/chapter.html?c=05" target="_blank" rel="noopener noreferrer">Abrir ejercicio aislado ↗</a></div>
 
 ## Comprobación de aprendizaje
 
