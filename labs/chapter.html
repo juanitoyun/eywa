@@ -12,12 +12,14 @@
 </style>
 <link rel="stylesheet" href="../assets/eywa-dark.css">
 <link rel="stylesheet" href="../assets/eywa-visual-panel.css">
+<link rel="stylesheet" href="../assets/eywa-repo-save.css">
 <script src="../assets/chapter-labs.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.21/lib/codemirror.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.21/mode/python/python.js"></script>
 <script src="../assets/python-editor.js"></script>
 <script src="../assets/python-console.js"></script>
 <script src="../assets/eywa-visual-panel.js"></script>
+<script src="../assets/eywa-repo-save.js"></script>
 <script src="https://cdn.jsdelivr.net/pyodide/v314.0.8/full/pyodide.js"></script>
 </head>
 <body>
@@ -59,6 +61,13 @@
  const codeEditor = window.EYWA_EDITOR?.create(el("editor"), {
    height: "320px", label: "Python AED", run: () => execute()
  }) || { getValue: () => el("editor").value, setValue: value => {el("editor").value = value;} };
+
+ const repoSave = window.EYWA_REPO_SAVE.configure({
+   kind: "chapter", id, actions: document.querySelector(".actions"),
+   getCode: () => codeEditor.getValue(),
+   setCode: value => codeEditor.setValue(value),
+   onOfficial: value => { lesson.code = value; }
+ });
 
  async function python() {
    if (!runPromise) {
