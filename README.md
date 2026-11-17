@@ -193,3 +193,13 @@ Todos los laboratorios ejecutan exclusivamente el código que se ve en el editor
 - Un `assert` falso u otro fallo muestra su traza de error Python.
 
 No hay contadores, «Test 1» ni evaluaciones adicionales. Los tests de GitHub Actions verifican el propio proyecto, no agregan comprobaciones a los ejercicios del navegador.
+
+## Plantilla para tests independientes de Genially
+
+Preparada una plantilla sin tests numerados: [ver instrucciones](templates/README.md).
+
+- Vista previa del editor vacío: `https://juanitoyun.github.io/eywa/labs/test.html` (muestra solo `# Test`).
+- Cuando se solicite expresamente un número y un código, se crearán dos archivos: `labs/tests/test-NNN.py` y `slides/tests/test-NNN.qmd`.
+- Cada test tendrá una URL Quarto y otra URL directa para iframe de Genially, sin duplicar el motor Python.
+- El código es modificable, se ejecuta mediante Pyodide y la consola muestra exclusivamente `print()` o errores. Sin tests ocultos.
+- No se crean archivos numerados antes de recibir la instrucción.
