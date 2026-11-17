@@ -1,79 +1,483 @@
 ---
 title: "01 / Introducción"
-subtitle: "Python · invariantes · recursividad"
-author: "EYWA · Algoritmos y Estructuras de Datos"
+subtitle: "Python · Invariantes · Recursividad"
+author: "EYWA · Curso AED"
 ---
 
-## Mapa esencial
+## Qué dominarás en este capítulo
 
-<div class="eywa-kicker">AED / CAPÍTULO 01</div>
+<div class="eywa-kicker">CAPÍTULO 01 · VISIÓN GENERAL</div>
 
-<div class="eywa-course-grid">
-<div class="eywa-card"><div class="eywa-number">01</div><h3>Tipos y expresiones</h3><p>Números, booleanos, strings, listas y diccionarios.</p></div>
-<div class="eywa-card"><div class="eywa-number">02</div><h3>Control de flujo</h3><p>Condicionales, ciclos y funciones.</p></div>
-<div class="eywa-card"><div class="eywa-number">03</div><h3>Correctitud</h3><p>Invariantes, recursión y razonamiento local.</p></div>
-</div>
-
-## Idea que debes retener
-
-<div class="eywa-kicker">CONCEPTO</div>
-
-<div class="eywa-declaration">Un algoritmo no es solo código que funciona: debe terminar y entregar el resultado correcto para todas las entradas permitidas.</div>
+<div class="eywa-declaration">Aprender a escribir algoritmos correctos, explicar por qué funcionan y reconocer cuándo son eficientes.</div>
 
 <div class="eywa-course-grid">
-<div class="eywa-card"><div class="eywa-number">01</div><p>Antes del ciclo: la propiedad invariante es verdadera.</p></div>
-<div class="eywa-card"><div class="eywa-number">02</div><p>Durante el ciclo: cada iteración conserva la propiedad.</p></div>
-<div class="eywa-card"><div class="eywa-number">03</div><p>Al salir: el invariante y la condición de término prueban el resultado.</p></div>
+ <div class="eywa-card"><div class="eywa-number">01</div><h3>Fundamentos Python</h3><p>Tipos, expresiones, colecciones, funciones y control de flujo.</p></div>
+ <div class="eywa-card"><div class="eywa-number">02</div><h3>Correctitud</h3><p>Invariantes, condiciones de término y estado del algoritmo.</p></div>
+ <div class="eywa-card"><div class="eywa-number">03</div><h3>Diseño</h3><p>Potencias, polinomios, ordenamientos y recursión.</p></div>
 </div>
 
-## Código en Python
+<div class="eywa-compact-note">Desliza para avanzar. En celular, Quarto activa la vista de desplazamiento vertical. Cada bloque Python es editable y ejecutable.</div>
 
-<div class="eywa-kicker">IMPLEMENTACIÓN DE REFERENCIA · EDITABLE EN EL LAB</div>
+## Números y expresiones {.scrollable #c01-01-numeros-y-expresiones}
 
-```python
-def power(x, n):
-    resultado = 1
-    while n > 0:
-        if n % 2 == 1:
-            resultado *= x
-        x *= x
-        n //= 2
-    return resultado
+<div class="eywa-kicker">TIPOS · 01 / 28</div>
 
-print(power(3, 5))  # 243
-```
+<div class="eywa-concept">int representa enteros; float, números en coma flotante. Las operaciones producen resultados según sus operandos.</div>
 
-## Complejidad y decisiones
+<div class="eywa-compact-points">
+<div><span>•</span> / produce división real; // división entera hacia abajo.</div>
+<div><span>•</span> ** eleva a potencia; % calcula el resto.</div>
+</div>
 
-<div class="eywa-kicker">TIME / SPACE · COMPARACIONES</div>
+<iframe class="eywa-snippet-frame" src="../labs/snippet.html?s=1" title="Código Python ejecutable: Números y expresiones" loading="lazy" allow="clipboard-write"></iframe>
 
-| Operación o enfoque | Costo | Por qué |
-|:---|:---|:---|
-| Potencia repetida | **O(n)** | Una multiplicación por unidad de exponente. |
-| Exponenciación binaria | **O(log n)** | En cada paso, el exponente se divide por dos. |
-| Espacio iterativo | **O(1)** | Solo un número fijo de variables. |
+<div class="eywa-slide-link"><a href="../labs/snippet.html?s=1" target="_blank" rel="noopener noreferrer">Abrir editor a pantalla completa ↗</a></div>
 
-## Laboratorio Python
+## Lógica booleana {.scrollable #c01-02-logica-booleana}
 
-<div class="eywa-kicker">PRÁCTICA · CAPÍTULO 01</div>
+<div class="eywa-kicker">TIPOS · 02 / 28</div>
 
-<div class="eywa-lead">Implementa potencias con reducción binaria y comprueba el caso n = 0.</div>
+<div class="eywa-concept">Las condiciones son valores True o False. and, or y not permiten combinarlas.</div>
 
-<iframe class="eywa-frame eywa-lesson-frame" src="../labs/chapter.html?c=01" title="Ejercicio interactivo de Introducción" loading="lazy"></iframe>
+<div class="eywa-compact-points">
+<div><span>•</span> Las comparaciones producen booleanos.</div>
+<div><span>•</span> and y or cortocircuitan cuando ya conocen el resultado.</div>
+</div>
 
-<div class="eywa-slide-link"><a href="../labs/chapter.html?c=01" target="_blank" rel="noopener noreferrer">Abrir ejercicio aislado ↗</a></div>
+<iframe class="eywa-snippet-frame" src="../labs/snippet.html?s=2" title="Código Python ejecutable: Lógica booleana" loading="lazy" allow="clipboard-write"></iframe>
 
-## Comprobación de aprendizaje
+<div class="eywa-slide-link"><a href="../labs/snippet.html?s=2" target="_blank" rel="noopener noreferrer">Abrir editor a pantalla completa ↗</a></div>
 
-<div class="eywa-kicker">DOMINIO MÍNIMO</div>
+## Strings y secuencias {.scrollable #c01-03-strings-y-secuencias}
 
-- Distinguir invariante de condición de término.
-- Comparar solución iterativa y recursiva.
-- Explicar por qué dividir n por 2 reduce el costo.
+<div class="eywa-kicker">TIPOS · 03 / 28</div>
+
+<div class="eywa-concept">Un string es una secuencia inmutable de caracteres. Se puede indexar y cortar por rebanadas.</div>
+
+<div class="eywa-compact-points">
+<div><span>•</span> El primer índice es 0; los negativos cuentan desde el final.</div>
+<div><span>•</span> s[inicio:fin] no incluye el índice fin.</div>
+</div>
+
+<iframe class="eywa-snippet-frame" src="../labs/snippet.html?s=3" title="Código Python ejecutable: Strings y secuencias" loading="lazy" allow="clipboard-write"></iframe>
+
+<div class="eywa-slide-link"><a href="../labs/snippet.html?s=3" target="_blank" rel="noopener noreferrer">Abrir editor a pantalla completa ↗</a></div>
+
+## Listas {.scrollable #c01-04-listas}
+
+<div class="eywa-kicker">TIPOS · 04 / 28</div>
+
+<div class="eywa-concept">Las listas son secuencias mutables: puedes modificar elementos, agregar y eliminar.</div>
+
+<div class="eywa-compact-points">
+<div><span>•</span> append agrega al final; pop retira y devuelve un elemento.</div>
+<div><span>•</span> La asignación b = a comparte la misma lista; a[:] copia sus elementos.</div>
+</div>
+
+<iframe class="eywa-snippet-frame" src="../labs/snippet.html?s=4" title="Código Python ejecutable: Listas" loading="lazy" allow="clipboard-write"></iframe>
+
+<div class="eywa-slide-link"><a href="../labs/snippet.html?s=4" target="_blank" rel="noopener noreferrer">Abrir editor a pantalla completa ↗</a></div>
+
+## Funciones incorporadas {.scrollable #c01-05-funciones-incorporadas}
+
+<div class="eywa-kicker">HERRAMIENTAS · 05 / 28</div>
+
+<div class="eywa-concept">Python trae operaciones reutilizables para contar, comparar, transformar y recorrer colecciones.</div>
+
+<div class="eywa-compact-points">
+<div><span>•</span> min/max trabajan sobre colecciones no vacías.</div>
+<div><span>•</span> sum y len evitan bucles manuales para operaciones comunes.</div>
+</div>
+
+<iframe class="eywa-snippet-frame" src="../labs/snippet.html?s=5" title="Código Python ejecutable: Funciones incorporadas" loading="lazy" allow="clipboard-write"></iframe>
+
+<div class="eywa-slide-link"><a href="../labs/snippet.html?s=5" target="_blank" rel="noopener noreferrer">Abrir editor a pantalla completa ↗</a></div>
+
+## Definir funciones {.scrollable #c01-06-definir-funciones}
+
+<div class="eywa-kicker">CONTROL · 06 / 28</div>
+
+<div class="eywa-concept">Una función encapsula un procedimiento. Los parámetros reciben valores y return entrega un resultado.</div>
+
+<div class="eywa-compact-points">
+<div><span>•</span> Una función sin return explícito devuelve None.</div>
+<div><span>•</span> Usa parámetros en vez de depender innecesariamente de variables globales.</div>
+</div>
+
+<iframe class="eywa-snippet-frame" src="../labs/snippet.html?s=6" title="Código Python ejecutable: Definir funciones" loading="lazy" allow="clipboard-write"></iframe>
+
+<div class="eywa-slide-link"><a href="../labs/snippet.html?s=6" target="_blank" rel="noopener noreferrer">Abrir editor a pantalla completa ↗</a></div>
+
+## Expresión condicional {.scrollable #c01-07-expresion-condicional}
+
+<div class="eywa-kicker">CONTROL · 07 / 28</div>
+
+<div class="eywa-concept">Una expresión a if condición else b escoge uno de dos valores de forma compacta.</div>
+
+<div class="eywa-compact-points">
+<div><span>•</span> Úsala cuando la alternativa es breve y clara.</div>
+<div><span>•</span> Para decisiones largas es más legible un if convencional.</div>
+</div>
+
+<iframe class="eywa-snippet-frame" src="../labs/snippet.html?s=7" title="Código Python ejecutable: Expresión condicional" loading="lazy" allow="clipboard-write"></iframe>
+
+<div class="eywa-slide-link"><a href="../labs/snippet.html?s=7" target="_blank" rel="noopener noreferrer">Abrir editor a pantalla completa ↗</a></div>
+
+## Diccionarios {.scrollable #c01-08-diccionarios}
+
+<div class="eywa-kicker">TIPOS · 08 / 28</div>
+
+<div class="eywa-concept">Un diccionario asocia claves hashables con valores. Se consulta por clave y no por posición.</div>
+
+<div class="eywa-compact-points">
+<div><span>•</span> get(clave, defecto) evita errores cuando falta una clave.</div>
+<div><span>•</span> Su consulta suele ser O(1) promedio.</div>
+</div>
+
+<iframe class="eywa-snippet-frame" src="../labs/snippet.html?s=8" title="Código Python ejecutable: Diccionarios" loading="lazy" allow="clipboard-write"></iframe>
+
+<div class="eywa-slide-link"><a href="../labs/snippet.html?s=8" target="_blank" rel="noopener noreferrer">Abrir editor a pantalla completa ↗</a></div>
+
+## Condicional if {.scrollable #c01-09-condicional-if}
+
+<div class="eywa-kicker">CONTROL · 09 / 28</div>
+
+<div class="eywa-concept">if, elif y else seleccionan un camino de ejecución según las condiciones.</div>
+
+<div class="eywa-compact-points">
+<div><span>•</span> El orden importa: ejecuta la primera rama cuya condición sea verdadera.</div>
+<div><span>•</span> La indentación delimita qué instrucciones pertenecen a cada rama.</div>
+</div>
+
+<iframe class="eywa-snippet-frame" src="../labs/snippet.html?s=9" title="Código Python ejecutable: Condicional if" loading="lazy" allow="clipboard-write"></iframe>
+
+<div class="eywa-slide-link"><a href="../labs/snippet.html?s=9" target="_blank" rel="noopener noreferrer">Abrir editor a pantalla completa ↗</a></div>
+
+## Ciclo for {.scrollable #c01-10-ciclo-for}
+
+<div class="eywa-kicker">CONTROL · 10 / 28</div>
+
+<div class="eywa-concept">for recorre elementos de una secuencia o de un iterable; range genera progresiones de enteros.</div>
+
+<div class="eywa-compact-points">
+<div><span>•</span> range(n) produce 0, 1, ..., n−1.</div>
+<div><span>•</span> Un acumulador resume lo visitado en cada iteración.</div>
+</div>
+
+<iframe class="eywa-snippet-frame" src="../labs/snippet.html?s=10" title="Código Python ejecutable: Ciclo for" loading="lazy" allow="clipboard-write"></iframe>
+
+<div class="eywa-slide-link"><a href="../labs/snippet.html?s=10" target="_blank" rel="noopener noreferrer">Abrir editor a pantalla completa ↗</a></div>
+
+## Ciclo while {.scrollable #c01-11-ciclo-while}
+
+<div class="eywa-kicker">CONTROL · 11 / 28</div>
+
+<div class="eywa-concept">while repite instrucciones mientras una condición siga siendo verdadera.</div>
+
+<div class="eywa-compact-points">
+<div><span>•</span> Debes poder justificar su terminación.</div>
+<div><span>•</span> La variable de control debe avanzar hacia la condición de salida.</div>
+</div>
+
+<iframe class="eywa-snippet-frame" src="../labs/snippet.html?s=11" title="Código Python ejecutable: Ciclo while" loading="lazy" allow="clipboard-write"></iframe>
+
+<div class="eywa-slide-link"><a href="../labs/snippet.html?s=11" target="_blank" rel="noopener noreferrer">Abrir editor a pantalla completa ↗</a></div>
+
+## Invariantes de ciclos {.scrollable #c01-12-invariantes-de-ciclos}
+
+<div class="eywa-kicker">CORRECTITUD · 12 / 28</div>
+
+<div class="eywa-concept">Un invariante es una propiedad que se cumple antes y después de cada iteración.</div>
+
+<div class="eywa-compact-points">
+<div><span>•</span> Inicialización: verdadero antes del ciclo.</div>
+<div><span>•</span> Preservación: una vuelta lo mantiene.</div>
+<div><span>•</span> Terminación: el invariante y la salida implican la respuesta.</div>
+</div>
+
+<iframe class="eywa-snippet-frame" src="../labs/snippet.html?s=12" title="Código Python ejecutable: Invariantes de ciclos" loading="lazy" allow="clipboard-write"></iframe>
+
+<div class="eywa-slide-link"><a href="../labs/snippet.html?s=12" target="_blank" rel="noopener noreferrer">Abrir editor a pantalla completa ↗</a></div>
+
+## Anatomía de un invariante
+
+<div class="eywa-kicker">CORRECTITUD · TRES OBLIGACIONES</div>
+
+<div class="eywa-course-grid">
+<div class="eywa-card"><div class="eywa-number">01 · BASE</div><h3>Inicializar</h3><p>El estado inicial satisface I.</p></div>
+<div class="eywa-card"><div class="eywa-number">02 · PASO</div><h3>Preservar</h3><p>Si I es verdadero, una iteración también deja I verdadero.</p></div>
+<div class="eywa-card"><div class="eywa-number">03 · FIN</div><h3>Concluir</h3><p>I junto con ¬C implica el objetivo F.</p></div>
+</div>
+
+<div class="eywa-declaration">Base + preservación + término = demostración del ciclo.</div>
+
+## Particionar por pivote {.scrollable #c01-13-particionar-por-pivote}
+
+<div class="eywa-kicker">INVARIANTES · 13 / 28</div>
+
+<div class="eywa-concept">Reordena in situ una lista: los valores menores al pivote quedan a la izquierda y los demás, a la derecha.</div>
+
+<div class="eywa-compact-points">
+<div><span>•</span> Al inicio de cada vuelta, a[:i] contiene solo valores menores que p.</div>
+<div><span>•</span> Este método no garantiza preservar el orden original de cada grupo.</div>
+</div>
+
+<iframe class="eywa-snippet-frame" src="../labs/snippet.html?s=13" title="Código Python ejecutable: Particionar por pivote" loading="lazy" allow="clipboard-write"></iframe>
+
+<div class="eywa-slide-link"><a href="../labs/snippet.html?s=13" target="_blank" rel="noopener noreferrer">Abrir editor a pantalla completa ↗</a></div>
+
+## Potencia por multiplicaciones {.scrollable #c01-14-potencia-por-multiplicaciones}
+
+<div class="eywa-kicker">ALGORITMOS · 14 / 28</div>
+
+<div class="eywa-concept">Una solución simple calcula xⁿ multiplicando por x exactamente n veces.</div>
+
+<div class="eywa-compact-points">
+<div><span>•</span> Su costo temporal es Θ(n).</div>
+<div><span>•</span> El invariante puede expresarse como resultado = x^i tras i pasos.</div>
+</div>
+
+<iframe class="eywa-snippet-frame" src="../labs/snippet.html?s=14" title="Código Python ejecutable: Potencia por multiplicaciones" loading="lazy" allow="clipboard-write"></iframe>
+
+<div class="eywa-slide-link"><a href="../labs/snippet.html?s=14" target="_blank" rel="noopener noreferrer">Abrir editor a pantalla completa ↗</a></div>
+
+## Exponenciación binaria {.scrollable #c01-15-exponenciacion-binaria}
+
+<div class="eywa-kicker">ALGORITMOS · 15 / 28</div>
+
+<div class="eywa-concept">Si n es par, podemos reemplazar xⁿ por (x²)^(n/2). Así reducimos n a la mitad.</div>
+
+<div class="eywa-compact-points">
+<div><span>•</span> El invariante es resultado · base^n = x_original^n_original.</div>
+<div><span>•</span> Tiempo Θ(log n); memoria adicional Θ(1).</div>
+</div>
+
+<iframe class="eywa-snippet-frame" src="../labs/snippet.html?s=15" title="Código Python ejecutable: Exponenciación binaria" loading="lazy" allow="clipboard-write"></iframe>
+
+<div class="eywa-slide-link"><a href="../labs/snippet.html?s=15" target="_blank" rel="noopener noreferrer">Abrir editor a pantalla completa ↗</a></div>
+
+## Exponentes y representación binaria {.scrollable #c01-16-exponentes-y-representacion-binaria}
+
+<div class="eywa-kicker">ALGORITMOS · 16 / 28</div>
+
+<div class="eywa-concept">Cada bit encendido de n indica qué potencia de x debe contribuir al resultado.</div>
+
+<div class="eywa-compact-points">
+<div><span>•</span> Por ejemplo, 13 = 8 + 4 + 1.</div>
+<div><span>•</span> La descomposición explica por qué bastan O(log n) iteraciones.</div>
+</div>
+
+<iframe class="eywa-snippet-frame" src="../labs/snippet.html?s=16" title="Código Python ejecutable: Exponentes y representación binaria" loading="lazy" allow="clipboard-write"></iframe>
+
+<div class="eywa-slide-link"><a href="../labs/snippet.html?s=16" target="_blank" rel="noopener noreferrer">Abrir editor a pantalla completa ↗</a></div>
+
+## Evaluar polinomios: Horner {.scrollable #c01-17-evaluar-polinomios-horner}
+
+<div class="eywa-kicker">ALGORITMOS · 17 / 28</div>
+
+<div class="eywa-concept">Horner evalúa un polinomio usando una multiplicación y una suma por coeficiente.</div>
+
+<div class="eywa-compact-points">
+<div><span>•</span> Coeficientes en orden [a₀, a₁, ..., aₙ].</div>
+<div><span>•</span> Tiempo Θ(n) y memoria extra Θ(1).</div>
+</div>
+
+<iframe class="eywa-snippet-frame" src="../labs/snippet.html?s=17" title="Código Python ejecutable: Evaluar polinomios: Horner" loading="lazy" allow="clipboard-write"></iframe>
+
+<div class="eywa-slide-link"><a href="../labs/snippet.html?s=17" target="_blank" rel="noopener noreferrer">Abrir editor a pantalla completa ↗</a></div>
+
+## Arreglos NumPy {.scrollable #c01-18-arreglos-numpy}
+
+<div class="eywa-kicker">ARREGLOS · 18 / 28</div>
+
+<div class="eywa-concept">NumPy proporciona arreglos tipados y operaciones vectorizadas, distintos de las listas genéricas.</div>
+
+<div class="eywa-compact-points">
+<div><span>•</span> Una operación sobre un arreglo puede aplicarse a todos sus elementos.</div>
+<div><span>•</span> La distribución de Pyodide carga NumPy al activar este ejercicio.</div>
+</div>
+
+<iframe class="eywa-snippet-frame" src="../labs/snippet.html?s=18" title="Código Python ejecutable: Arreglos NumPy" loading="lazy" allow="clipboard-write"></iframe>
+
+<div class="eywa-slide-link"><a href="../labs/snippet.html?s=18" target="_blank" rel="noopener noreferrer">Abrir editor a pantalla completa ↗</a></div>
+
+## Ordenación por inserción {.scrollable #c01-19-ordenacion-por-insercion}
+
+<div class="eywa-kicker">ORDENAMIENTO · 19 / 28</div>
+
+<div class="eywa-concept">Mantiene un prefijo ordenado e inserta en él el siguiente elemento.</div>
+
+<div class="eywa-compact-points">
+<div><span>•</span> El prefijo a[:i] está ordenado antes de insertar a[i].</div>
+<div><span>•</span> Tiempo O(n²) peor caso; Θ(n) si la entrada ya está ordenada.</div>
+</div>
+
+<iframe class="eywa-snippet-frame" src="../labs/snippet.html?s=19" title="Código Python ejecutable: Ordenación por inserción" loading="lazy" allow="clipboard-write"></iframe>
+
+<div class="eywa-slide-link"><a href="../labs/snippet.html?s=19" target="_blank" rel="noopener noreferrer">Abrir editor a pantalla completa ↗</a></div>
+
+## Ordenación por selección {.scrollable #c01-20-ordenacion-por-seleccion}
+
+<div class="eywa-kicker">ORDENAMIENTO · 20 / 28</div>
+
+<div class="eywa-concept">En cada pasada, busca el máximo del segmento no ordenado y colócalo al final.</div>
+
+<div class="eywa-compact-points">
+<div><span>•</span> El sufijo derecho queda ordenado tras cada pasada.</div>
+<div><span>•</span> Hace Θ(n²) comparaciones incluso si el arreglo ya está ordenado.</div>
+</div>
+
+<iframe class="eywa-snippet-frame" src="../labs/snippet.html?s=20" title="Código Python ejecutable: Ordenación por selección" loading="lazy" allow="clipboard-write"></iframe>
+
+<div class="eywa-slide-link"><a href="../labs/snippet.html?s=20" target="_blank" rel="noopener noreferrer">Abrir editor a pantalla completa ↗</a></div>
+
+## Ordenación burbuja {.scrollable #c01-21-ordenacion-burbuja}
+
+<div class="eywa-kicker">ORDENAMIENTO · 21 / 28</div>
+
+<div class="eywa-concept">Compara pares adyacentes e intercambia aquellos fuera de orden; los mayores avanzan al extremo derecho.</div>
+
+<div class="eywa-compact-points">
+<div><span>•</span> Después de una pasada, el mayor elemento pendiente queda en su posición.</div>
+<div><span>•</span> En peor caso Θ(n²); con bandera de cambios mejora entradas ya ordenadas.</div>
+</div>
+
+<iframe class="eywa-snippet-frame" src="../labs/snippet.html?s=21" title="Código Python ejecutable: Ordenación burbuja" loading="lazy" allow="clipboard-write"></iframe>
+
+<div class="eywa-slide-link"><a href="../labs/snippet.html?s=21" target="_blank" rel="noopener noreferrer">Abrir editor a pantalla completa ↗</a></div>
+
+## Comparación de ordenamientos
+
+<div class="eywa-kicker">INSERCIÓN · SELECCIÓN · BURBUJA</div>
+
+| Algoritmo | Mejor caso | Peor caso | Idea |
+|:---|:---|:---|:---|
+| Inserción | Θ(n) | Θ(n²) | Mantiene un prefijo ordenado |
+| Selección | Θ(n²) | Θ(n²) | Coloca un extremo por pasada |
+| Burbuja optimizada | Θ(n) | Θ(n²) | Intercambia pares adyacentes |
+
+<div class="eywa-compact-note">Los tres pueden implementarse in situ con memoria adicional O(1). La estabilidad depende de la variante empleada.</div>
+
+## Recursividad y caso base {.scrollable #c01-22-recursividad-y-caso-base}
+
+<div class="eywa-kicker">RECURSIÓN · 22 / 28</div>
+
+<div class="eywa-concept">Una función recursiva se define a partir de casos más pequeños del mismo problema.</div>
+
+<div class="eywa-compact-points">
+<div><span>•</span> Caso base: termina la cadena de llamadas.</div>
+<div><span>•</span> Paso recursivo: reduce una medida del tamaño del problema.</div>
+</div>
+
+<iframe class="eywa-snippet-frame" src="../labs/snippet.html?s=22" title="Código Python ejecutable: Recursividad y caso base" loading="lazy" allow="clipboard-write"></iframe>
+
+<div class="eywa-slide-link"><a href="../labs/snippet.html?s=22" target="_blank" rel="noopener noreferrer">Abrir editor a pantalla completa ↗</a></div>
+
+## Potencia recursiva {.scrollable #c01-23-potencia-recursiva}
+
+<div class="eywa-kicker">RECURSIÓN · 23 / 28</div>
+
+<div class="eywa-concept">La recursión traduce directamente la definición xⁿ = x · x^(n−1), con x⁰ = 1.</div>
+
+<div class="eywa-compact-points">
+<div><span>•</span> Versión simple: tiempo Θ(n), profundidad Θ(n).</div>
+<div><span>•</span> Para n grande, la pila de llamadas puede exceder el límite.</div>
+</div>
+
+<iframe class="eywa-snippet-frame" src="../labs/snippet.html?s=23" title="Código Python ejecutable: Potencia recursiva" loading="lazy" allow="clipboard-write"></iframe>
+
+<div class="eywa-slide-link"><a href="../labs/snippet.html?s=23" target="_blank" rel="noopener noreferrer">Abrir editor a pantalla completa ↗</a></div>
+
+## Iteración vs. recursión {.scrollable #c01-24-iteracion-vs-recursion}
+
+<div class="eywa-kicker">RECURSIÓN · 24 / 28</div>
+
+<div class="eywa-concept">Ambas pueden expresar el mismo algoritmo; difieren en control de estado y uso de la pila.</div>
+
+<div class="eywa-compact-points">
+<div><span>•</span> Un bucle conserva estado explícitamente.</div>
+<div><span>•</span> La recursión delega estado en cada llamada; a menudo usa más memoria.</div>
+</div>
+
+<iframe class="eywa-snippet-frame" src="../labs/snippet.html?s=24" title="Código Python ejecutable: Iteración vs. recursión" loading="lazy" allow="clipboard-write"></iframe>
+
+<div class="eywa-slide-link"><a href="../labs/snippet.html?s=24" target="_blank" rel="noopener noreferrer">Abrir editor a pantalla completa ↗</a></div>
+
+## Torres de Hanoi {.scrollable #c01-25-torres-de-hanoi}
+
+<div class="eywa-kicker">RECURSIÓN · 25 / 28</div>
+
+<div class="eywa-concept">Para mover n discos: mueve n−1 a la auxiliar, desplaza el mayor y mueve n−1 al destino.</div>
+
+<div class="eywa-compact-points">
+<div><span>•</span> Recurrencia T(n)=2T(n−1)+1.</div>
+<div><span>•</span> El número mínimo de movimientos es 2ⁿ − 1.</div>
+</div>
+
+<iframe class="eywa-snippet-frame" src="../labs/snippet.html?s=25" title="Código Python ejecutable: Torres de Hanoi" loading="lazy" allow="clipboard-write"></iframe>
+
+<div class="eywa-slide-link"><a href="../labs/snippet.html?s=25" target="_blank" rel="noopener noreferrer">Abrir editor a pantalla completa ↗</a></div>
+
+## Diagramas de estado {.scrollable #c01-26-diagramas-de-estado}
+
+<div class="eywa-kicker">CORRECTITUD · 26 / 28</div>
+
+<div class="eywa-concept">Piensa un ciclo como una máquina de estados: iniciar → comprobar condición → ejecutar → repetir o terminar.</div>
+
+<div class="eywa-compact-points">
+<div><span>•</span> Antes de evaluar la condición, el invariante I debe ser verdadero.</div>
+<div><span>•</span> Al salir: I ∧ ¬C debe implicar la postcondición F.</div>
+</div>
+
+<iframe class="eywa-snippet-frame" src="../labs/snippet.html?s=26" title="Código Python ejecutable: Diagramas de estado" loading="lazy" allow="clipboard-write"></iframe>
+
+<div class="eywa-slide-link"><a href="../labs/snippet.html?s=26" target="_blank" rel="noopener noreferrer">Abrir editor a pantalla completa ↗</a></div>
+
+## Contar palabras {.scrollable #c01-27-contar-palabras}
+
+<div class="eywa-kicker">AUTÓMATAS · 27 / 28</div>
+
+<div class="eywa-concept">Una sola pasada puede contar palabras si guardamos si estamos dentro o fuera de una palabra.</div>
+
+<div class="eywa-compact-points">
+<div><span>•</span> Cuenta una palabra solo al pasar de espacio a carácter.</div>
+<div><span>•</span> Ignorar espacios consecutivos evita recuentos repetidos.</div>
+</div>
+
+<iframe class="eywa-snippet-frame" src="../labs/snippet.html?s=27" title="Código Python ejecutable: Contar palabras" loading="lazy" allow="clipboard-write"></iframe>
+
+<div class="eywa-slide-link"><a href="../labs/snippet.html?s=27" target="_blank" rel="noopener noreferrer">Abrir editor a pantalla completa ↗</a></div>
+
+## Síntesis del capítulo {.scrollable #c01-28-sintesis-del-capitulo}
+
+<div class="eywa-kicker">COMPARAR · 28 / 28</div>
+
+<div class="eywa-concept">Comprender código implica conocer entrada, salida, invariantes, complejidad y casos límites.</div>
+
+<div class="eywa-compact-points">
+<div><span>•</span> Explica por qué cada algoritmo termina.</div>
+<div><span>•</span> Contrasta potencia simple e iterativa binaria.</div>
+<div><span>•</span> Determina el invariante del prefijo ordenado en inserción.</div>
+</div>
+
+<iframe class="eywa-snippet-frame" src="../labs/snippet.html?s=28" title="Código Python ejecutable: Síntesis del capítulo" loading="lazy" allow="clipboard-write"></iframe>
+
+<div class="eywa-slide-link"><a href="../labs/snippet.html?s=28" target="_blank" rel="noopener noreferrer">Abrir editor a pantalla completa ↗</a></div>
+
+## Checklist de dominio
+
+<div class="eywa-kicker">CAPÍTULO 01 · AUTOCOMPROBACIÓN</div>
+
+- Puedo diferenciar mutabilidad y copia en listas.
+- Sé definir invariantes y demostrar su preservación.
+- Sé evaluar una potencia en Θ(log n).
+- Puedo explicar Horner, inserción, selección y burbuja.
+- Distingo recursividad e iteración y sus costos.
+- Puedo modelar un contador de palabras como una pequeña máquina de estados.
 
 <div class="eywa-chapter-nav">
-<a href="../index.html">← Índice EYWA AED</a>
-<a href="02-analisis-matematico.html">Siguiente capítulo →</a>
+<a href="../index.html">← Índice AED</a>
+<a href="02-analisis-matematico.html">Capítulo 02 →</a>
 </div>
 
-<div class="eywa-source">Adaptación didáctica original. Temario de referencia: <a href="https://github.com/ivansipiran/AED-Apuntes" target="_blank" rel="noopener">AED-Apuntes (DCC · U. de Chile)</a>.</div>
+<div class="eywa-source">Adaptación original en formato slides del temario de <a href="https://github.com/ivansipiran/AED-Apuntes/blob/main/01_Introduccion.ipynb" target="_blank" rel="noopener noreferrer">AED-Apuntes, capítulo 1</a> (DCC, Universidad de Chile). Se han reformulado los conceptos e implementaciones.</div>
