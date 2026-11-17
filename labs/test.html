@@ -53,16 +53,17 @@ a:focus-visible,button:focus-visible{outline:2px solid #76d9f8;outline-offset:3p
   <section class="pane">
     <div class="label">Consola</div>
     <pre id="output" class="output" aria-live="polite"></pre>
+  <details class="eywa-visual-details" id="visual-details" hidden>
+  <summary>Visualización <span class="eywa-visual-ready" aria-live="polite"></span></summary>
+  <div class="eywa-visual-canvas" aria-label="SVG generado por el código Python"></div>
+</details>
   </section>
 </main>
 <div class="actions">
   <button class="primary" type="button" id="run">▶ Ejecutar</button>
   <button type="button" id="reset">Restablecer</button>
 </div>
-<details class="eywa-visual-details" id="visual-details" hidden>
-  <summary>Visualización <span class="eywa-visual-ready" aria-live="polite"></span></summary>
-  <div class="eywa-visual-canvas" aria-label="SVG generado por el código Python"></div>
-</details>
+
 <script>
 (() => {
   "use strict";
