@@ -1,14 +1,55 @@
 <style>
-#eywa-console-open { position:fixed; left:22px; bottom:20px; z-index:2000; padding:12px 19px; background:#102b38; color:#fff; border:0; border-radius:14px; font:700 14px/1.2 system-ui,sans-serif; box-shadow:0 10px 30px #102b3830; cursor:pointer; letter-spacing:.015em; }
-#eywa-console-open:hover { background:#087e72; }
-#eywa-console-backdrop { position:fixed; inset:0; z-index:2001; background:#0b19235c; opacity:0; pointer-events:none; transition:opacity .16s ease; }
+/* EYWA / dark persistent console drawer — same navy palette as Reveal slides. */
+#eywa-console-open {
+  position:fixed; left:22px; bottom:20px; z-index:2000;
+  padding:12px 19px; background:#142d45; color:#e6f0fa;
+  border:1px solid #355a76; border-radius:14px;
+  font:700 14px/1.2 system-ui,sans-serif;
+  box-shadow:0 10px 30px rgba(0, 5, 17, .34);
+  cursor:pointer; letter-spacing:.015em;
+}
+#eywa-console-open:hover { background:#225072; border-color:#76d9f8; }
+#eywa-console-open:focus-visible, #eywa-console-close:focus-visible {
+  outline:2px solid #76d9f8; outline-offset:3px;
+}
+#eywa-console-backdrop {
+  position:fixed; inset:0; z-index:2001;
+  background:rgba(2, 8, 19, .78); opacity:0; pointer-events:none;
+  transition:opacity .16s ease;
+}
 #eywa-console-backdrop.is-open { opacity:1; pointer-events:auto; }
-#eywa-console-panel { position:fixed; top:0; right:0; bottom:0; width:min(640px,96vw); z-index:2002; background:#fff; border-left:1px solid #d4e4dd; box-shadow:-20px 0 80px #0d26382c; transform:translateX(104%); transition:transform .23s ease; display:flex; flex-direction:column; font-family:system-ui,sans-serif; }
+#eywa-console-panel {
+  position:fixed; top:0; right:0; bottom:0;
+  width:min(640px,96vw); z-index:2002;
+  background:#081727; color:#e6f0fa;
+  border-left:1px solid #294660;
+  box-shadow:-20px 0 80px rgba(0, 4, 15, .55);
+  transform:translateX(104%); transition:transform .23s ease;
+  display:flex; flex-direction:column; font-family:system-ui,sans-serif;
+}
 #eywa-console-panel.is-open { transform:translateX(0); }
-#eywa-console-bar { height:56px; flex:0 0 56px; display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #e1ebe6; padding:0 19px; color:#142f3b; font-size:14px; }
-#eywa-console-close { cursor:pointer; border:0; background:#eaf3ef; color:#163a44; border-radius:8px; padding:8px 13px; font-size:13px; }
-#eywa-console-panel iframe { flex:1; width:100%; border:0; background:#f7faf8; }
-@media (max-width:600px) { #eywa-console-open { left:10px; bottom:8px; padding:10px 12px; font-size:12px; } }
+#eywa-console-bar {
+  height:56px; flex:0 0 56px;
+  display:flex; justify-content:space-between; align-items:center;
+  border-bottom:1px solid #294660;
+  padding:0 19px; color:#f2f8ff; font-size:14px;
+  background:#11273e;
+}
+#eywa-console-close {
+  cursor:pointer; border:1px solid #355a76;
+  background:#172f49; color:#e6f0fa;
+  border-radius:8px; padding:8px 13px; font-size:13px;
+}
+#eywa-console-close:hover { background:#24465f; border-color:#76d9f8; }
+#eywa-console-panel iframe {
+  flex:1; width:100%; border:0; background:#081727;
+}
+@media (max-width:600px) {
+  #eywa-console-open { left:10px; bottom:8px; padding:10px 12px; font-size:12px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  #eywa-console-panel, #eywa-console-backdrop { transition:none; }
+}
 </style>
 <script>
 (() => {
