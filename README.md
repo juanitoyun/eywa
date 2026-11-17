@@ -156,3 +156,18 @@ python -m unittest discover -s tests -v
 ~~~
 
 La validación automática de pull requests comprueba tanto el render Quarto como las pruebas estándar de Python.
+
+## Capítulo 01: versión ampliada y móvil (sin notebooks)
+
+- 28 mini editores Python ejecutables dentro de diapositivas Quarto.
+- Cada ejemplo tiene sus comprobaciones; no requiere Colab, Jupyter ni PC.
+- Reveal.js ofrece vista vertical para móviles mediante `?view=scroll` (activación automática en pantallas pequeñas).
+- El código también puede abrirse en una página independiente a pantalla completa.
+- [Estado real de la adaptación](COBERTURA.md): los capítulos 02–10 mantienen por ahora la síntesis inicial.
+
+Enlaces después de la publicación:
+
+- [Capítulo 01 — móvil](https://juanitoyun.github.io/eywa/slides/01-introduccion.html?view=scroll)
+- [Ejemplo 15 — potencia binaria](https://juanitoyun.github.io/eywa/labs/snippet.html?s=15)
+
+Los códigos son implementaciones originales de los conceptos del curso, no reproducciones literales de los notebooks.
