@@ -6,7 +6,7 @@
 
 - Quarto / Reveal.js: una presentación independiente de una sola diapositiva por test.
 - GitHub Pages: publicación y enlace permanente.
-- `labs/test.html`: editor Python y consola reutilizables, CodeMirror navy + Pyodide, con panel SVG/DOT optativo mediante `visual=1`.
+- `labs/test.html`: editor Python y consola reutilizables, CodeMirror navy + Pyodide, con panel SVG/DOT desplegable por defecto, cerrado inicialmente.
 - `labs/tests/test-NNN.py`: archivo Python autónomo por test, creado **solo cuando se solicite**.
 - `slides/tests/test-NNN.qmd`: presentación Quarto independiente, creada en esa misma solicitud.
 
@@ -36,11 +36,11 @@ El diseño sigue [EYWA-CODE/1](../DESIGN_RECIPE.md): Deep Navy, sintaxis Python 
 
 ## Visualización opcional: una sola plantilla para todo AED
 
-- Sin visualización: `labs/test.html?id=NNN` (solo editor y consola).
-- Con visualización: `labs/test.html?id=NNN&visual=1` (editor + consola + panel «Visualización» colapsado).
+- `labs/test.html?id=NNN`: editor, consola y panel visual colapsado. Es el formato único por defecto.
+- `labs/test.html?id=NNN&visual=1`: enlace equivalente, mantenido por compatibilidad.
 - El botón de visualización no abre nada automáticamente. Tras ejecutar el código se muestra «Imagen disponible» si se generó un resultado. El usuario decide abrir y cerrar.
-- Para una slide Quarto con visualización, reutilizar `templates/test-slide-visual.qmd`, no crear código de interfaz nuevo.
-- Los laboratorios existentes también admiten `&visual=1`: `labs/snippet.html?s=15&visual=1` o `labs/chapter.html?c=10&visual=1`.
+- Todas las slides de ejercicios usan `templates/test-slide.qmd` (y su equivalente `test-slide-visual.qmd`), sin código visual duplicado.
+- Todos los laboratorios del curso, incluidos `snippet`, `chapter`, `binary-search`, `repl` y `tutorial00`, muestran el componente sin necesitar parámetros. Los enlaces con `&visual=1` siguen siendo válidos.
 
 La visualización se genera solo si **el código Python visible** asigna uno de estos valores:
 
