@@ -28,23 +28,7 @@ author: "EYWA · Algoritmos y Estructuras de Datos"
 
 ## Código en Python
 
-<div class="eywa-kicker">IMPLEMENTACIÓN DE REFERENCIA · EDITABLE EN EL LAB</div>
-
-```python
-from collections import deque
-
-def bfs(graph, start):
-    visited, queue = {start}, deque([start])
-    order = []
-    while queue:
-        v = queue.popleft()
-        order.append(v)
-        for nxt in graph.get(v, []):
-            if nxt not in visited:
-                visited.add(nxt)
-                queue.append(nxt)
-    return order
-```
+<iframe class="eywa-frame eywa-lesson-frame" src="../labs/chapter.html?c=10" title="Editor Python anotado, capítulo 10" loading="lazy" allow="clipboard-write"></iframe>
 
 ## Complejidad y decisiones
 
@@ -55,16 +39,6 @@ def bfs(graph, start):
 | BFS / DFS | **O(V+E)** | Con listas de adyacencia. |
 | Dijkstra con heap | **O((V+E) log V)** | Pesos no negativos. |
 | Floyd–Warshall | **O(V³)** | Caminos mínimos para todos los pares. |
-
-## Laboratorio Python
-
-<div class="eywa-kicker">PRÁCTICA · CAPÍTULO 10</div>
-
-<div class="eywa-lead">Construye un recorrido BFS determinista con listas de adyacencia.</div>
-
-<iframe class="eywa-frame eywa-lesson-frame" src="../labs/chapter.html?c=10" title="Ejercicio interactivo de Grafos" loading="lazy"></iframe>
-
-<div class="eywa-slide-link"><a href="../labs/chapter.html?c=10" target="_blank" rel="noopener noreferrer">Abrir ejercicio aislado ↗</a></div>
 
 ## Comprobación de aprendizaje
 
