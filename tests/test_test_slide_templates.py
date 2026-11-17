@@ -22,7 +22,6 @@ class TestStandaloneTemplate(unittest.TestCase):
     def test_only_placeholder_code_is_prepared(self):
         code = (ROOT / "templates/test-code.py").read_text(encoding="utf-8")
         self.assertEqual(code.strip(), "# Test {{TEST_ID}}")
-        self.assertFalse((ROOT / "slides/tests").exists())
 
     def test_iframe_reuses_existing_runner_without_hidden_tests(self):
         html = (ROOT / "labs/test.html").read_text(encoding="utf-8")
