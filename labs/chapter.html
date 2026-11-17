@@ -28,7 +28,7 @@
 <div class="body">
  <div><label class="label" for="editor">main.py · editable</label><textarea id="editor" wrap="off" spellcheck="false" autocapitalize="off" autocomplete="off"></textarea></div>
  <div class="right"><span class="label">Consola</span><pre class="output" id="output" aria-live="polite"></pre>
-  <details class="eywa-visual-details" id="visual-details" hidden>
+  <details class="eywa-visual-details" id="visual-details">
   <summary>Visualización <span class="eywa-visual-ready" aria-live="polite"></span></summary>
   <div class="eywa-visual-canvas" aria-label="SVG generado por el código Python"></div>
 </details></div>
@@ -46,7 +46,7 @@
  const lesson = window.EYWA_LABS?.[id];
  const el = name => document.getElementById(name);
  const visualDetails=el("visual-details");
- const enableVisual=new URLSearchParams(location.search).get("visual")==="1";
+ const enableVisual=new URLSearchParams(location.search).get("visual")!== "0";
  visualDetails.hidden=!enableVisual;
  const visualPanel=enableVisual ? window.EYWA_VISUAL_PANEL.mount(visualDetails) : null;
  if (!lesson) { el("output").textContent = "Capítulo no encontrado."; return; }
