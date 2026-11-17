@@ -41,6 +41,7 @@ author: "Curso visual · Python · 10 capítulos + herramientas"
 
 <div class="eywa-chapter-nav">
 <a href="demo.html">Ver prototipo visual EYWA →</a>
+<a href="coverage/index.html" target="_blank" rel="noopener noreferrer">Auditar cobertura completa · 791 celdas y 291 recursos →</a>
 <a href="labs/repl.html?visual=1" target="_blank" rel="noopener noreferrer">Abrir consola Python →</a>
 </div>
 
