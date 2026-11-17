@@ -8,7 +8,7 @@
 - 2 visualizaciones de listas enlazadas simple y doble.
 - 11 visualizaciones de árboles binarios, NULL/centinelas y árbol de expresión.
 - Código Python autónomo por ejemplo, con la preparación necesaria de las celdas anteriores.
-- Vista previa: el SVG original guardado en el notebook; visible sin arrancar Python.
+- Lienzo completamente blanco por defecto: el SVG aparece exclusivamente después de pulsar «Ejecutar y dibujar».
 - Botón Ejecutar: código original → clases originales `aed-utilities` → DOT → Graphviz WebAssembly → nuevo SVG.
 - Consola Python real: solo `print()` y excepciones; ningún test oculto.
 
@@ -26,14 +26,14 @@ Los IDs `01..19` son **ejemplos del tutorial**, no tests numerados del programa 
 
 Fuente: https://github.com/ivansipiran/aed-utilities/tree/v0.4.1
 
-El código fuente del tutorial y sus 19 imágenes SVG se extrajeron directamente del notebook cargado por el usuario. Los gráficos de referencia son los de Jupyter; el resultado posterior se genera dinámicamente con la misma librería y Graphviz WASM.
+El código fuente del tutorial y sus 19 imágenes SVG se extrajeron directamente del notebook cargado por el usuario. Los SVG originales se conservan como datos de referencia, pero **no se muestran automáticamente**; las imágenes visibles se generan con la misma librería y Graphviz WASM cuando el usuario ejecuta.
 
 ## Estado de verificación
 
 - GitHub Actions verifica mediante mocks del backend de Python que las **19 implementaciones originales generan DOT válido**.
 - Los 19 SVG de referencia se comprueban como XML bien formado.
 - El render Quarto y los enlaces se verifican en CI.
-- **Pendiente de probar en un navegador con acceso externo:** el circuito completo Pyodide + descarga de `graphviz==0.21` + Graphviz WASM. Si el CDN es inaccesible, sigue disponible el SVG original como vista previa.
+- **Pendiente de probar en un navegador con acceso externo:** el circuito completo Pyodide + descarga de `graphviz==0.21` + Graphviz WASM. Si falla la carga, el panel sigue vacío y la consola muestra el error.
 
 ## Requisitos técnicos
 
