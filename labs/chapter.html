@@ -11,11 +11,13 @@
 *{box-sizing:border-box}body{margin:0;padding:17px 20px}.head{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:12px}.eyebrow{font:800 11px/1.3 system-ui;letter-spacing:.12em;text-transform:uppercase;color:#087e72}.subtitle{font:550 12px/1.4 system-ui;color:#637d85;margin:5px 0 0}.status{font:500 11px system-ui;white-space:nowrap;color:#617f85;border:1px solid #d8e9df;border-radius:999px;padding:7px 11px}.body{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:18px}.label{font-size:10px;font-weight:800;letter-spacing:.11em;text-transform:uppercase;color:#61808a;display:block;margin-bottom:8px}textarea{width:100%;height:320px;resize:vertical;border:1px solid #26495a;border-radius:12px;background:#102b3b;color:#dbf8ef;padding:12px 14px;font:12px/1.52 ui-monospace,SFMono-Regular,Consolas,monospace;outline:none;tab-size:4}textarea:focus{border-color:#11a98b;box-shadow:0 0 0 2px #11a98b25}.right{display:flex;flex-direction:column;min-width:0}.desc{display:none}.output{background:#f5f9f6;border:1px solid #ddeae2;border-radius:12px;padding:14px;min-height:135px;flex:1;font:12px/1.62 ui-monospace,SFMono-Regular,Consolas,monospace;white-space:pre-wrap;word-break:break-word;overflow:auto;max-height:320px}.success{color:#087658}.fail{color:#ac493d}.actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:12px}button{border:1px solid #cfe1d7;border-radius:10px;padding:9px 12px;background:#fff;color:#2a4b52;font:700 11px system-ui;cursor:pointer}button.run{background:#087e72;border-color:#087e72;color:#fff}button:disabled{opacity:.58;cursor:progress}.eywa-expand{color:#087e72;text-decoration:none;font:700 11px system-ui}.hint{display:none;background:#f0f7f3;border-left:3px solid #0a8e74;margin-top:9px;padding:9px 12px;color:#40635e;font:11px/1.5 system-ui}.hint.show{display:block}.foot{display:flex;justify-content:space-between;gap:10px;align-items:center;color:#73868c;font-size:10px;margin-top:10px}a{color:#087e72;text-decoration:none}@media(max-width:690px){body{padding:12px}.body{grid-template-columns:1fr}textarea{height:290px}.output{min-height:95px}.foot{flex-direction:column;align-items:flex-start}}
 </style>
 <link rel="stylesheet" href="../assets/eywa-dark.css">
+<link rel="stylesheet" href="../assets/eywa-visual-panel.css">
 <script src="../assets/chapter-labs.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.21/lib/codemirror.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.21/mode/python/python.js"></script>
 <script src="../assets/python-editor.js"></script>
 <script src="../assets/python-console.js"></script>
+<script src="../assets/eywa-visual-panel.js"></script>
 <script src="https://cdn.jsdelivr.net/pyodide/v314.0.8/full/pyodide.js"></script>
 </head>
 <body>
@@ -32,12 +34,20 @@
  <button type="button" id="reset">Restablecer</button>
  <a class="eywa-expand" id="expand" target="_blank" rel="noopener noreferrer">↗ Ampliar</a>
 </div>
+<details class="eywa-visual-details" id="visual-details" hidden>
+  <summary>Visualización <span class="eywa-visual-ready" aria-live="polite"></span></summary>
+  <div class="eywa-visual-canvas" aria-label="SVG generado por el código Python"></div>
+</details>
 <div class="foot"><span>Python real en navegador · Ctrl/⌘ + Enter</span><a href="https://github.com/ivansipiran/AED-Apuntes" target="_blank" rel="noopener">Temario: AED-Apuntes</a></div>
 <script>
 (() => {
  const id = new URLSearchParams(location.search).get("c") || "01";
  const lesson = window.EYWA_LABS?.[id];
  const el = name => document.getElementById(name);
+ const visualDetails=el("visual-details");
+ const enableVisual=new URLSearchParams(location.search).get("visual")==="1";
+ visualDetails.hidden=!enableVisual;
+ const visualPanel=enableVisual ? window.EYWA_VISUAL_PANEL.mount(visualDetails) : null;
  if (!lesson) { el("output").textContent = "Capítulo no encontrado."; return; }
  el("title").textContent = "EYWA / " + id + " · " + lesson.title;
  el("topic").textContent = lesson.topic;
@@ -64,9 +74,18 @@
    if (busy) return;
    busy = true; el("run").disabled = true;
    el("output").textContent = ""; // Un assert correcto no imprime nada.
+   if(visualPanel)visualPanel.clear(false);
    try {
      const py = await python();
-     el("output").textContent = await window.EYWA_RUN_PYTHON(py, codeEditor.getValue());
+     const source=codeEditor.getValue();
+     if(visualPanel){
+       const result=await window.EYWA_RUN_PYTHON_WITH_VISUAL(py,source);
+       el("output").textContent=result.console;
+       if(result.svg)visualPanel.setSvg(result.svg);
+       else if(result.dot)await visualPanel.setDot(result.dot);
+     }else{
+       el("output").textContent=await window.EYWA_RUN_PYTHON(py,source);
+     }
    } catch (error) {
      el("output").textContent = String(error);
    } finally {
@@ -77,6 +96,7 @@
  el("reset").addEventListener("click", () => {
    codeEditor.setValue(lesson.code);
    el("output").textContent = "";
+   if(visualPanel)visualPanel.clear();
  });
 })();
 </script>
