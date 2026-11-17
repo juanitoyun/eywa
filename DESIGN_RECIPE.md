@@ -36,8 +36,8 @@ assert binary_search([], 7) == -1
 3. **Notas al costado** en el MISMO renglón que explican: `# motivo  // costo`. El texto `// ...` pertenece al comentario Python; no se usa como operador.
 4. Alinear comentarios alrededor de la columna 46 con espacios, no tabs; aceptar líneas largas y desplazamiento horizontal.
 5. **Complejidad** al final: costo temporal y espacial, con matices cuando corresponda.
-6. **Pruebas visibles** con `assert` y pruebas automáticas adicionales del runner.
-7. **Una idea por slide**: sólo encabezado y editor (y salida); conservar diagramas sólo si aportan al aprendizaje.
+6. **Solo `assert` visibles**: cada laboratorio ejecuta exclusivamente el código del editor; el runner no inyecta casos ni mensajes de éxito.
+7. **Una idea por slide**: encabezado, editor y consola literal (vacía si no hubo `print` ni errores). Conservar diagramas solo si aportan.
 8. **Código ejecutable**: los fragmentos en diapositivas deben abrir un runner Python, no ser bloques estáticos no interactivos.
 9. En el editor, `lineWrapping: false`, barra horizontal independiente y scroll vertical; jamás partir los renglones según el ancho del marco.
 10. El tema actual usa **CodeMirror 5 + paleta VS Code Dark**, con fallback a `textarea wrap="off"`.
@@ -48,7 +48,7 @@ assert binary_search([], 7) == -1
 - Motor del editor: `assets/python-editor.js`.
 - Ejemplos ejecutables de introducción: `assets/intro-snippets.js`.
 - Laboratorios por capítulo: `assets/chapter-labs.js`.
-- Tests: `tests/test_intro_snippets.py`, `tests/test_annotated_chapter_labs.py`, `tests/test_minimal_editor.py`.
+- Ejecutor Python sin tests ocultos: `assets/python-console.js`. Tests internos de mantenimiento: `tests/test_console_contract.py`, `tests/test_intro_snippets.py`, `tests/test_annotated_chapter_labs.py`, `tests/test_minimal_editor.py`.
 
 Cualquier nuevo material AED debe respetar esta receta y pasar `python -m unittest discover -s tests -v`.
 
