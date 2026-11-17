@@ -12,6 +12,7 @@ project:
 format:
   revealjs:
     theme: [simple, styles/eywa.scss]
+    highlight-style: github-dark
     width: 1280
     height: 720
     margin: 0.065
