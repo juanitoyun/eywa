@@ -3233,8 +3233,8 @@
           },
           "output_mimes": [],
           "resources": [],
-          "status": "pendiente",
-          "destination": null,
+          "status": "adaptado",
+          "destination": "slides/02-analisis-matematico.html#c02-panorama",
           "verified": false
         },
         {
@@ -3252,8 +3252,8 @@
           },
           "output_mimes": [],
           "resources": [],
-          "status": "pendiente",
-          "destination": null,
+          "status": "adaptado",
+          "destination": "slides/02-analisis-matematico.html#c02-notacion-o",
           "verified": false
         },
         {
@@ -3271,8 +3271,8 @@
           },
           "output_mimes": [],
           "resources": [],
-          "status": "pendiente",
-          "destination": null,
+          "status": "adaptado",
+          "destination": "slides/02-analisis-matematico.html#c02-notacion-omega",
           "verified": false
         },
         {
@@ -3290,8 +3290,8 @@
           },
           "output_mimes": [],
           "resources": [],
-          "status": "pendiente",
-          "destination": null,
+          "status": "adaptado",
+          "destination": "slides/02-analisis-matematico.html#c02-notacion-theta",
           "verified": false
         },
         {
@@ -3309,8 +3309,8 @@
           },
           "output_mimes": [],
           "resources": [],
-          "status": "pendiente",
-          "destination": null,
+          "status": "adaptado",
+          "destination": "slides/02-analisis-matematico.html#c02-orden-de-crecimiento",
           "verified": false
         },
         {
@@ -3328,9 +3328,10 @@
           },
           "output_mimes": [],
           "resources": [],
-          "status": "pendiente",
+          "status": "excluido_justificado",
           "destination": null,
-          "verified": false
+          "verified": false,
+          "exclusion_reason": "Directiva %pylab inline específica de Jupyter; reemplazada por Python estándar ejecutable en el navegador."
         },
         {
           "id": "T02-007",
@@ -3350,8 +3351,8 @@
             "text/plain"
           ],
           "resources": [],
-          "status": "pendiente",
-          "destination": null,
+          "status": "adaptado",
+          "destination": "slides/02-analisis-matematico.html#c02-graficas",
           "verified": false
         },
         {
@@ -3372,8 +3373,8 @@
             "text/plain"
           ],
           "resources": [],
-          "status": "pendiente",
-          "destination": null,
+          "status": "adaptado",
+          "destination": "slides/02-analisis-matematico.html#c02-graficas",
           "verified": false
         },
         {
@@ -3391,8 +3392,8 @@
           },
           "output_mimes": [],
           "resources": [],
-          "status": "pendiente",
-          "destination": null,
+          "status": "adaptado",
+          "destination": "slides/02-analisis-matematico.html#c02-recurrencias",
           "verified": false
         },
         {
@@ -3410,8 +3411,8 @@
           },
           "output_mimes": [],
           "resources": [],
-          "status": "pendiente",
-          "destination": null,
+          "status": "adaptado",
+          "destination": "slides/02-analisis-matematico.html#c02-primer-orden",
           "verified": false
         },
         {
@@ -3429,8 +3430,8 @@
           },
           "output_mimes": [],
           "resources": [],
-          "status": "pendiente",
-          "destination": null,
+          "status": "adaptado",
+          "destination": "slides/02-analisis-matematico.html#c02-hanoi",
           "verified": false
         },
         {
@@ -3448,9 +3449,10 @@
           },
           "output_mimes": [],
           "resources": [],
-          "status": "pendiente",
+          "status": "excluido_justificado",
           "destination": null,
-          "verified": false
+          "verified": false,
+          "exclusion_reason": "Separador visual Markdown sin contenido académico."
         },
         {
           "id": "T02-013",
@@ -3467,8 +3469,8 @@
           },
           "output_mimes": [],
           "resources": [],
-          "status": "pendiente",
-          "destination": null,
+          "status": "adaptado",
+          "destination": "slides/02-analisis-matematico.html#c02-homogeneas",
           "verified": false
         },
         {
@@ -3486,8 +3488,8 @@
           },
           "output_mimes": [],
           "resources": [],
-          "status": "pendiente",
-          "destination": null,
+          "status": "adaptado",
+          "destination": "slides/02-analisis-matematico.html#c02-fibonacci",
           "verified": false
         },
         {
@@ -3505,8 +3507,8 @@
           },
           "output_mimes": [],
           "resources": [],
-          "status": "pendiente",
-          "destination": null,
+          "status": "adaptado",
+          "destination": "slides/02-analisis-matematico.html#c02-fibonacci",
           "verified": false
         },
         {
@@ -3524,8 +3526,8 @@
           },
           "output_mimes": [],
           "resources": [],
-          "status": "pendiente",
-          "destination": null,
+          "status": "adaptado",
+          "destination": "slides/02-analisis-matematico.html#c02-fibonacci",
           "verified": false
         },
         {
@@ -3543,8 +3545,8 @@
           },
           "output_mimes": [],
           "resources": [],
-          "status": "pendiente",
-          "destination": null,
+          "status": "adaptado",
+          "destination": "slides/02-analisis-matematico.html#c02-hanoi-homogenea",
           "verified": false
         },
         {
@@ -3562,9 +3564,10 @@
           },
           "output_mimes": [],
           "resources": [],
-          "status": "pendiente",
+          "status": "excluido_justificado",
           "destination": null,
-          "verified": false
+          "verified": false,
+          "exclusion_reason": "Separador visual Markdown sin contenido académico."
         },
         {
           "id": "T02-019",
@@ -3581,8 +3584,8 @@
           },
           "output_mimes": [],
           "resources": [],
-          "status": "pendiente",
-          "destination": null,
+          "status": "adaptado",
+          "destination": "slides/02-analisis-matematico.html#c02-teorema-maestro",
           "verified": false
         },
         {
@@ -3600,9 +3603,10 @@
           },
           "output_mimes": [],
           "resources": [],
-          "status": "pendiente",
+          "status": "excluido_justificado",
           "destination": null,
-          "verified": false
+          "verified": false,
+          "exclusion_reason": "Separador visual Markdown sin contenido académico."
         }
       ]
     },
@@ -13336,8 +13340,8 @@
           },
           "output_mimes": [],
           "resources": [],
-          "status": "pendiente",
-          "destination": null,
+          "status": "adaptado",
+          "destination": "slides/02-analisis-matematico.html#c02-ejercicios",
           "verified": false
         },
         {
@@ -13355,8 +13359,8 @@
           },
           "output_mimes": [],
           "resources": [],
-          "status": "pendiente",
-          "destination": null,
+          "status": "adaptado",
+          "destination": "slides/02-analisis-matematico.html#c02-hanoi-homogenea",
           "verified": false
         },
         {
@@ -13374,8 +13378,8 @@
           },
           "output_mimes": [],
           "resources": [],
-          "status": "pendiente",
-          "destination": null,
+          "status": "adaptado",
+          "destination": "slides/02-analisis-matematico.html#c02-stooge",
           "verified": false
         },
         {
@@ -13393,9 +13397,10 @@
           },
           "output_mimes": [],
           "resources": [],
-          "status": "pendiente",
+          "status": "excluido_justificado",
           "destination": null,
-          "verified": false
+          "verified": false,
+          "exclusion_reason": "Celda de código vacía; no contiene ejercicio ni implementación."
         }
       ]
     },
