@@ -203,3 +203,17 @@ Preparada una plantilla sin tests numerados: [ver instrucciones](templates/READM
 - Cada test tendrá una URL Quarto y otra URL directa para iframe de Genially, sin duplicar el motor Python.
 - El código es modificable, se ejecuta mediante Pyodide y la consola muestra exclusivamente `print()` o errores. Sin tests ocultos.
 - No se crean archivos numerados antes de recibir la instrucción.
+
+## Capítulo 00 · Herramientas visuales
+
+Publicamos una presentación Quarto con **19 ejemplos gráficos originales de `00_Tutorial.ipynb`**, cada uno con su editor de código y visor SVG. No se utilizan servidores Jupyter.
+
+- [Abrir capítulo 00](https://juanitoyun.github.io/eywa/slides/00-herramientas-visuales.html)
+- [Ejemplo 01: arreglo NumPy 1D](https://juanitoyun.github.io/eywa/labs/tutorial00/index.html?ex=01)
+- [Ejemplo 07: lista simple](https://juanitoyun.github.io/eywa/labs/tutorial00/index.html?ex=07)
+- [Ejemplo 08: lista doble](https://juanitoyun.github.io/eywa/labs/tutorial00/index.html?ex=08)
+- [Ejemplo 19: árbol de expresión](https://juanitoyun.github.io/eywa/labs/tutorial00/index.html?ex=19)
+
+Los **19 SVG originales** sirven como vista previa. Pulsando Ejecutar se intenta generar una imagen nueva mediante Python en Pyodide + clases sin modificar de `aed-utilities v0.4.1` + Graphviz WebAssembly. El circuito web completo necesita validación en un navegador con Internet; los tests de CI prueban que la biblioteca original genera DOT para cada ejemplo. Ver [documentación técnica](labs/tutorial00/README.md).
+
+Este capítulo es una presentación distinta de los tests numerados de Genially; **no se creó ningún test numerado nuevo**.
