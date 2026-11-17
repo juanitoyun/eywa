@@ -1,0 +1,32 @@
+/* EYWA: syntax highlighting inspired by VS Code Dark+ */
+.CodeMirror,.CodeMirror-scroll{background:#1e1e1e!important;color:#d4d4d4!important}
+.CodeMirror{height:100%;min-height:190px;max-width:100%;border:1px solid #30363d;border-radius:11px;font:13px/1.55 "SFMono-Regular",Consolas,"Liberation Mono",monospace;text-align:left;direction:ltr}
+.CodeMirror pre{font-family:inherit;line-height:inherit}
+.CodeMirror-gutters{background:#1e1e1e;border-right:1px solid #303030}
+.CodeMirror-linenumber{color:#858585}
+.CodeMirror-cursor{border-left:1px solid #aeafad}
+.CodeMirror-selected{background:#264f78!important}
+.CodeMirror-focused .CodeMirror-selected{background:#264f78!important}
+.CodeMirror-activeline-background{background:#272727}
+.CodeMirror-matchingbracket{color:#ffd700!important;border-bottom:1px solid #ffd700}
+.CodeMirror .cm-comment{color:#6a9955}
+.CodeMirror .cm-keyword{color:#c586c0}
+.CodeMirror .cm-builtin{color:#4ec9b0}
+.CodeMirror .cm-def{color:#dcdcaa}
+.CodeMirror .cm-variable{color:#9cdcfe}
+.CodeMirror .cm-variable-2{color:#4fc1ff}
+.CodeMirror .cm-variable-3{color:#4ec9b0}
+.CodeMirror .cm-property{color:#9cdcfe}
+.CodeMirror .cm-operator{color:#d4d4d4}
+.CodeMirror .cm-number{color:#b5cea8}
+.CodeMirror .cm-string,.CodeMirror .cm-string-2{color:#ce9178}
+.CodeMirror .cm-atom{color:#569cd6}
+.CodeMirror .cm-meta{color:#c586c0}
+.CodeMirror .cm-error{color:#f48771}
+.CodeMirror-lines{padding:10px 5px}
+.CodeMirror-line{padding:0 4px}
+.CodeMirror-vscrollbar,.CodeMirror-hscrollbar{scrollbar-color:#555 #1e1e1e}
+@media(max-width:690px){
+ .CodeMirror{font-size:12px;line-height:1.6;min-height:190px}
+ .CodeMirror-lines{padding:9px 0}
+}
