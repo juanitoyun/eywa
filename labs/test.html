@@ -53,7 +53,7 @@ a:focus-visible,button:focus-visible{outline:2px solid #76d9f8;outline-offset:3p
   <section class="pane">
     <div class="label">Consola</div>
     <pre id="output" class="output" aria-live="polite"></pre>
-  <details class="eywa-visual-details" id="visual-details" hidden>
+  <details class="eywa-visual-details" id="visual-details">
   <summary>Visualización <span class="eywa-visual-ready" aria-live="polite"></span></summary>
   <div class="eywa-visual-canvas" aria-label="SVG generado por el código Python"></div>
 </details>
@@ -70,8 +70,8 @@ a:focus-visible,button:focus-visible{outline:2px solid #76d9f8;outline-offset:3p
   const el = id => document.getElementById(id);
   const params = new URLSearchParams(location.search);
   const rawId = params.get("id");
-  // Explicit opt-in only: ordinary tests remain code + console.
-  const enableVisual = params.get("visual") === "1";
+  // EYWA: visual panel available by default, always collapsed. Set visual=0 only for legacy embeds.
+  const enableVisual = params.get("visual") !== "0";
   const visualDetails = el("visual-details");
   visualDetails.hidden = !enableVisual;
   const visualPanel = enableVisual ? window.EYWA_VISUAL_PANEL.mount(visualDetails) : null;
