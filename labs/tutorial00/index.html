@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>EYWA 00 · AED Visual</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/codemirror@5.65.21/lib/codemirror.css">
+<link rel="stylesheet" href="../../assets/python-editor.css">
+<style>
+:root{font-family:Inter,"Segoe UI",system-ui,sans-serif;color:#e6f0fa;background:#081727;color-scheme:dark}
+*{box-sizing:border-box} html,body{margin:0;width:100%;min-height:100%;background:#081727}
+body{padding:12px 16px;background:linear-gradient(145deg,#071421,#0b2034)}
+header{display:flex;align-items:start;justify-content:space-between;gap:12px;margin-bottom:10px}
+.kicker{font:800 10px system-ui;letter-spacing:.15em;color:#76d9f8}
+h1{margin:3px 0 2px;color:#f2f8ff;font-size:17px;letter-spacing:-.03em}
+.sub{font-size:11px;color:#adc2d4;line-height:1.4}
+.status{font:700 10px/1.3 system-ui;color:#8dd09b;max-width:230px;text-align:right}
+.cols{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:13px}
+.panel{min-width:0;overflow:hidden}
+.label{font-size:10px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:#adc2d4;margin:0 0 7px}
+textarea{width:100%;height:350px;display:block;white-space:pre;overflow:auto;border:1px solid #294660;border-radius:12px;padding:13px;background:#0b1829;color:#e6f0fa;font:12px/1.55 Consolas,monospace;resize:vertical}
+.CodeMirror{border-radius:11px}
+.visual{height:316px;overflow:auto;background:#fdfdfd;border:1px solid #294660;border-radius:12px;display:flex;align-items:center;justify-content:center;padding:16px}
+.visual img{max-width:none;max-height:none;width:auto;height:auto;object-fit:contain;display:block}
+.visual-empty{color:#3c5465;font:12px system-ui;text-align:center}
+.source-note{font:10px/1.4 system-ui;color:#adc2d4;margin:8px 0 10px}
+.console{height:78px;max-height:160px;overflow:auto;white-space:pre-wrap;word-break:break-word;background:#11273e;color:#e6f0fa;padding:10px 12px;border:1px solid #294660;border-radius:10px;font:11px/1.5 Consolas,monospace;margin:0}
+.actions{display:flex;gap:8px;margin:10px 0 0;align-items:center;flex-wrap:wrap}
+button{border:1px solid #294660;border-radius:9px;background:#172f49;color:#f2f8ff;font:750 11px system-ui;padding:9px 13px;cursor:pointer}
+button.primary{background:#227da3;border-color:#348eaf;color:#fff}
+button:hover:not(:disabled){border-color:#76d9f8}
+button:disabled{opacity:.55;cursor:wait}
+.actions a{margin-left:auto;font:700 10px system-ui;color:#76d9f8;text-decoration:none}
+.actions a:hover{color:#72e1c6}
+button:focus-visible,a:focus-visible{outline:2px solid #76d9f8;outline-offset:3px}
+@media(max-width:750px){
+ body{padding:10px}
+ .cols{grid-template-columns:1fr}
+ .visual{height:260px}
+ .console{height:72px}
+ .actions a{margin-left:0}
+}
+</style>
+<link rel="stylesheet" href="../../assets/eywa-dark.css">
+<script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.21/lib/codemirror.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.21/mode/python/python.js"></script>
+<script src="../../assets/python-editor.js"></script>
+<script src="https://cdn.jsdelivr.net/pyodide/v314.0.8/full/pyodide.js"></script>
+</head>
+<body>
+<header>
+ <div><div class="kicker" id="category">EYWA / 00 · HERRAMIENTAS VISUALES</div><h1 id="title">Cargando ejemplo…</h1><div class="sub" id="explain">Dibujos originales del tutorial AED</div></div>
+ <div class="status" id="status">Preparando vista previa…</div>
+</header>
+<main class="cols">
+ <section class="panel">
+  <div class="label">Código Python · editable</div>
+  <textarea id="code" wrap="off" spellcheck="false" autocapitalize="off" autocomplete="off"># Ejemplo 00</textarea>
+  <div class="actions">
+   <button class="primary" type="button" id="run">▶ Ejecutar y dibujar</button>
+   <button type="button" id="reset">Restablecer</button>
+   <a id="standalone" href="./index.html" target="_blank" rel="noopener noreferrer">↗ Ventana individual</a>
+  </div>
+ </section>
+ <section class="panel">
+  <div class="label">Visualización SVG · aed-utilities</div>
+  <div class="visual" id="visual" aria-label="Visualización original del tutorial"><span class="visual-empty">Cargando imagen del notebook…</span></div>
+  <p class="source-note" id="note">La vista previa corresponde al SVG guardado en el notebook.</p>
+  <div class="label">Consola Python</div>
+  <pre id="output" class="console" aria-live="polite"></pre>
+ </section>
+</main>
+<script>
+(() => {
+"use strict";
+const el=id=>document.getElementById(id);
+const exampleId=(new URLSearchParams(location.search).get("ex")||"01").padStart(2,"0");
+let example=null, editor=null, pythonPromise=null, graphvizPromise=null, busy=false, pictureURL=null;
+const runButton=el("run");
+const setStatus=msg=>{el("status").textContent=msg};
+const textarea=el("code");
+const code=()=>editor?editor.getValue():textarea.value;
+const setCode=s=>{if(editor)editor.setValue(s);else textarea.value=s};
+function makeEditor(){
+ if(typeof window.CodeMirror==="undefined")return;
+ editor=window.CodeMirror.fromTextArea(textarea,{
+  mode:{name:"python",version:3},lineNumbers:true,lineWrapping:false,
+  tabSize:4,indentUnit:4,indentWithTabs:false,smartIndent:true,
+  extraKeys:{
+   Tab(cm){cm.replaceSelection("    ","end")},
+   "Ctrl-Enter"(){execute()},
+   "Cmd-Enter"(){execute()}
+  }
+ });
+ editor.setSize("100%","355px");
+}
+function showSvg(svg,sourceType){
+ if(!svg||!svg.includes("<svg"))throw new Error("La salida de Graphviz no contiene SVG.");
+ if(pictureURL)URL.revokeObjectURL(pictureURL);
+ pictureURL=URL.createObjectURL(new Blob([svg],{type:"image/svg+xml"}));
+ const img=new Image();
+ img.alt="Gráfico de "+example.title;
+ img.src=pictureURL;
+ const visual=el("visual");
+ visual.replaceChildren(img);
+ el("note").textContent=sourceType==="reference"
+ ? "SVG original de 00_Tutorial.ipynb · pulsa Ejecutar para regenerarlo"
+ : "SVG regenerado: Python original → aed-utilities v0.4.1 → Graphviz WASM";
+}
+async function selectExample(){
+ try{
+  const response=await fetch("./examples.json",{cache:"force-cache"});
+  if(!response.ok)throw Error("No se encontró la colección de ejemplos.");
+  const data=await response.json();
+  example=data.examples.find(x=>x.id===exampleId);
+  if(!example)throw Error("Ejemplo inexistente: "+exampleId);
+  el("category").textContent="EYWA / 00 · "+example.group.toUpperCase()+" · CELDA "+example.cell;
+  el("title").textContent=example.title;
+  el("explain").textContent=example.note;
+  document.title="EYWA 00 · "+example.title;
+  el("standalone").href="./index.html?ex="+encodeURIComponent(example.id);
+  setCode(example.source);
+  if(editor){
+   editor.setCursor(editor.lineCount()-1,0);
+   editor.scrollIntoView({line:editor.lineCount()-1,ch:0},110);
+  }
+  showSvg(example.svg,"reference");
+  setStatus("Referencia original lista");
+ }catch(error){
+  setStatus("No disponible");
+  el("output").textContent=String(error);
+  runButton.disabled=true;
+ }
+}
+async function getPython(){
+ if(!pythonPromise){
+  pythonPromise=(async()=>{
+    setStatus("Iniciando Python en el navegador…");
+    if(typeof loadPyodide!=="function")throw Error("No se pudo descargar Pyodide.");
+    const py=await loadPyodide({indexURL:"https://cdn.jsdelivr.net/pyodide/v314.0.8/full/"});
+    await py.loadPackage("micropip");
+    await py.runPythonAsync('import micropip; await micropip.install("graphviz==0.21")');
+    const response=await fetch("./visualizacion.py");
+    if(!response.ok)throw Error("No se pudo abrir aed-utilities.");
+    py.globals.set("__eywa_original_library",await response.text());
+    await py.runPythonAsync([
+      "import sys, types, graphviz",
+      "_ip = types.ModuleType('IPython')",
+      "_disp = types.ModuleType('IPython.display')",
+      "class SVG:",
+      "    def __init__(self, data): self.data=data",
+      "def display(*args, **kwargs): pass",
+      "def display_svg(*args, **kwargs): pass",
+      "_disp.SVG = SVG",
+      "_disp.display = display",
+      "_disp.display_svg = display_svg",
+      "_ip.display = _disp",
+      "sys.modules['IPython'] = _ip",
+      "sys.modules['IPython.display'] = _disp",
+      "__eywa_graphs = []",
+      "def _render(self, *args, **kwargs): return 'browser://graphviz'",
+      "def _pipe(self, format=None, *args, **kwargs):",
+      "    __eywa_graphs.append({'dot':self.source, 'engine':self.engine})",
+      "    return b'<svg xmlns=\"http://www.w3.org/2000/svg\"></svg>'",
+      "graphviz.Source.render = _render",
+      "graphviz.Source.pipe = _pipe",
+      "_aed = types.ModuleType('aed_utilities')",
+      "_aed.__package__ = 'aed_utilities'",
+      "sys.modules['aed_utilities'] = _aed",
+      "exec(compile(__eywa_original_library, 'aed_utilities/visualizacion.py','exec'), _aed.__dict__)"
+    ].join("\n"));
+    return py;
+  })().catch(error=>{pythonPromise=null;throw error});
+ }
+ return pythonPromise;
+}
+async function getGraphviz(){
+ if(!graphvizPromise){
+  graphvizPromise=(async()=>{
+   setStatus("Iniciando Graphviz WebAssembly…");
+   const module=await import("https://cdn.jsdelivr.net/npm/@hpcc-js/wasm-graphviz@1.30.0/dist/index.js");
+   return await module.Graphviz.load();
+  })().catch(error=>{graphvizPromise=null;throw error});
+ }
+ return graphvizPromise;
+}
+async function execute(){
+ if(busy||!example)return;
+ busy=true;runButton.disabled=true;el("output").textContent="";
+ try{
+  const source=code();
+  const py=await getPython();
+  if(/^\s*(?:import numpy|from numpy)/m.test(source))await py.loadPackage("numpy");
+  const gv=await getGraphviz();
+  py.globals.set("__eywa_user_code",source);
+  const result=await py.runPythonAsync([
+   "import io, contextlib, traceback, json",
+   "__eywa_graphs.clear()",
+   "__eywa_stdout=io.StringIO()",
+   "try:",
+   "    with contextlib.redirect_stdout(__eywa_stdout), contextlib.redirect_stderr(__eywa_stdout):",
+   "        exec(compile(__eywa_user_code, 'tutorial00.py', 'exec'), {'__name__':'__main__'})",
+   "except BaseException:",
+   "    __eywa_stdout.write(traceback.format_exc())",
+   "json.dumps({'console':__eywa_stdout.getvalue(), 'graphs':__eywa_graphs})"
+  ].join("\n"));
+  const data=JSON.parse(result);
+  el("output").textContent=data.console||"";
+  if(data.graphs.length){
+   const last=data.graphs[data.graphs.length-1];
+   const svg=await gv.layout(last.dot,"svg",last.engine||"dot");
+   showSvg(svg,"computed");
+   setStatus("SVG actualizado en tu navegador");
+  }else setStatus("Código ejecutado · sin dibujo nuevo");
+ }catch(error){
+  el("output").textContent=String(error);
+  setStatus("Error · ver consola");
+ }finally{busy=false;runButton.disabled=false}
+}
+runButton.addEventListener("click",execute);
+el("reset").addEventListener("click",()=>{
+ if(!example)return;
+ setCode(example.source);
+ el("output").textContent="";
+ showSvg(example.svg,"reference");
+ setStatus("Ejemplo restaurado");
+});
+makeEditor();
+selectExample();
+})();
+</script>
+</body>
+</html>
