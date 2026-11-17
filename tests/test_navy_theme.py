@@ -83,7 +83,7 @@ class TestNavyDarkTheme(unittest.TestCase):
 
     def test_no_static_slides_define_white_backgrounds(self):
         pages = [ROOT / "index.qmd", ROOT / "demo.qmd", *sorted((ROOT / "slides").glob("*.qmd"))]
-        self.assertEqual(len(pages), 12)
+        self.assertGreaterEqual(len(pages), 12)  # La colección crece con nuevos capítulos.
         for page in pages:
             with self.subTest(page=page.name):
                 src = page.read_text(encoding="utf-8")

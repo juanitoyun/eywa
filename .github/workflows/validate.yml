@@ -32,3 +32,7 @@ jobs:
           test -f _site/slides/10-grafos.html
           test -f _site/labs/chapter.html
           test -f _site/assets/chapter-labs.js
+          test -f _site/slides/00-herramientas-visuales.html
+          test -f _site/labs/tutorial00/index.html
+          test -f _site/labs/tutorial00/examples.json
+          test -f _site/labs/tutorial00/visualizacion.py

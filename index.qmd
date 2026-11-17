@@ -1,14 +1,15 @@
 ---
 title: "EYWA."
 subtitle: "Algoritmos y Estructuras de Datos"
-author: "Curso visual · Python · 10 capítulos"
+author: "Curso visual · Python · 10 capítulos + herramientas"
 ---
 
-## Un curso. Diez laboratorios.
+## El curso empieza aquí
 
-<div class="eywa-kicker">ÍNDICE INTERACTIVO · 01—05</div>
+<div class="eywa-kicker">ÍNDICE INTERACTIVO · 00—05</div>
 
 <div class="eywa-index-grid">
+<a class="eywa-index-card" href="slides/00-herramientas-visuales.html"><span class="eywa-number">00 / AED</span><strong>Herramientas visuales</strong><small>19 imágenes · Python + Graphviz</small></a>
 <a class="eywa-index-card" href="slides/01-introduccion.html"><span class="eywa-number">01 / AED</span><strong>Introducción</strong><small>Python · invariantes · recursión</small></a>
 <a class="eywa-index-card" href="slides/02-analisis-matematico.html"><span class="eywa-number">02 / AED</span><strong>Análisis matemático</strong><small>O, Ω, Θ · recurrencias</small></a>
 <a class="eywa-index-card" href="slides/03-diseno-eficiente.html"><span class="eywa-number">03 / AED</span><strong>Diseño eficiente</strong><small>DP · greedy · backtracking</small></a>
