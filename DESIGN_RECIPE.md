@@ -51,3 +51,26 @@ assert binary_search([], 7) == -1
 - Tests: `tests/test_intro_snippets.py`, `tests/test_annotated_chapter_labs.py`, `tests/test_minimal_editor.py`.
 
 Cualquier nuevo material AED debe respetar esta receta y pasar `python -m unittest discover -s tests -v`.
+
+
+## Paleta obligatoria — Deep Navy (todas las diapositivas)
+
+Mantener la estética minimalista de Quarto, pero **sin fondos claros**: cada portada, índice, tarjeta, tabla, bloque estático, iframe y consola debe quedar en modo oscuro.
+
+| Uso | Color |
+| --- | --- |
+| Fondo profundo | `#071421` |
+| Fondo principal | `#081727` |
+| Azul marino alternativo | `#0b2034` |
+| Superficie de tarjeta | `#11273e` |
+| Elevación / hover | `#172f49` |
+| Borde sutil | `#294660` |
+| Texto | `#e6f0fa` |
+| Títulos | `#f2f8ff` |
+| Texto secundario | `#adc2d4` |
+| Cian técnico | `#76d9f8` |
+| Menta para acentos | `#72e1c6` |
+
+Reglas: fondo navy, tarjetas más claras, texto blanco-azulado, cian principal y menta secundaria. Gradientes muy suaves, sin brillos neón ni adornos excesivos. El código conserva panel oscuro estilo VS Code, comentarios verdes y líneas sin ajuste horizontal.
+
+Archivos: `styles/eywa.scss` (slides, portada e índice), `assets/eywa-dark.css` (todos los laboratorios Python), `assets/python-editor.css` (código) y `assets/console-loader.html` (consola flotante). Los nuevos laboratorios deben cargar `../assets/eywa-dark.css` **después** de su CSS local para evitar paneles claros.
