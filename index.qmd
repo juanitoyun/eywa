@@ -6,7 +6,7 @@ author: "Curso visual · Python · 10 capítulos + herramientas"
 
 ## El curso empieza aquí
 
-<div class="eywa-kicker">ÍNDICE INTERACTIVO · 00—05</div>
+<div class="eywa-kicker">ÍNDICE INTERACTIVO · 00—05 · EDITOR + CONSOLA + VISUALIZACIÓN OPCIONAL</div>
 
 <div class="eywa-index-grid">
 <a class="eywa-index-card" href="slides/00-herramientas-visuales.html"><span class="eywa-number">00 / AED</span><strong>Herramientas visuales</strong><small>19 imágenes · Python + Graphviz</small></a>
@@ -36,12 +36,14 @@ author: "Curso visual · Python · 10 capítulos + herramientas"
 <div class="eywa-course-grid">
   <div class="eywa-card"><div class="eywa-number">01</div><h3>Comprender</h3><p>Identifica el problema, el invariante y las operaciones fundamentales.</p></div>
   <div class="eywa-card"><div class="eywa-number">02</div><h3>Analizar</h3><p>Calcula costo temporal y espacial; estudia precondiciones y casos extremos.</p></div>
-  <div class="eywa-card"><div class="eywa-number">03</div><h3>Ejecutar</h3><p>Modifica Python en vivo y verifica resultados con tests autocorregibles.</p></div>
+  <div class="eywa-card"><div class="eywa-number">03</div><h3>Ejecutar y visualizar</h3><p>Modifica Python, comprueba los <code>assert</code> visibles y despliega gráficos solo cuando quieras.</p></div>
 </div>
 
 <div class="eywa-chapter-nav">
 <a href="demo.html">Ver prototipo visual EYWA →</a>
-<a href="labs/repl.html" target="_blank" rel="noopener noreferrer">Abrir consola Python →</a>
+<a href="labs/repl.html?visual=1" target="_blank" rel="noopener noreferrer">Abrir consola Python →</a>
 </div>
+
+<div class="eywa-compact-note">Formato unificado en todos los capítulos: editor Python, consola real y panel «Visualización» cerrado por defecto. Solo se abre a petición del lector y no existen tests ocultos.</div>
 
 <div class="eywa-source">Guía de estudio independiente, con contenido y código originales. Índice temático basado en <a href="https://github.com/ivansipiran/AED-Apuntes" target="_blank" rel="noopener noreferrer">AED-Apuntes — DCC, Universidad de Chile</a>. Esta primera versión sintetiza los diez capítulos; no reemplaza el apunte completo.</div>
