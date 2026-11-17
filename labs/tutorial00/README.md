@@ -8,8 +8,8 @@
 - 2 visualizaciones de listas enlazadas simple y doble.
 - 11 visualizaciones de árboles binarios, NULL/centinelas y árbol de expresión.
 - Código Python autónomo por ejemplo, con la preparación necesaria de las celdas anteriores.
-- Lienzo completamente blanco por defecto: el SVG aparece exclusivamente después de pulsar «Ejecutar y dibujar».
-- Botón Ejecutar: código original → clases originales `aed-utilities` → DOT → Graphviz WebAssembly → nuevo SVG.
+- Panel «Visualización» colapsado por defecto: su lienzo blanco solo se ve al abrirlo. Tras ejecutar, aparece el indicador «Imagen disponible», sin abrir el panel automáticamente.
+- Botón Ejecutar: código original → clases originales `aed-utilities` → DOT → Graphviz WebAssembly → nuevo SVG. Abrir/cerrar el resultado es siempre decisión del usuario.
 - Consola Python real: solo `print()` y excepciones; ningún test oculto.
 
 ## Integración
