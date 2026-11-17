@@ -1,0 +1,28 @@
+---
+# PLANTILLA DE FUENTE: NO PUBLICAR NI RENDERIZAR DIRECTAMENTE.
+# Reemplazar {{TEST_ID}} por 001, 002, etc., bajo demanda.
+format:
+  revealjs:
+    controls: false
+    progress: false
+    slide-number: false
+    footer: false
+    center: false
+    transition: none
+    margin: 0.035
+---
+
+## Test {{TEST_ID}}
+
+<iframe
+  src="../../labs/test.html?id={{TEST_ID}}"
+  title="EYWA · Test {{TEST_ID}}"
+  style="width:100%;height:620px;border:0;border-radius:12px;background:#081727;"
+  loading="eager"
+  allow="clipboard-write">
+</iframe>
+
+<style>
+.reveal #eywa-console-open { display:none !important; }
+.reveal h2 { margin-bottom:12px; font-size:.9em; }
+</style>
