@@ -171,3 +171,15 @@ Enlaces después de la publicación:
 - [Ejemplo 15 — potencia binaria](https://juanitoyun.github.io/eywa/labs/snippet.html?s=15)
 
 Los códigos son implementaciones originales de los conceptos del curso, no reproducciones literales de los notebooks.
+
+## Interfaz minimalista (noviembre de 2026)
+
+- **Comentarios `#`**: el contenido explicativo del capítulo 01 vive ahora dentro del código Python, con anotaciones breves a la derecha de las instrucciones.
+- **Editor con colores de sintaxis Python**: CodeMirror con una paleta inspirada en VS Code Dark+ (comentarios verdes, cadenas naranjas, palabras clave violetas).
+- **Interfaz uniforme**: mini tester por slide, tester por capítulo, consola libre y búsqueda binaria reutilizan el mismo editor.
+- **Celular primero**: optamos por CodeMirror, ya que Monaco —el editor de VS Code— no ofrece soporte oficial para navegadores móviles.
+- **Fallback**: si el CDN del editor no carga, sigue disponible el `textarea` y los tests Python.
+- **Slides sin distracciones**: cada uno de los 28 temas del capítulo 1 muestra el título y su editor; diagramas comparativos y cierre se mantienen como excepciones didácticas.
+
+La biblioteca CodeMirror está fijada a `5.65.21`; el diseño no depende de instalar VS Code.
+

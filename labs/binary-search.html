@@ -4,10 +4,15 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>EYWA · Mini tester de búsqueda binaria</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/codemirror@5.65.21/lib/codemirror.css">
+<link rel="stylesheet" href="../assets/python-editor.css">
 <style>
 :root{font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif;color:#16323d;background:#fff}
 *{box-sizing:border-box}body{margin:0;padding:18px 24px}.header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0 0 13px}.title{font-size:12px;font-weight:850;letter-spacing:.09em;text-transform:uppercase;color:#087e72}.status{font-size:12px;color:#71848a;display:inline-flex;align-items:center;gap:8px}.dot{width:7px;height:7px;background:#d2a13c;border-radius:50%}.status.ready .dot{background:#0caa7f}.layout{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(0,1fr);gap:18px}label{font-size:11px;font-weight:850;letter-spacing:.09em;text-transform:uppercase;color:#59737c;display:block;margin-bottom:8px}textarea{width:100%;height:275px;min-height:190px;resize:vertical;border:1px solid #2a4a5b;border-radius:12px;background:#102737;color:#defde8;padding:14px 16px;line-height:1.53;font:12px ui-monospace,SFMono-Regular,Consolas,monospace;tab-size:4;outline:none}textarea:focus{border-color:#078a77;box-shadow:0 0 0 3px #17b89420}.right{display:flex;flex-direction:column;min-width:0}.description{font-size:12px;color:#637984;line-height:1.48;margin:0 0 11px}.tests{background:#f4f8f5;border:1px solid #deebe4;border-radius:12px;padding:14px 14px;flex:1;min-height:124px}.tests pre{margin:0;font:12px/1.65 ui-monospace,SFMono-Regular,Consolas,monospace;white-space:pre-wrap;word-break:break-word}.actions{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:12px}.actions button{background:#087e72;border:1px solid #087e72;border-radius:10px;padding:11px 14px;color:#fff;font-size:12px;font-weight:850;cursor:pointer}.actions button:disabled{opacity:.55;cursor:wait}.tiny{font-size:11px;color:#6b818a}.error{color:#bb4234}.success{color:#067b5b}@media(max-width:680px){body{padding:13px}.layout{grid-template-columns:1fr}textarea{height:220px}.tests{min-height:110px}}
 </style>
+<script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.21/lib/codemirror.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.21/mode/python/python.js"></script>
+<script src="../assets/python-editor.js"></script>
 <script src="https://cdn.jsdelivr.net/pyodide/v314.0.8/full/pyodide.js"></script>
 </head>
 <body>
@@ -41,6 +46,8 @@ Pulsa Ejecutar tests para comenzar.</pre></div>
 </div>
 <script>
 const source = document.getElementById("code");
+const codeEditor = window.EYWA_EDITOR?.create(source,{height:"275px",run:()=>test(),label:"Búsqueda binaria Python"}) ||
+  {getValue:()=>source.value,setValue:value=>{source.value=value}};
 const output = document.getElementById("output");
 const button = document.getElementById("run");
 const score = document.getElementById("score");
@@ -62,7 +69,7 @@ async function test(){
  output.className="";output.textContent="Preparando el entorno Python…";
  try{
   const py=await runtime();
-  py.globals.set("__eywa_source",source.value);
+  py.globals.set("__eywa_source",codeEditor.getValue());
   const result=await py.runPythonAsync([
    "import io, contextlib",
    "__eywa_log = io.StringIO()",
@@ -92,10 +99,6 @@ async function test(){
  }finally{running=false;button.disabled=false;}
 }
 button.addEventListener("click",test);
-source.addEventListener("keydown",event=>{
- if(event.key==="Tab"){event.preventDefault();source.setRangeText("    ",source.selectionStart,source.selectionEnd,"end");}
- if(event.key==="Enter"&&(event.ctrlKey||event.metaKey)){event.preventDefault();test();}
-});
 </script>
 </body>
 </html>

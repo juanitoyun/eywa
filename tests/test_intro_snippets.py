@@ -40,7 +40,9 @@ class TestIntroSlides(unittest.TestCase):
         qmd = (ROOT / "slides" / "01-introduccion.qmd").read_text(encoding="utf-8")
         ids = [int(match) for match in re.findall(r'../labs/snippet\.html\?s=(\d+)" title=', qmd)]
         self.assertEqual(ids, list(range(1, len(self.slides) + 1)))
-        self.assertIn("Abrir editor a pantalla completa", qmd)
+        # El enlace de ampliación se movió dentro del editor para reducir ruido visual.
+        html = (ROOT / "labs" / "snippet.html").read_text(encoding="utf-8")
+        self.assertIn('id="expand"', html)
 
     def test_python_behaviour(self):
         for index, item in enumerate(self.slides, 1):

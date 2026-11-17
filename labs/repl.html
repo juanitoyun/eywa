@@ -4,10 +4,15 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>EYWA · Consola Python</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/codemirror@5.65.21/lib/codemirror.css">
+<link rel="stylesheet" href="../assets/python-editor.css">
 <style>
 :root{font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif;color:#12303c;background:#f8faf9}
 *{box-sizing:border-box}body{margin:0;padding:22px;min-height:100vh}.top{display:flex;align-items:center;justify-content:space-between;gap:10px}.eyebrow{font-size:11px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:#087e72}.top h1{font-size:21px;letter-spacing:-.04em;margin:5px 0 0}.status{display:inline-flex;gap:6px;align-items:center;color:#6a8186;font-size:12px;border:1px solid #dce9e3;border-radius:999px;padding:7px 10px;background:#fff}.dot{width:7px;height:7px;background:#d7a135;border-radius:50%}.status.ready .dot{background:#10a47e}.hint{font-size:12px;color:#637881;line-height:1.5;max-width:58ch;margin:14px 0}.toolbar{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}.toolbar button{border:1px solid #cddfd8;border-radius:10px;padding:10px 13px;font-size:12px;font-weight:750;background:#fff;color:#183843;cursor:pointer}.toolbar button.primary{background:#087e72;color:#fff;border-color:#087e72}.toolbar button:disabled{opacity:.55;cursor:wait}.label{font-size:11px;font-weight:850;letter-spacing:.1em;text-transform:uppercase;margin:18px 0 9px;color:#59747b}textarea{display:block;width:100%;min-height:245px;resize:vertical;background:#102838;color:#e5fff2;border:1px solid #16384a;border-radius:14px;padding:18px;font:13px/1.65 ui-monospace,SFMono-Regular,Consolas,monospace;outline:none;tab-size:4}textarea:focus{border-color:#28aa92;box-shadow:0 0 0 3px #22aa8a25}pre.output{white-space:pre-wrap;word-break:break-word;margin:0;min-height:100px;padding:17px;font:13px/1.6 ui-monospace,SFMono-Regular,Consolas,monospace;color:#18363f;background:#fff;border:1px solid #dce9e3;border-radius:13px}.small{font-size:11px;color:#718892;margin-top:13px}a{color:#087e72}
 </style>
+<script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.21/lib/codemirror.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.21/mode/python/python.js"></script>
+<script src="../assets/python-editor.js"></script>
 <script src="https://cdn.jsdelivr.net/pyodide/v314.0.8/full/pyodide.js"></script>
 </head>
 <body>
@@ -34,6 +39,8 @@ print("Restantes:", list(pila))</textarea>
 <p class="small">Runtime en navegador · <a href="https://github.com/juanitoyun/eywa" target="_blank" rel="noopener">Repositorio EYWA</a></p>
 <script>
 const editor = document.getElementById("editor");
+const codeEditor = window.EYWA_EDITOR?.create(editor,{height:"270px",run:()=>run(),label:"Consola Python"}) ||
+  {getValue:()=>editor.value,setValue:value=>{editor.value=value},focus:()=>editor.focus()};
 const output = document.getElementById("output");
 const status = document.getElementById("status");
 const statusText = document.getElementById("statusText");
@@ -57,7 +64,7 @@ async function run(){
     output.textContent="Ejecutando…";
     py.runPython("import sys, io\n__eywa_saved = sys.stdout\nsys.stdout = io.StringIO()");
     let returned;let error=null;
-    try{returned=await py.runPythonAsync(editor.value);}catch(e){error=e;}
+    try{returned=await py.runPythonAsync(codeEditor.getValue());}catch(e){error=e;}
     const printed=py.runPython("__eywa_text = sys.stdout.getvalue()\nsys.stdout = __eywa_saved\n__eywa_text");
     output.textContent=(printed||"")+(error?"\n"+String(error):(returned!==undefined&&returned!==null?"\n"+String(returned):""))||"✓ Ejecutado sin salida. Usa print(...).";
   }catch(e){output.textContent="No fue posible ejecutar Python:\n"+String(e);}
@@ -65,7 +72,7 @@ async function run(){
 }
 runBtn.addEventListener("click",run);
 document.getElementById("example").addEventListener("click",()=>{
- editor.value = [
+ codeEditor.setValue([
   "from pyodide.http import pyfetch",
   "import importlib",
   "",
@@ -76,15 +83,11 @@ document.getElementById("example").addEventListener("click",()=>{
   "importlib.invalidate_caches()",
   "from search import binary_search",
   "print(binary_search([2, 4, 6, 8], 6))"
- ].join("\n");
- editor.focus();
+ ].join("\n"));
+ codeEditor.focus();
 });
 document.getElementById("clear").addEventListener("click",()=>{output.textContent="";});
 document.getElementById("reset").addEventListener("click",()=>{location.reload();});
-editor.addEventListener("keydown",e=>{
- if(e.key==="Enter"&&(e.ctrlKey||e.metaKey)){e.preventDefault();run();}
- if(e.key==="Tab"){e.preventDefault();const a=editor.selectionStart,b=editor.selectionEnd;editor.setRangeText("    ",a,b,"end");}
-});
 </script>
 </body>
 </html>

@@ -4,6 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>EYWA / Python ejecutable</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/codemirror@5.65.21/lib/codemirror.css">
+<link rel="stylesheet" href="../assets/python-editor.css">
 <style>
 :root{font-family:Inter,"Segoe UI",system-ui,sans-serif;color:#183540;background:#fff}
 *{box-sizing:border-box}
@@ -15,7 +17,7 @@ body{margin:0;padding:12px 16px}
 .cols{display:grid;grid-template-columns:minmax(0,1.38fr) minmax(0,1fr);gap:12px}
 .area{min-width:0}
 label{font-size:10px;color:#5a727a;letter-spacing:.1em;text-transform:uppercase;font-weight:780;display:block;margin-bottom:5px}
-textarea{display:block;width:100%;height:237px;resize:vertical;background:#102936;color:#e2fff1;border:1px solid #284953;border-radius:11px;padding:11px 13px;tab-size:4;outline:none;font:12px/1.52 ui-monospace,Consolas,monospace}
+textarea{display:block;width:100%;height:237px;resize:vertical;background:#1e1e1e;color:#d4d4d4;border:1px solid #333;border-radius:11px;padding:11px 13px;tab-size:4;outline:none;font:12px/1.52 ui-monospace,Consolas,monospace}
 textarea:focus{border-color:#0c9c80;box-shadow:0 0 0 2px #0c9c8026}
 .output{border:1px solid #dbe9e0;background:#f5f9f6;border-radius:11px;padding:12px;min-height:155px;max-height:237px;overflow:auto;white-space:pre-wrap;word-break:break-word;font:11px/1.52 ui-monospace,Consolas,monospace;margin:0}
 .actions{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-top:9px}
@@ -24,24 +26,28 @@ button.primary{background:#087e72;color:#fff;border-color:#087e72}
 button:disabled{opacity:.65;cursor:progress}
 .score{font:700 11px system-ui;color:#658179}
 .ok{color:#07815d}.bad{color:#a43936}
-.footer{margin-top:7px;font:10px/1.4 system-ui;color:#6e858b}
+.footer{margin-top:7px;font:10px/1.4 system-ui;color:#6e858b;display:none}.open{font:700 11px system-ui;color:#087e72;text-decoration:none}
 @media(max-width:670px){body{padding:11px}.cols{grid-template-columns:1fr}.output{max-height:175px;min-height:65px}.area textarea{height:205px}.actions{gap:6px}}
 </style>
+<script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.21/lib/codemirror.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.21/mode/python/python.js"></script>
+<script src="../assets/python-editor.js"></script>
 <script src="../assets/intro-snippets.js"></script>
 <script src="https://cdn.jsdelivr.net/pyodide/v314.0.8/full/pyodide.js"></script>
 </head>
 <body>
 <div class="head">
- <div><div class="kicker">EYWA · Laboratorio Python</div><div class="title" id="title">Código ejecutable</div></div>
+ <div><div class="kicker">EYWA · Python</div><div class="title" id="title">Código ejecutable</div></div>
  <div id="status" class="status">Sin iniciar</div>
 </div>
 <div class="cols">
- <div class="area"><label for="code">main.py · modifica y ejecuta</label><textarea id="code" spellcheck="false" autocapitalize="off" autocomplete="off"></textarea></div>
- <div class="area"><label>Consola + comprobaciones</label><pre id="output" class="output" aria-live="polite">Pulsa «Ejecutar» para iniciar Python.</pre></div>
+ <div class="area"><label for="code">main.py</label><textarea id="code" spellcheck="false" autocapitalize="off" autocomplete="off"></textarea></div>
+ <div class="area"><label>Resultado</label><pre id="output" class="output" aria-live="polite">Pulsa «Ejecutar» para iniciar Python.</pre></div>
 </div>
 <div class="actions">
  <button class="primary" id="run" type="button">▶ Ejecutar</button>
  <button id="reset" type="button">Restablecer</button>
+ <a class="open" id="expand" href="#" target="_blank" rel="noopener noreferrer">↗ Ampliar</a>
  <span id="score" class="score">Pruebas automáticas listas</span>
 </div>
 <div class="footer">Python en el navegador (Pyodide) · Ctrl/⌘ + Enter · No requiere notebook ni servidor</div>
@@ -54,7 +60,10 @@ button:disabled{opacity:.65;cursor:progress}
  document.title="EYWA · "+lesson.t;
  el("title").textContent=lesson.t;
  el("code").value=lesson.code;
+ el("expand").href=location.href;
  let instance=null,busy=false;
+ const editor=window.EYWA_EDITOR?.create(el("code"),{height:"237px",label:"Editor Python",run:()=>run()}) ||
+   {getValue:()=>el("code").value,setValue:value=>{el("code").value=value;}};
  async function getRuntime(){
    if(!instance){
      el("status").textContent="Cargando Python…";
@@ -87,7 +96,7 @@ button:disabled{opacity:.65;cursor:progress}
   try{
    const py=await getRuntime();
    if(lesson.packages?.length){el("output").textContent="Cargando "+lesson.packages.join(", ")+"…";await py.loadPackage(lesson.packages);}
-   py.globals.set("__eywa_source",el("code").value);
+   py.globals.set("__eywa_source",editor.getValue());
    py.globals.set("__eywa_checks",JSON.stringify(lesson.tests||[]));
    const data=JSON.parse(await py.runPythonAsync(runner));
    const passed=data.checks.filter(line=>line.startsWith("✓")).length;
@@ -99,11 +108,8 @@ button:disabled{opacity:.65;cursor:progress}
   finally{busy=false;el("run").disabled=false;}
  }
  el("run").addEventListener("click",run);
- el("reset").addEventListener("click",()=>{el("code").value=lesson.code;el("score").textContent="Código original restaurado";el("output").textContent="Pulsa «Ejecutar».";el("output").className="output";});
- el("code").addEventListener("keydown",e=>{
-   if(e.key==="Tab"){e.preventDefault();const t=el("code");t.setRangeText("    ",t.selectionStart,t.selectionEnd,"end");}
-   if(e.key==="Enter"&&(e.ctrlKey||e.metaKey)){e.preventDefault();run();}
- });
+ el("reset").addEventListener("click",()=>{editor.setValue(lesson.code);el("score").textContent="Código original restaurado";el("output").textContent="Pulsa «Ejecutar».";el("output").className="output";});
+
 })();
 </script>
 </body>
