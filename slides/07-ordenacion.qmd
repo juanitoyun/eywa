@@ -28,24 +28,7 @@ author: "EYWA · Algoritmos y Estructuras de Datos"
 
 ## Código en Python
 
-<div class="eywa-kicker">IMPLEMENTACIÓN DE REFERENCIA · EDITABLE EN EL LAB</div>
-
-```python
-def merge_sort(xs):
-    if len(xs) <= 1:
-        return xs[:]
-    mid = len(xs) // 2
-    a = merge_sort(xs[:mid])
-    b = merge_sort(xs[mid:])
-    i = j = 0
-    out = []
-    while i < len(a) and j < len(b):
-        if a[i] <= b[j]:
-            out.append(a[i]); i += 1
-        else:
-            out.append(b[j]); j += 1
-    return out + a[i:] + b[j:]
-```
+<iframe class="eywa-frame eywa-lesson-frame" src="../labs/chapter.html?c=07" title="Editor Python anotado, capítulo 07" loading="lazy" allow="clipboard-write"></iframe>
 
 ## Complejidad y decisiones
 
@@ -56,16 +39,6 @@ def merge_sort(xs):
 | Quicksort | **O(n log n) esperado** | Peor caso O(n²). |
 | Mergesort | **O(n log n) peor caso** | Espacio auxiliar O(n). |
 | Radix sort | **O(d(n+k))** | No está restringido a comparaciones. |
-
-## Laboratorio Python
-
-<div class="eywa-kicker">PRÁCTICA · CAPÍTULO 07</div>
-
-<div class="eywa-lead">Implementa un ordenamiento por división y mezcla; mide el costo conceptual.</div>
-
-<iframe class="eywa-frame eywa-lesson-frame" src="../labs/chapter.html?c=07" title="Ejercicio interactivo de Ordenación" loading="lazy"></iframe>
-
-<div class="eywa-slide-link"><a href="../labs/chapter.html?c=07" target="_blank" rel="noopener noreferrer">Abrir ejercicio aislado ↗</a></div>
 
 ## Comprobación de aprendizaje
 
