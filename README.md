@@ -217,3 +217,12 @@ Publicamos una presentación Quarto con **19 ejemplos gráficos originales de `0
 El panel SVG empieza **en blanco**. Solo al pulsar Ejecutar se intenta generar una imagen mediante Python en Pyodide + clases sin modificar de `aed-utilities v0.4.1` + Graphviz WebAssembly. El circuito web completo necesita validación en un navegador con Internet; los tests de CI prueban que la biblioteca original genera DOT para cada ejemplo. Ver [documentación técnica](labs/tutorial00/README.md).
 
 Este capítulo es una presentación distinta de los tests numerados de Genially; **no se creó ningún test numerado nuevo**.
+
+
+### Visualización opcional en cualquier laboratorio
+
+El editor estándar puede abrir una subventana **Visualización** manual, sin alterar la consola ni los tests visibles. Se habilita agregando `&visual=1` a un enlace de laboratorio o `?visual=1` a la plantilla sin ID.
+
+Ejemplo de plantilla: `https://juanitoyun.github.io/eywa/labs/test.html?visual=1`.
+
+Para generar un dibujo, el código visible puede asignar `__eywa_dot = 'digraph { A -> B }'` o `__eywa_svg = '<svg ...></svg>'`. El resultado queda preparado, pero la subventana no se abre automáticamente. Detalles en [templates/README.md](templates/README.md).
