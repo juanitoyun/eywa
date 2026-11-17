@@ -28,7 +28,7 @@ author: "EYWA · Algoritmos y Estructuras de Datos"
 
 ## Código en Python
 
-<iframe class="eywa-frame eywa-lesson-frame" src="../labs/chapter.html?c=06&visual=1" title="Editor Python anotado, capítulo 06" loading="lazy" allow="clipboard-write"></iframe>
+<iframe class="eywa-frame eywa-lesson-frame" src="../labs/chapter.html?c=06&amp;visual=1" title="Editor Python anotado, capítulo 06" loading="lazy" allow="clipboard-write"></iframe>
 
 ## Complejidad y decisiones
 
