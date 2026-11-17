@@ -38,14 +38,14 @@ Además existen siete notebooks separados de ejercicios que aún requieren adapt
 - Recursión, potencia recursiva, iteración, Torres de Hanoi.
 - Diagramas de estado y conteo de palabras.
 
-Todos los ejemplos *incluidos* en las slides de este capítulo tienen un mini editor y tests.
+Todos los ejemplos *incluidos* en las slides de este capítulo tienen un mini editor, consola literal, `assert` visibles y panel de visualización desplegable.
 Los 87 bloques de código originales no se han copiado literalmente ni todos se han migrado: son material de referencia para aumentar progresivamente el nivel de detalle.
 
 ## Trabajo siguiente
 
 1. Expandir capítulos 2–10 con la misma granularidad temática.
 2. Rehacer diagramas y visualizaciones originales como gráficos y animaciones propias.
-3. Convertir los ejercicios fuente en problemas equivalentes con soluciones y tests originales.
+3. Convertir los ejercicios fuente en problemas equivalentes con código editable y `assert` visibles, sin evaluaciones ocultas.
 4. Mejorar la persistencia del código y compartir una sola instancia de Python entre slides para ahorrar memoria en móviles.
 5. Validar carga y lectura en pantallas pequeñas y funcionamiento dentro de Genially.
 
