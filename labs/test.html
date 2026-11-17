@@ -32,10 +32,12 @@ a:focus-visible,button:focus-visible{outline:2px solid #76d9f8;outline-offset:3p
 }
 </style>
 <link rel="stylesheet" href="../assets/eywa-dark.css">
+<link rel="stylesheet" href="../assets/eywa-visual-panel.css">
 <script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.21/lib/codemirror.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.21/mode/python/python.js"></script>
 <script src="../assets/python-editor.js"></script>
 <script src="../assets/python-console.js"></script>
+<script src="../assets/eywa-visual-panel.js"></script>
 <script src="https://cdn.jsdelivr.net/pyodide/v314.0.8/full/pyodide.js"></script>
 </head>
 <body>
@@ -57,12 +59,21 @@ a:focus-visible,button:focus-visible{outline:2px solid #76d9f8;outline-offset:3p
   <button class="primary" type="button" id="run">▶ Ejecutar</button>
   <button type="button" id="reset">Restablecer</button>
 </div>
+<details class="eywa-visual-details" id="visual-details" hidden>
+  <summary>Visualización <span class="eywa-visual-ready" aria-live="polite"></span></summary>
+  <div class="eywa-visual-canvas" aria-label="SVG generado por el código Python"></div>
+</details>
 <script>
 (() => {
   "use strict";
   const el = id => document.getElementById(id);
   const params = new URLSearchParams(location.search);
   const rawId = params.get("id");
+  // Explicit opt-in only: ordinary tests remain code + console.
+  const enableVisual = params.get("visual") === "1";
+  const visualDetails = el("visual-details");
+  visualDetails.hidden = !enableVisual;
+  const visualPanel = enableVisual ? window.EYWA_VISUAL_PANEL.mount(visualDetails) : null;
   // Only numbered, explicitly created files become standalone tests.
   const validId = rawId === null || /^[0-9]{1,5}$/.test(rawId);
   const testId = rawId === null ? null : rawId.padStart(3, "0");
@@ -131,12 +142,20 @@ a:focus-visible,button:focus-visible{outline:2px solid #76d9f8;outline-offset:3p
     busy = true;
     el("run").disabled = true;
     el("output").textContent = "";
+    if (visualPanel) visualPanel.clear(false);
     try {
       const py = await python();
       const source = editor.getValue();
       // Libraries available in Pyodide may be loaded on demand; no hidden checks.
       await py.loadPackagesFromImports(source);
-      el("output").textContent = await window.EYWA_RUN_PYTHON(py, source);
+      if (visualPanel) {
+        const result = await window.EYWA_RUN_PYTHON_WITH_VISUAL(py, source);
+        el("output").textContent = result.console;
+        if (result.svg) visualPanel.setSvg(result.svg);
+        else if (result.dot) await visualPanel.setDot(result.dot);
+      } else {
+        el("output").textContent = await window.EYWA_RUN_PYTHON(py, source);
+      }
     } catch (error) {
       el("output").textContent = String(error);
     } finally {
@@ -148,6 +167,7 @@ a:focus-visible,button:focus-visible{outline:2px solid #76d9f8;outline-offset:3p
   el("reset").addEventListener("click", () => {
     editor.setValue(originalCode);
     el("output").textContent = "";
+    if (visualPanel) visualPanel.clear();
   });
   prepareSource();
 })();
