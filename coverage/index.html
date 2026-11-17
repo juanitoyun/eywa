@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>EYWA · Cobertura del curso AED</title>
+<style>
+:root{font-family:Inter,system-ui,sans-serif;color:#e6f0fa;background:#071421;color-scheme:dark}
+*{box-sizing:border-box}body{max-width:1350px;margin:auto;padding:23px}
+a{color:#76d9f8;text-decoration:none}a:hover{text-decoration:underline}
+header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px}
+h1{font-size:clamp(24px,4vw,42px);letter-spacing:-.04em;margin:9px 0}
+.logo{font-weight:900;letter-spacing:.14em;color:#76d9f8;font-size:11px}
+p{line-height:1.6;color:#adc2d4;font-size:12px}h2{font-size:18px;margin:25px 0 10px}
+.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:20px}
+.card{border:1px solid #294660;border-radius:13px;padding:16px;background:#11273e}
+.number{display:block;font-size:31px;font-weight:800;letter-spacing:-.03em}
+.caption{color:#adc2d4;font-size:11px;line-height:1.5}
+.panel{padding:14px;border-radius:13px;border:1px solid #294660;background:#0b2034}
+.tablewrap{overflow:auto}table{border-collapse:collapse;min-width:680px;width:100%;font-size:12px}
+th,td{padding:10px;border-bottom:1px solid #294660;text-align:left}
+th{color:#adc2d4;font-size:11px}tbody tr:last-child td{border:0}
+.controls{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:8px;margin-bottom:12px}
+input,select{width:100%;min-width:0;padding:10px;color:#e6f0fa;background:#11273e;border:1px solid #355a76;border-radius:8px;font:12px system-ui}
+input:focus-visible,select:focus-visible,a:focus-visible{outline:2px solid #76d9f8;outline-offset:2px}
+.state{font-size:10px;border:1px solid #355a76;border-radius:999px;padding:3px 8px}
+.state.adaptado{color:#72e1c6;border-color:#397f78}
+.state.excluido_justificado{color:#f5d891;border-color:#aa8844}
+.footer{margin-top:25px;color:#adc2d4;font-size:11px;line-height:1.6}
+@media(max-width:700px){body{padding:12px}.cards{grid-template-columns:repeat(2,1fr)}.controls{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<header><div><div class="logo">EYWA / TRAZABILIDAD DEL AED</div><h1>Estado de cobertura del curso</h1>
+<p>Inventario de celdas, ejercicios y recursos. Una slide existente no significa que el contenido original ya esté convertido o verificado.</p></div>
+<a href="../index.html">← Volver a EYWA</a></header>
+<div class="cards" id="cards"><div class="card">Cargando…</div></div>
+<h2>Teoría y ejercicios por capítulo</h2>
+<div class="panel tablewrap"><table><thead><tr><th>Capítulo</th><th>Teoría</th><th>Ejercicios</th><th>Adaptadas</th><th>EYWA</th></tr></thead><tbody id="chapters"></tbody></table></div>
+<h2>Explorar cada elemento original</h2>
+<p>Busca por ID, nombre, tema o archivo. La lista muestra hasta 150 coincidencias; restringe los filtros para encontrar más.</p>
+<div class="panel">
+<div class="controls">
+ <input id="query" placeholder="Buscar T06-040, heap, KMP…" aria-label="Búsqueda">
+ <select id="scope" aria-label="Contenido">
+  <option value="main">Celdas principales</option><option value="tutorial">Tutorial 00</option>
+  <option value="assets">Recursos gráficos</option><option value="aux">Archivos auxiliares</option>
+ </select>
+ <select id="chapter" aria-label="Capítulo"><option value="">Todos los capítulos</option></select>
+ <select id="status" aria-label="Estado">
+  <option value="">Todos los estados</option><option value="pendiente">Pendiente</option>
+  <option value="adaptado">Adaptado</option><option value="verificado">Verificado</option>
+  <option value="excluido_justificado">Exclusión justificada</option>
+ </select>
+</div>
+<p id="count" role="status">Cargando…</p>
+<div class="tablewrap"><table><thead><tr><th>ID / Archivo</th><th>Tipo</th><th>Título / Descripción</th><th>Estado</th><th>Fuente</th></tr></thead><tbody id="results"></tbody></table></div>
+</div>
+<p id="provenance" class="footer"></p>
+<script>
+(async function(){
+"use strict";
+const $=id=>document.getElementById(id);
+const mk=(tag,value)=>{const node=document.createElement(tag);if(value!==undefined)node.textContent=String(value);return node;};
+function a(label,url){const node=mk("a",label);node.href=url;node.rel="noopener noreferrer";node.target="_blank";return node;}
+function celltr(items){const tr=mk("tr");for(const item of items){const td=mk("td");if(item&&typeof item==="object")td.appendChild(item);else td.textContent=String(item??"");tr.appendChild(td)}return tr;}
+function card(n,label){const x=mk("div");x.className="card";const t=mk("span",n);t.className="number";const c=mk("div",label);c.className="caption";x.append(t,c);return x;}
+function badge(s){const x=mk("span",s||"pendiente");x.className="state "+(s||"pendiente");return x;}
+const slide={"00":"00-herramientas-visuales","01":"01-introduccion","02":"02-analisis-matematico",
+ "03":"03-diseno-eficiente","04":"04-estructuras-elementales","05":"05-pilas-colas-prioridad",
+ "06":"06-diccionarios","07":"07-ordenacion","08":"08-busqueda-texto","09":"09-compresion","10":"10-grafos"};
+try{
+ const responses=await Promise.all(["manifest.json","auxiliary.json","tutorial00.json"].map(f=>fetch(f).then(r=>{if(!r.ok)throw Error(f+" HTTP "+r.status);return r.json()})));
+ const [m,aux,user]=responses;
+ const sourceUrl=path=>"https://github.com/ivansipiran/AED-Apuntes/blob/"+m.source.commit+"/"+path.split("/").map(encodeURIComponent).join("/");
+ $("cards").replaceChildren(card(m.summary.cells,"Celdas · 17 notebooks"),card(m.summary.resources,"Recursos del curso"),
+  card(user.summary.adapted_original_svg,"SVG del tutorial 00 adaptados"),card("0 / "+m.summary.cells,"Celdas AED verificadas 1:1"));
+ const chapters=new Map();
+ for(const n of m.notebooks){const g=chapters.get(n.chapter)||{teoria:0,ejercicios:0,adaptadas:0};g[n.category]+=n.cells.length;
+  g.adaptadas+=n.cells.filter(c=>c.status==="adaptado"||c.status==="verificado").length;chapters.set(n.chapter,g);}
+ $("chapters").append(celltr(["00 · Herramientas visuales",user.summary.total,"—",user.summary.adapted_original_svg,a("Abrir","../slides/00-herramientas-visuales.html")]));
+ for(const [chapter,g] of [...chapters].sort((a,b)=>a[0].localeCompare(b[0]))){
+  $("chapters").append(celltr([chapter,g.teoria,g.ejercicios,g.adaptadas,a("Abrir","../slides/"+slide[chapter]+".html")]));
+ }
+ for(let i=0;i<=10;i++){const value=String(i).padStart(2,"0");const opt=mk("option",value);opt.value=value;$("chapter").append(opt);}
+ $("provenance").textContent="Fuente fijada: "+m.source.repository+" @ "+m.source.commit+
+ ". Adicionales: "+aux.summary.auxiliary_notebooks+" notebooks auxiliares ("+aux.summary.auxiliary_cells+
+ " celdas). Los ejemplos propios de EYWA no se marcan verificados hasta mapearlos a celdas originales."+
+ " Antes de redistribuir íntegramente el material externo, revisar sus permisos de reutilización.";
+ function rows(){
+  const kind=$("scope").value;
+  if(kind==="main")return m.notebooks.flatMap(n=>n.cells.map(c=>({id:c.id,chapter:n.chapter,kind:c.kind,name:c.title||n.path,status:c.status,url:sourceUrl(n.path)})));
+  if(kind==="assets")return m.resources.map(r=>({id:r.path,chapter:"",kind:r.kind,name:r.referenced_by.length+" referencias encontradas",status:r.status,url:sourceUrl(r.path)}));
+  if(kind==="tutorial")return user.cells.map(c=>({id:c.id,chapter:"00",kind:c.kind,name:c.title||(c.produces_svg?"Imagen SVG original":"Celda "+c.index),
+   status:c.status,url:c.destination?"../labs/tutorial00/index.html?ex="+c.destination.split("#")[1]:null}));
+  return aux.notebooks.flatMap(n=>n.cells.map(c=>({id:c.id,chapter:"",kind:c.kind,name:c.title||n.path,status:c.status,url:sourceUrl(n.path)})));
+ }
+ function refresh(){
+  const q=$("query").value.toLocaleLowerCase("es").trim(),ch=$("chapter").value,st=$("status").value;
+  const found=rows().filter(r=>(!ch||r.chapter===ch)&&(!st||r.status===st)&&(!q||[r.id,r.name,r.kind].join(" ").toLocaleLowerCase("es").includes(q)));
+  $("count").textContent=found.length+" coincidencias · "+Math.min(found.length,150)+" visibles";
+  $("results").replaceChildren();
+  for(const x of found.slice(0,150))$("results").append(celltr([x.id,x.kind,x.name,badge(x.status),x.url?a("Consultar",x.url):"Archivo del usuario"]));
+ }
+ for(const id of ["query","scope","chapter","status"])$(id).addEventListener(id==="query"?"input":"change",refresh);
+ refresh();
+}catch(e){$("count").textContent="Error de carga: "+String(e.message||e);}
+})();
+</script>
+</body>
+</html>
