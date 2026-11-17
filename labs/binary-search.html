@@ -20,17 +20,28 @@
 <div class="layout">
   <div>
     <label for="code">Tu implementación · editable</label>
-    <textarea id="code" spellcheck="false">def binary_search(xs, target):
-    left, right = 0, len(xs) - 1
-    while left <= right:
-        mid = (left + right) // 2
+    <textarea id="code" spellcheck="false" wrap="off">""" AED / 04 · Búsqueda binaria """
+
+# binary_search: list[int], int -> int
+# INPUT : lista ordenada, objetivo de búsqueda
+# OUTPUT: índice encontrado o -1
+
+def binary_search(xs, target):
+    left, right = 0, len(xs) - 1                # Intervalo activo  // O(1)
+    while left <= right:                        # Divide intervalo  // O(log n)
+        mid = (left + right) // 2               # Posición central  // O(1)
         if xs[mid] == target:
-            return mid
+            return mid                         # Elemento encontrado  // O(1)
         if xs[mid] < target:
             left = mid + 1
         else:
             right = mid - 1
-    return -1</textarea>
+    return -1                                   # Elemento ausente  // O(1)
+
+# Complejidad: O(log n) tiempo; O(1) espacio
+
+assert binary_search([2, 4, 6, 8], 6) == 2
+assert binary_search([], 1) == -1</textarea>
   </div>
   <div class="right">
     <label>Evaluación automática</label>
