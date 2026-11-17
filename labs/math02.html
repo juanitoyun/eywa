@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>EYWA · Análisis matemático</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/codemirror@5.65.21/lib/codemirror.css">
+<link rel="stylesheet" href="../assets/python-editor.css">
+<link rel="stylesheet" href="../assets/eywa-dark.css">
+<link rel="stylesheet" href="../assets/eywa-visual-panel.css">
+<style>
+:root{font-family:Inter,system-ui,sans-serif;color:#e1eaf3;background:#071421;color-scheme:dark}
+*{box-sizing:border-box}body{margin:0;padding:14px}
+header{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:center;margin-bottom:12px}
+.eyebrow{font-size:10px;font-weight:800;letter-spacing:.12em;color:#72d2e1}
+h1{font-size:16px;margin:5px 0 0;line-height:1.3}
+.state{font-size:11px;color:#acc4d7}
+.main{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:12px}
+.panel{min-width:0}label{display:block;font-size:10px;font-weight:800;letter-spacing:.1em;margin-bottom:7px;color:#a6b9d0}
+textarea{height:310px;width:100%;background:#101f34;color:#ebf7ff;border:1px solid #355274;border-radius:10px;padding:12px;resize:vertical;font:12px/1.55 ui-monospace,monospace}
+pre{margin:0;padding:13px;min-height:160px;max-height:312px;overflow:auto;white-space:pre-wrap;overflow-wrap:anywhere;background:#102439;border:1px solid #2a4e70;border-radius:10px;font:12px/1.6 ui-monospace,monospace}
+.actions{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:12px}
+button,.link{border:1px solid #395875;border-radius:8px;padding:9px 11px;color:#e4f1fa;background:#123454;font:700 11px system-ui;cursor:pointer;text-decoration:none}
+button.primary{background:#007f8e;border-color:#007f8e;color:white}
+button:disabled{opacity:.6;cursor:wait}
+.note{font-size:11px;line-height:1.45;color:#a7bfd2;margin:12px 0 0}
+a{color:#8ee2f0}
+@media(max-width:720px){.main{grid-template-columns:1fr}textarea{height:300px}pre{min-height:100px;max-height:180px}}
+</style>
+<script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.21/lib/codemirror.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.21/mode/python/python.js"></script>
+<script src="../assets/python-editor.js"></script>
+<script src="../assets/python-console.js"></script>
+<script src="../assets/eywa-visual-panel.js"></script>
+<script src="https://cdn.jsdelivr.net/pyodide/v314.0.8/full/pyodide.js"></script>
+</head>
+<body>
+<header><div><div class="eyebrow">EYWA / AED / 02</div><h1 id="title">Laboratorio de análisis matemático</h1></div>
+<span class="state" id="state" aria-live="polite">Cargando ejercicio…</span></header>
+<div class="main">
+<section class="panel"><label for="editor">PYTHON · EDITABLE</label><textarea id="editor" wrap="off" spellcheck="false" autocapitalize="off" autocomplete="off"></textarea></section>
+<section class="panel"><label for="output">CONSOLA LITERAL</label><pre id="output" aria-live="polite"></pre>
+<details class="eywa-visual-details" id="visual-details"><summary>Visualización <span class="eywa-visual-ready" aria-live="polite"></span></summary>
+<div class="eywa-visual-canvas" aria-label="SVG generado por el código visible"></div></details></section>
+</div>
+<div class="actions">
+<button type="button" id="run" class="primary" disabled>▶ Ejecutar</button>
+<button type="button" id="save" disabled>Guardar local</button>
+<button type="button" id="reset" disabled>Restablecer ejemplo</button>
+<a class="link" id="expand" target="_blank" rel="noopener noreferrer">↗ Ampliar</a>
+</div>
+<p class="note" id="note">Los cambios se guardan solamente en este navegador, nunca en GitHub. El <a href="chapter.html?c=02" target="_blank" rel="noopener noreferrer">laboratorio principal</a> mantiene el guardado oficial con contraseña.</p>
+<script>
+(async function(){
+"use strict";
+const el=id=>document.getElementById(id);
+const id=new URLSearchParams(location.search).get("ex")||"01";
+const key="eywa:math02:"+id;
+let lesson=null, editor=null, pyPromise=null, running=false;
+const visual=window.EYWA_VISUAL_PANEL?.mount(el("visual-details"));
+function message(x){el("state").textContent=x}
+function get(){return editor?editor.getValue():el("editor").value}
+function set(x){if(editor)editor.setValue(x);else el("editor").value=x}
+function stored(){try{return localStorage.getItem(key)}catch(_){return null}}
+async function python(){
+ if(!pyPromise)pyPromise=loadPyodide().catch(e=>{pyPromise=null;throw e});
+ return pyPromise;
+}
+async function execute(){
+ if(running||!lesson)return;
+ running=true;el("run").disabled=true;el("output").textContent="";
+ visual?.clear(false);message("Ejecutando…");
+ try{
+  const py=await python();
+  const source=get();
+  if(visual){
+   const result=await window.EYWA_RUN_PYTHON_WITH_VISUAL(py,source);
+   el("output").textContent=result.console;
+   if(result.svg)visual.setSvg(result.svg);
+   else if(result.dot)await visual.setDot(result.dot);
+  }else el("output").textContent=await window.EYWA_RUN_PYTHON(py,source);
+  message("Python listo");
+ }catch(e){el("output").textContent=String(e);message("Error de ejecución")}
+ finally{running=false;el("run").disabled=false}
+}
+try{
+ const response=await fetch("../assets/math02-examples.json",{cache:"no-store"});
+ if(!response.ok)throw Error("No se pudo obtener el banco de ejemplos.");
+ const bank=await response.json();
+ lesson=bank.examples.find(e=>e.id===id);
+ if(!lesson)throw Error("Ejemplo no encontrado: "+id);
+ document.title="EYWA · "+lesson.title;el("title").textContent=lesson.title;
+ el("expand").href=location.href;
+ el("editor").value=stored()??lesson.code;
+ editor=window.EYWA_EDITOR?.create(el("editor"),{height:"310px",label:"Python AED 02",run:()=>execute()})||
+  {getValue:()=>el("editor").value,setValue:value=>{el("editor").value=value}};
+ for(const name of ["run","save","reset"])el(name).disabled=false;
+ message(stored()!==null?"Cargada copia local":"Ejemplo original listo");
+}catch(e){el("output").textContent=String(e);message("Error de carga")}
+el("run").addEventListener("click",execute);
+el("save").addEventListener("click",()=>{
+ if(!lesson)return;
+ try{localStorage.setItem(key,get());message("Guardado solo en este navegador")}
+ catch(e){message("No se pudo guardar localmente")}
+});
+el("reset").addEventListener("click",()=>{
+ if(!lesson)return;
+ set(lesson.code);el("output").textContent="";visual?.clear();
+ try{localStorage.removeItem(key)}catch(_){}
+ message("Ejemplo original restablecido");
+});
+})();
+</script></body></html>
