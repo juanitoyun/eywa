@@ -60,10 +60,10 @@ assert binary_search([], 1) == -1</textarea>
 <script>
 const source = document.getElementById("code");
 const originalCode=source.value;
-const details=document.getElementById("visual-details");
+const visualDetails=document.getElementById("visual-details");
 const enableVisual=new URLSearchParams(location.search).get("visual")!=="0";
-details.hidden=!enableVisual;
-const visualPanel=enableVisual?window.EYWA_VISUAL_PANEL.mount(details):null;
+visualDetails.hidden=!enableVisual;
+const visualPanel=enableVisual?window.EYWA_VISUAL_PANEL.mount(visualDetails):null;
 const output = document.getElementById("output");
 const button = document.getElementById("run");
 const statusEl = document.getElementById("status");
