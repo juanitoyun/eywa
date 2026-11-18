@@ -250,3 +250,8 @@ El Worker acepta solo tres bancos de código: `assets/intro-snippets.js`, `asset
 - Los siete editores guardan el código **solo localmente** mediante botón («Guardar local»). No piden contraseña ni escriben en GitHub.
 - El laboratorio general `labs/chapter.html?c=02` sigue teniendo guardado oficial con contraseña, sin cambios en Cloudflare.
 - Manifiesto: 19 celdas con adaptación temática, cinco exclusiones justificadas y cero celdas verificadas de este capítulo. Falta una validación académica y visual completa.
+
+
+## Respaldo del repositorio AED histórico
+
+El código y las conversiones útiles que no forman parte del curso activo se conservaron en [`archive/`](archive/README.md): mdBook (capítulos y ejercicios en Markdown) y la biblioteca experimental `aed-utilities-web`. No afectan al render Quarto ni requieren Cloudflare. Los notebooks y recursos académicos originales continúan referenciados por SHA en el manifiesto de cobertura.
