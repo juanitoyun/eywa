@@ -1,0 +1,370 @@
+{
+  "title": "Práctica interactiva C2 · Algoritmos y Estructuras de Datos",
+  "basis": "Adaptaciones originales basadas en C2 históricos del archivo Controles.zip. No son enunciados literales ni pautas oficiales.",
+  "instructions": "Resuelve con Python, ejecuta los casos públicos, analiza complejidad y responde la pregunta conceptual. No hay tests ocultos.",
+  "exercises": [
+    {
+      "id": "heap",
+      "area": "Heaps",
+      "year": "C2 2017-1",
+      "level": "Inicial",
+      "minutes": 12,
+      "title": "Restaurar un max-heap",
+      "focus": "Aumentar una clave sin reconstruir el heap",
+      "prompt": "Se recibe un max-heap representado como arreglo de Python, con índices desde 0. Aumenta la clave de la posición i a nuevo y repara el invariante de heap mediante intercambios hacia la raíz. Devuelve un arreglo nuevo; no modifiques el original.",
+      "signature": "increase_key_max(heap, i, nuevo) → list[int]",
+      "complexity": "O(log n) tiempo · O(n) copia; O(1) espacio extra si fuera in-place",
+      "hint": "El padre de i está en (i-1)//2. Sube mientras el valor sea mayor que el de su padre.",
+      "source": "Inspirado en C2 2017-1, pregunta 1(a): modificar 72 → 85 en un heap máximo.",
+      "starter": "def increase_key_max(heap, i, nuevo):\n    # Pre: 0 <= i < len(heap) y nuevo >= heap[i]\n    # Post: retorna un max-heap nuevo sin alterar heap\n    raise NotImplementedError\n",
+      "cases": [
+        [
+          "Ejemplo histórico, índice 9",
+          "h=[95,82,75,70,80,64,56,45,60,72,40,30,27,50,36,20,31,44,50,26]\nr=increase_key_max(h,9,85)\nassert r == [95,85,75,70,82,64,56,45,60,80,40,30,27,50,36,20,31,44,50,26]\nassert h[9] == 72"
+        ],
+        [
+          "El valor pasa a ser la raíz",
+          "assert increase_key_max([10,7,8],1,12) == [12,10,8]"
+        ],
+        [
+          "Heap unitario",
+          "assert increase_key_max([5],0,7) == [7]"
+        ]
+      ],
+      "quiz": {
+        "question": "¿Cuántos niveles como máximo recorre la clave aumentada?",
+        "options": [
+          "Θ(n)",
+          "O(log n)",
+          "O(n log n)"
+        ],
+        "answer": 1,
+        "explanation": "El heap es un árbol binario completo: su altura es Θ(log n)."
+      },
+      "demo": "heap"
+    },
+    {
+      "id": "radix",
+      "area": "Ordenación",
+      "year": "C2 2017-1",
+      "level": "Intermedio",
+      "minutes": 16,
+      "title": "Radix LSD estable",
+      "focus": "Ordenar palabras de igual longitud sin usar sorted()",
+      "prompt": "Implementa radix sort LSD para una lista de palabras minúsculas de la misma longitud. Procesa columnas de derecha a izquierda usando una distribución ESTABLE en cada pasada. Retorna una nueva lista ordenada lexicográficamente. Puedes usar listas de buckets, pero no sorted() ni .sort().",
+      "signature": "radix_words(words) → list[str]",
+      "complexity": "O(d·(n+k)) tiempo y O(n+k) espacio (k=26)",
+      "hint": "Crea 26 buckets y, para cada columna desde la última, recorre el arreglo en orden y concatena los buckets en orden alfabético.",
+      "source": "Inspirado en C2 2017-1, pregunta 1(b): clasificar 12 palabras de cuatro letras.",
+      "starter": "def radix_words(words):\n    # Pre: palabras minúsculas de longitud uniforme\n    # Usa distribución estable por cada columna, de derecha a izquierda\n    raise NotImplementedError\n",
+      "cases": [
+        [
+          "Lista de 2017",
+          "w=['cena','hilo','beta','vals','dedo','loro','ruca','yema','cruz','juez','cuba','polo']\nassert radix_words(w) == sorted(w)\nassert w[0] == 'cena'"
+        ],
+        [
+          "Repetidos",
+          "assert radix_words(['ba','aa','ba','ab']) == ['aa','ab','ba','ba']"
+        ],
+        [
+          "Casos borde",
+          "assert radix_words([]) == []\nassert radix_words(['a']) == ['a']"
+        ]
+      ],
+      "quiz": {
+        "question": "¿Por qué cada pasada debe ser estable?",
+        "options": [
+          "Para reducir memoria a O(1)",
+          "Para preservar el orden fijado por columnas menos significativas",
+          "Para que la lista quede invertida"
+        ],
+        "answer": 1,
+        "explanation": "La estabilidad conserva el orden de columnas procesadas previamente."
+      },
+      "demo": "radix"
+    },
+    {
+      "id": "merge3",
+      "area": "Ordenación",
+      "year": "C2 2016-1",
+      "level": "Intermedio",
+      "minutes": 14,
+      "title": "Mezclar tres secuencias",
+      "focus": "Tres arreglos ordenados, una única mezcla lineal",
+      "prompt": "Dados tres arreglos ordenados ascendentemente, construye uno nuevo que contenga todos sus elementos ordenados. Usa tres índices y avanza siempre el del menor elemento disponible. No uses sorted() ni .sort().",
+      "signature": "merge3(a, b, c) → list[int]",
+      "complexity": "Θ(|a|+|b|+|c|) tiempo · O(total) salida",
+      "hint": "Mientras quede algún elemento, considera solo las cabezas no agotadas; agrega la mínima al resultado.",
+      "source": "Inspirado en C2 2016-1, pregunta 2: implementación lineal de Merge3.",
+      "starter": "def merge3(a, b, c):\n    # Pre: a, b, c están ordenados de menor a mayor\n    # Post: una sola lista ordenada con todos los elementos\n    raise NotImplementedError\n",
+      "cases": [
+        [
+          "Entrelazados",
+          "assert merge3([1,4],[2,5],[3,6]) == [1,2,3,4,5,6]"
+        ],
+        [
+          "Duplicados y negativos",
+          "assert merge3([-4,2,2],[-3,2],[-1,7]) == [-4,-3,-1,2,2,2,7]"
+        ],
+        [
+          "Listas vacías",
+          "assert merge3([],[],[]) == []\nassert merge3([],[3,4],[]) == [3,4]"
+        ]
+      ],
+      "quiz": {
+        "question": "¿Cuál es la cota ajustada cuando hay n elementos totales?",
+        "options": [
+          "Θ(n)",
+          "Θ(n²)",
+          "Θ(log n)"
+        ],
+        "answer": 0,
+        "explanation": "Cada elemento es leído y escrito una vez; hay como máximo tres candidatos por paso."
+      }
+    },
+    {
+      "id": "bipartito",
+      "area": "Grafos",
+      "year": "C2 2016-1",
+      "level": "Intermedio",
+      "minutes": 18,
+      "title": "¿Es bipartito el grafo?",
+      "focus": "Coloreo en dos grupos mediante BFS",
+      "prompt": "Determina si un grafo no dirigido es bipartito. El grafo se entrega como diccionario de listas de adyacencia. Tu solución debe visitar TODOS los componentes conexos y detectar aristas que conectan vértices del mismo color; incluye los casos de nodos aislados y lazos.",
+      "signature": "es_bipartito(grafo) → bool",
+      "complexity": "Θ(|V|+|E|) tiempo · O(|V|) memoria",
+      "hint": "Asigna colores 0 y 1 con una cola. Cada vecino debe tener el color opuesto. Reinicia BFS desde vértices sin colorear.",
+      "source": "Inspirado en C2 2016-1, pregunta 1: reconocer grafos bipartitos en tiempo lineal.",
+      "starter": "from collections import deque\n\ndef es_bipartito(grafo):\n    # El grafo es no dirigido y las adyacencias son simétricas\n    # Debe funcionar incluso si está desconectado\n    raise NotImplementedError\n",
+      "cases": [
+        [
+          "Camino simple",
+          "assert es_bipartito({'A':['B'],'B':['A','C'],'C':['B']}) is True"
+        ],
+        [
+          "Triángulo impar",
+          "assert es_bipartito({'A':['B','C'],'B':['A','C'],'C':['A','B']}) is False"
+        ],
+        [
+          "Desconectado con ciclo impar",
+          "assert es_bipartito({'a':['b'],'b':['a'],'x':['y','z'],'y':['x','z'],'z':['x','y']}) is False"
+        ],
+        [
+          "Vacío y lazo",
+          "assert es_bipartito({}) is True\nassert es_bipartito({'s':['s']}) is False"
+        ]
+      ],
+      "quiz": {
+        "question": "¿Qué estructura de datos permite el BFS de coste lineal?",
+        "options": [
+          "Una cola FIFO",
+          "Una pila de prioridades",
+          "Un arreglo siempre ordenado"
+        ],
+        "answer": 0,
+        "explanation": "Una cola FIFO y colores por vértice permiten visitar aristas y nodos un número constante de veces."
+      },
+      "demo": "bipartito"
+    },
+    {
+      "id": "hash",
+      "area": "Diccionarios",
+      "year": "C2 2016-1",
+      "level": "Avanzado",
+      "minutes": 24,
+      "title": "Eliminar en linear probing",
+      "focus": "Cerrar huecos sin romper búsquedas",
+      "prompt": "Se recibe una tabla hash con sondaje lineal, tamaño m, llaves enteras no negativas y None para celdas vacías. Su función hash es h(x)=x % m. Elimina el elemento de la posición i y reubica, cuando corresponda, las llaves siguientes para que las búsquedas por sondaje sigan funcionando. Debes soportar bloques que cruzan el final del arreglo. Devuelve una copia.",
+      "signature": "delete_linear(tabla, i) → list[int|None]",
+      "complexity": "O(m) tiempo · O(m) copia; O(1) auxiliar sin contar copia",
+      "hint": "Tras crear un hueco, inspecciona circularmente hasta otra celda vacía. Mueve una llave de j al hueco solo si el recorrido circular desde h(llave) hasta j atraviesa ese hueco.",
+      "source": "Inspirado en C2 2016-1, pregunta 4: borrar sin crear falsos negativos al buscar.",
+      "starter": "def delete_linear(tabla, i):\n    # Pre: 0 <= i < len(tabla), tabla[i] is not None\n    # Representación de vacío: None; h(x) = x % len(tabla)\n    # Post: mantiene accesibles todas las demás llaves\n    raise NotImplementedError\n",
+      "cases": [
+        [
+          "Bloque contiguo",
+          "t=[None,21,42,12,51,23,14,None,48,None]\nassert delete_linear(t,3) == [None,21,42,51,23,14,None,None,48,None]\nassert t[3] == 12"
+        ],
+        [
+          "Desplazamiento circular",
+          "t=[10,20,None,None,None,None,None,None,18,28]\nassert delete_linear(t,8) == [10,20,None,None,None,None,None,None,28,None]"
+        ],
+        [
+          "Tabla llena",
+          "assert delete_linear([0,1,2],1) == [0,None,2]"
+        ]
+      ],
+      "quiz": {
+        "question": "¿Por qué no basta marcar vacía la celda eliminada?",
+        "options": [
+          "El tamaño m cambia",
+          "Una búsqueda podría detenerse antes de encontrar una clave desplazada",
+          "Las claves se transforman en duplicados"
+        ],
+        "answer": 1,
+        "explanation": "Sondaje lineal termina al encontrar una celda vacía: un hueco interior puede ocultar elementos."
+      },
+      "demo": "hash"
+    },
+    {
+      "id": "abb",
+      "area": "Árboles",
+      "year": "C2 2010-1",
+      "level": "Intermedio",
+      "minutes": 17,
+      "title": "Verificar ABB en Θ(n)",
+      "focus": "Límites globales en lugar de comparaciones locales",
+      "prompt": "Un árbol binario se representa con tuplas (clave, izquierda, derecha); cada hijo puede ser None. Decide si es un árbol binario de búsqueda estricto: todas las claves del subárbol izquierdo son menores que la raíz, y todas las del derecho son mayores. Resuélvelo en Θ(n).",
+      "signature": "es_abb(arbol) → bool",
+      "complexity": "Θ(n) tiempo · O(h) pila recursiva",
+      "hint": "Propaga un mínimo y un máximo permitido por cada llamada recursiva. Un hijo puede estar bien respecto de su padre, pero mal respecto de un ancestro.",
+      "source": "Inspirado en C2 2010-1 (Baloian), pregunta 2: comprobación ABB con exigencia O(n).",
+      "starter": "def es_abb(arbol):\n    # arbol: None o (clave, izq, der)\n    # Claves enteras sin duplicados\n    raise NotImplementedError\n",
+      "cases": [
+        [
+          "ABB válido",
+          "assert es_abb((8,(3,(1,None,None),(6,None,None)),(10,None,(14,None,None)))) is True"
+        ],
+        [
+          "Violación profunda",
+          "assert es_abb((10,(5,None,(12,None,None)),(15,None,None))) is False"
+        ],
+        [
+          "Duplicado y vacío",
+          "assert es_abb((4,(4,None,None),None)) is False\nassert es_abb(None) is True"
+        ]
+      ],
+      "quiz": {
+        "question": "¿Por qué comparar solo cada nodo con sus hijos no basta?",
+        "options": [
+          "Porque no considera restricciones de los antepasados",
+          "Porque hace Θ(n²) siempre",
+          "Porque los valores deben ser positivos"
+        ],
+        "answer": 0,
+        "explanation": "Un descendiente debe satisfacer los límites de todos los ancestros, no solo los de su padre."
+      }
+    },
+    {
+      "id": "raiz",
+      "area": "Árboles",
+      "year": "C2 2017-1",
+      "level": "Avanzado",
+      "minutes": 24,
+      "title": "Inserción en la raíz del ABB",
+      "focus": "Rotaciones simples después de insertar recursivamente",
+      "prompt": "Construye una nueva versión de un ABB insertando una clave nueva y dejándola en la raíz mediante rotaciones simples sucesivas. Usa la representación (clave, izquierda, derecha) y None para árbol vacío. No alteres las tuplas originales.",
+      "signature": "insertar_raiz(arbol, x) → árbol",
+      "complexity": "O(h) tiempo · O(h) memoria recursiva",
+      "hint": "Si x es menor, insértalo como raíz del subárbol izquierdo y haz una rotación a la derecha; si es mayor, haz la simétrica.",
+      "source": "Inspirado en C2 2017-1, pregunta 3: inserción como nueva raíz en ABB.",
+      "starter": "def insertar_raiz(arbol, x):\n    # Pre: x no está presente en el ABB\n    # Post: árbol ABB nuevo cuya raíz contiene x\n    raise NotImplementedError\n",
+      "cases": [
+        [
+          "Árbol vacío",
+          "assert insertar_raiz(None,5) == (5,None,None)"
+        ],
+        [
+          "Subir desde el lado izquierdo",
+          "assert insertar_raiz((10,(5,None,None),(15,None,None)),3) == (3,None,(10,(5,None,None),(15,None,None)))"
+        ],
+        [
+          "Subir desde el lado derecho",
+          "assert insertar_raiz((10,(5,None,None),(15,None,None)),12) == (12,(10,(5,None,None),None),(15,None,None))"
+        ]
+      ],
+      "quiz": {
+        "question": "¿Cuántas rotaciones realiza la inserción en función de la altura h?",
+        "options": [
+          "Como máximo O(h)",
+          "Exactamente O(n²)",
+          "Siempre cero"
+        ],
+        "answer": 0,
+        "explanation": "En cada nivel del camino de inserción se realiza como máximo una rotación."
+      }
+    },
+    {
+      "id": "huffman",
+      "area": "Compresión",
+      "year": "C2 2015-1",
+      "level": "Intermedio",
+      "minutes": 16,
+      "title": "Bits mínimos con Huffman",
+      "focus": "Fusionar las dos frecuencias mínimas reiteradamente",
+      "prompt": "Devuelve la cantidad total de bits necesaria para codificar un texto con un código binario óptimo de Huffman. Cuenta frecuencias, fusiona siempre las dos menores usando un min-heap y suma los pesos de las fusiones. Para cadena vacía retorna 0; para una sola letra distinta asigna código de 1 bit.",
+      "signature": "bits_huffman(texto) → int",
+      "complexity": "O(n+k log k) tiempo · O(k) espacio",
+      "hint": "La suma de los pesos de las fusiones es la longitud total óptima. Usa collections.Counter y heapq.",
+      "source": "Inspirado en C2 2015-1, pregunta 6: codificar la palabra «abbracadabra».",
+      "starter": "from collections import Counter\nfrom heapq import heapify, heappop, heappush\n\ndef bits_huffman(texto):\n    # Para un solo símbolo distinto usa 1 bit por carácter\n    raise NotImplementedError\n",
+      "cases": [
+        [
+          "Palabra del control",
+          "assert bits_huffman('abbracadabra') == 23"
+        ],
+        [
+          "Sin texto o un símbolo",
+          "assert bits_huffman('') == 0\nassert bits_huffman('aaaa') == 4"
+        ],
+        [
+          "Tres símbolos distintos",
+          "assert bits_huffman('abc') == 5\nassert bits_huffman('ab') == 2"
+        ]
+      ],
+      "quiz": {
+        "question": "¿Por qué se usa una cola de prioridad mínima?",
+        "options": [
+          "Para elegir los dos pesos más pequeños en cada fusión",
+          "Para ordenar el texto alfabéticamente",
+          "Para mantener los símbolos en orden original"
+        ],
+        "answer": 0,
+        "explanation": "Fusionar reiteradamente las dos frecuencias mínimas minimiza el costo total de la codificación."
+      }
+    },
+    {
+      "id": "producto",
+      "area": "Grafos",
+      "year": "C2 2015-1",
+      "level": "Avanzado",
+      "minutes": 23,
+      "title": "Camino de producto mínimo",
+      "focus": "Transformar productos en sumas mediante logaritmos",
+      "prompt": "Un grafo dirigido contiene aristas de peso real estrictamente mayor que 1. El costo de un camino es el PRODUCTO de los pesos, no su suma. Devuelve el producto mínimo entre origen y destino, o None si no existe camino. El grafo es dict[vertice] = [(vecino, peso), ...].",
+      "signature": "min_producto(grafo, origen, destino) → float|None",
+      "complexity": "O((V+E) log V) con Dijkstra y heap binario",
+      "hint": "Aplica log(peso) a cada arista: los logaritmos transforman productos en sumas. Ejecuta Dijkstra y devuelve exp(distancia).",
+      "source": "Inspirado en C2 2015-1, pregunta 3: caminos de costo multiplicativo sin modificar el algoritmo de rutas.",
+      "starter": "import math\nfrom heapq import heappush, heappop\n\ndef min_producto(grafo, origen, destino):\n    # Pre: todos los pesos son > 1\n    # Post: producto mínimo o None si no hay camino\n    raise NotImplementedError\n",
+      "cases": [
+        [
+          "Elegir producto antes que suma",
+          "g={'A':[('B',2.0),('C',7.0)],'B':[('C',3.0)],'C':[]}\nassert math.isclose(min_producto(g,'A','C'),6.0,rel_tol=1e-9)"
+        ],
+        [
+          "Origen igual a destino",
+          "assert math.isclose(min_producto({'A':[]},'A','A'),1.0)"
+        ],
+        [
+          "Desconectado",
+          "assert min_producto({'A':[('B',2.0)],'B':[]},'B','A') is None"
+        ],
+        [
+          "Varias alternativas",
+          "g={'S':[('A',1.5),('B',4.0)],'A':[('T',2.0)],'B':[('T',1.1)],'T':[]}\nassert math.isclose(min_producto(g,'S','T'),3.0,rel_tol=1e-9)"
+        ]
+      ],
+      "quiz": {
+        "question": "¿Qué transformación preserva el orden entre productos positivos?",
+        "options": [
+          "Reemplazar p por log(p)",
+          "Reemplazar p por -p",
+          "Reemplazar p por p² y sumar"
+        ],
+        "answer": 0,
+        "explanation": "El logaritmo es estrictamente creciente y log(ab)=log(a)+log(b)."
+      }
+    }
+  ]
+}
