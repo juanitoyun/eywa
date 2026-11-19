@@ -1,0 +1,122 @@
+---
+title: "C2 / Práctica interactiva"
+subtitle: "9 retos Python · Heaps, árboles, grafos, ordenación y hashing"
+author: "EYWA · Algoritmos y Estructuras de Datos"
+---
+
+## Simulacro C2: aprende resolviendo
+
+<div class="eywa-kicker">AED / EVALUACIÓN · PRÁCTICA INTERACTIVA</div>
+
+<div class="eywa-declaration">No memorices código: reconoce el invariante, diseña la operación y justifica el costo.</div>
+
+<div class="eywa-course-grid">
+<div class="eywa-card"><div class="eywa-number">01</div><h3>Implementa</h3><p>Completa funciones Python reales con un editor ejecutable.</p></div>
+<div class="eywa-card"><div class="eywa-number">02</div><h3>Verifica</h3><p>Ejecuta casos públicos, incluidos bordes y contraejemplos.</p></div>
+<div class="eywa-card"><div class="eywa-number">03</div><h3>Justifica</h3><p>Responde una pregunta conceptual y contrasta la complejidad.</p></div>
+</div>
+
+<div class="eywa-chapter-nav"><a href="../labs/c2-practica.html" target="_blank" rel="noopener">Abrir simulador completo ↗</a><a href="../index.html">Índice AED →</a></div>
+
+## Nueve problemas representativos
+
+<div class="eywa-kicker">FUENTES / CONTROLES HISTÓRICOS 2010 · 2015 · 2016 · 2017</div>
+
+| Bloque | Problemas | Habilidad |
+|:--|:--|:--|
+| Estructuras | Heap · ABB · insertar en raíz | Invariantes y rotaciones |
+| Ordenación | Radix LSD · Merge3 | Estabilidad y fusiones |
+| Diccionarios | Borrar con linear probing | Colisiones y continuidad |
+| Grafos | Bipartito · ruta multiplicativa | BFS y Dijkstra |
+| Compresión | Bits Huffman | Greedy y frecuencias |
+
+<div class="eywa-compact-note">Ejercicios originales adaptados del archivo histórico de controles C2; no son preguntas oficiales reproducidas literalmente. Usa «⌘ Código HD» en GRIMORIO para abrir el editor sin escala.</div>
+
+## Heaps / ajustar una clave {.scrollable #practica-c2-heap}
+
+<div class="eywa-kicker">C2 / RETO 01 · 2017-1 · REPARACIÓN DE MAX-HEAP</div>
+
+<iframe class="eywa-frame eywa-lesson-frame" style="height:535px" src="../labs/c2-practica.html?task=heap" title="C2 interactivo: Heaps / ajustar una clave" loading="lazy" allow="clipboard-write"></iframe>
+
+<div class="eywa-compact-note">Meta: O(log n). Los borradores se conservan localmente en tu navegador. <a href="../labs/c2-practica.html?task=heap" target="_blank" rel="noopener">Abrir reto a pantalla completa ↗</a></div>
+
+## Ordenación / radix estable {.scrollable #practica-c2-radix}
+
+<div class="eywa-kicker">C2 / RETO 02 · 2017-1 · CLASIFICACIÓN POR COLUMNAS</div>
+
+<iframe class="eywa-frame eywa-lesson-frame" style="height:535px" src="../labs/c2-practica.html?task=radix" title="C2 interactivo: Ordenación / radix estable" loading="lazy" allow="clipboard-write"></iframe>
+
+<div class="eywa-compact-note">Meta: O(d·(n+k)). Los borradores se conservan localmente en tu navegador. <a href="../labs/c2-practica.html?task=radix" target="_blank" rel="noopener">Abrir reto a pantalla completa ↗</a></div>
+
+## Ordenación / merge de tres {.scrollable #practica-c2-merge3}
+
+<div class="eywa-kicker">C2 / RETO 03 · 2016-1 · COMBINACIÓN LINEAL</div>
+
+<iframe class="eywa-frame eywa-lesson-frame" style="height:535px" src="../labs/c2-practica.html?task=merge3" title="C2 interactivo: Ordenación / merge de tres" loading="lazy" allow="clipboard-write"></iframe>
+
+<div class="eywa-compact-note">Meta: Θ(n). Los borradores se conservan localmente en tu navegador. <a href="../labs/c2-practica.html?task=merge3" target="_blank" rel="noopener">Abrir reto a pantalla completa ↗</a></div>
+
+## Grafos / coloreo bipartito {.scrollable #practica-c2-bipartito}
+
+<div class="eywa-kicker">C2 / RETO 04 · 2016-1 · BFS CON DOS COLORES</div>
+
+<iframe class="eywa-frame eywa-lesson-frame" style="height:535px" src="../labs/c2-practica.html?task=bipartito" title="C2 interactivo: Grafos / coloreo bipartito" loading="lazy" allow="clipboard-write"></iframe>
+
+<div class="eywa-compact-note">Meta: Θ(V+E). Los borradores se conservan localmente en tu navegador. <a href="../labs/c2-practica.html?task=bipartito" target="_blank" rel="noopener">Abrir reto a pantalla completa ↗</a></div>
+
+## Hashing / eliminación correcta {.scrollable #practica-c2-hash}
+
+<div class="eywa-kicker">C2 / RETO 05 · 2016-1 · LINEAR PROBING</div>
+
+<iframe class="eywa-frame eywa-lesson-frame" style="height:535px" src="../labs/c2-practica.html?task=hash" title="C2 interactivo: Hashing / eliminación correcta" loading="lazy" allow="clipboard-write"></iframe>
+
+<div class="eywa-compact-note">Meta: O(m). Los borradores se conservan localmente en tu navegador. <a href="../labs/c2-practica.html?task=hash" target="_blank" rel="noopener">Abrir reto a pantalla completa ↗</a></div>
+
+## Árboles / validar un ABB {.scrollable #practica-c2-abb}
+
+<div class="eywa-kicker">C2 / RETO 06 · 2010-1 · PROPIEDAD GLOBAL</div>
+
+<iframe class="eywa-frame eywa-lesson-frame" style="height:535px" src="../labs/c2-practica.html?task=abb" title="C2 interactivo: Árboles / validar un ABB" loading="lazy" allow="clipboard-write"></iframe>
+
+<div class="eywa-compact-note">Meta: Θ(n). Los borradores se conservan localmente en tu navegador. <a href="../labs/c2-practica.html?task=abb" target="_blank" rel="noopener">Abrir reto a pantalla completa ↗</a></div>
+
+## ABB / inserción en la raíz {.scrollable #practica-c2-raiz}
+
+<div class="eywa-kicker">C2 / RETO 07 · 2017-1 · ROTACIONES</div>
+
+<iframe class="eywa-frame eywa-lesson-frame" style="height:535px" src="../labs/c2-practica.html?task=raiz" title="C2 interactivo: ABB / inserción en la raíz" loading="lazy" allow="clipboard-write"></iframe>
+
+<div class="eywa-compact-note">Meta: O(h). Los borradores se conservan localmente en tu navegador. <a href="../labs/c2-practica.html?task=raiz" target="_blank" rel="noopener">Abrir reto a pantalla completa ↗</a></div>
+
+## Huffman / costo de codificación {.scrollable #practica-c2-huffman}
+
+<div class="eywa-kicker">C2 / RETO 08 · 2015-1 · GREEDY CON HEAP</div>
+
+<iframe class="eywa-frame eywa-lesson-frame" style="height:535px" src="../labs/c2-practica.html?task=huffman" title="C2 interactivo: Huffman / costo de codificación" loading="lazy" allow="clipboard-write"></iframe>
+
+<div class="eywa-compact-note">Meta: O(n+k log k). Los borradores se conservan localmente en tu navegador. <a href="../labs/c2-practica.html?task=huffman" target="_blank" rel="noopener">Abrir reto a pantalla completa ↗</a></div>
+
+## Grafos / productos mínimos {.scrollable #practica-c2-producto}
+
+<div class="eywa-kicker">C2 / RETO 09 · 2015-1 · LOGARITMOS + DIJKSTRA</div>
+
+<iframe class="eywa-frame eywa-lesson-frame" style="height:535px" src="../labs/c2-practica.html?task=producto" title="C2 interactivo: Grafos / productos mínimos" loading="lazy" allow="clipboard-write"></iframe>
+
+<div class="eywa-compact-note">Meta: O((V+E) log V). Los borradores se conservan localmente en tu navegador. <a href="../labs/c2-practica.html?task=producto" target="_blank" rel="noopener">Abrir reto a pantalla completa ↗</a></div>
+
+## Estrategia antes del control
+
+<div class="eywa-kicker">CHECKLIST PERSONAL · SIN MEMORIZACIÓN</div>
+
+- **Contrato:** entrada, salida, precondiciones y casos especiales.
+- **Invariante:** qué debe conservarse en cada paso o llamada.
+- **Costo:** distinguir peor caso, caso esperado y espacio auxiliar.
+- **Correctitud:** probar con vacíos, duplicados, ciclos y colisiones.
+- **Técnica:** justificar la elección, no solo presentar código.
+
+<div class="eywa-chapter-nav">
+<a href="../labs/c2-practica.html" target="_blank" rel="noopener">Continuar práctica autónoma ↗</a>
+<a href="../index.html">Volver al curso AED →</a>
+</div>
+
+<div class="eywa-source">Basado en controles históricos C2 de CC30A/CC3001 proporcionados por el estudiante (2010, 2015, 2016, 2017). Adaptación original al lenguaje Python.</div>

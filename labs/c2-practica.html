@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="dark">
+<title>EYWA · Práctica C2</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/codemirror@5.65.21/lib/codemirror.css">
+<link rel="stylesheet" href="../assets/python-editor.css">
+<style>
+:root{font-family:Inter,"Segoe UI",system-ui,sans-serif;background:#071521;color:#e8f3fa;color-scheme:dark}
+*{box-sizing:border-box}html{min-height:100%}body{margin:0;min-height:100vh}
+a{color:#8cdeea}button,select{font:inherit}
+.top{display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap;padding:15px max(18px,3vw);border-bottom:1px solid #254052;background:#0b2130}
+.brand{font-weight:900;letter-spacing:.11em;text-decoration:none;color:#88e1d0}.top small{font-size:12px;color:#9ab7c6}
+.wrap{max-width:1480px;margin:0 auto;padding:23px max(14px,3vw) 44px}
+.eyebrow{font-size:11px;font-weight:850;letter-spacing:.14em;color:#82e2cf;text-transform:uppercase}
+h1{font-size:clamp(22px,3vw,35px);letter-spacing:-.045em;margin:9px 0 9px;line-height:1.16}
+.intro{font-size:13px;color:#abc2d3;max-width:960px;line-height:1.5;margin:0 0 21px}
+.toolbar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:16px}
+select,button{background:#14364b;border:1px solid #385c70;color:#e9f5fc;border-radius:9px;padding:10px 12px;min-height:40px}
+button{cursor:pointer;font-weight:750}button:hover{border-color:#69c2bb}button:disabled{opacity:.48;cursor:wait}
+select{flex:1;min-width:210px}.counter{font-size:12px;font-weight:800;color:#a4c8d1;white-space:nowrap}
+.progress-track{height:5px;background:#224054;border-radius:99px;overflow:hidden;margin-bottom:20px}
+#progress-bar{height:100%;width:0;background:#39b8a8;transition:width .2s}
+.grid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:15px;align-items:start}
+.stack{display:flex;flex-direction:column;gap:15px;min-width:0}
+.card{padding:18px;border:1px solid #284c60;border-radius:15px;background:#0c2233;min-width:0}
+.card h2{font-size:20px;margin:7px 0;letter-spacing:-.025em}
+.card h3{margin:0 0 10px;font-size:14px}
+.meta{font-size:11px;font-weight:800;letter-spacing:.03em;color:#7ed8d2;display:flex;flex-wrap:wrap;gap:9px;margin-bottom:7px}
+.meta span{border:1px solid #28566a;background:#103245;border-radius:16px;padding:4px 8px}
+p{line-height:1.53}.prompt{font-size:13px;color:#d7e7ef;margin:10px 0}
+.contract{font:12px/1.6 ui-monospace,Consolas,monospace;color:#a9e6de;background:#061928;border-radius:9px;padding:10px 12px;overflow:auto}
+.small{font-size:12px;color:#a7bfcb;line-height:1.5}
+details{margin-top:12px}summary{cursor:pointer;font-weight:750;font-size:12px;color:#91dcd6}
+.note{font-size:12px;color:#bacbd8;line-height:1.55;white-space:pre-wrap}
+.label{font-size:11px;font-weight:850;letter-spacing:.09em;color:#94b8c7;text-transform:uppercase}
+.edit-actions{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:11px}
+.primary{background:#007f83;border-color:#18a7a0;color:#fff}
+.status{font-size:12px;color:#9dc4cb;margin-left:auto}
+#editor{width:100%;height:345px;resize:vertical;background:#071929;border:1px solid #35546a;border-radius:9px;padding:11px;color:#f1f5ff;font:13px/1.55 ui-monospace,monospace}
+.output{margin:0;min-height:105px;max-height:235px;overflow:auto;background:#071725;border:1px solid #264b61;border-radius:10px;padding:13px;color:#d5e9ef;font:12px/1.6 ui-monospace,Consolas,monospace;white-space:pre-wrap;overflow-wrap:anywhere}
+.tests pre{font:11px/1.6 ui-monospace,Consolas,monospace;white-space:pre-wrap;overflow-wrap:anywhere;background:#061929;border-radius:8px;padding:10px;max-height:250px;overflow:auto;color:#c6dbed}
+.quiz-option{display:block;margin:9px 0;font-size:12px;color:#e2edf3;line-height:1.3;cursor:pointer}
+.quiz-option input{margin-right:8px;accent-color:#21b4a3}
+.feedback{font-size:12px;line-height:1.5;margin:8px 0 0;min-height:17px;color:#b1c7d7}
+.demo{min-height:70px;font-size:12px}
+.demo-cells{display:grid;grid-template-columns:repeat(10,minmax(0,1fr));gap:5px;margin:10px 0}
+.demo-cell{background:#123447;border:1px solid #375c70;border-radius:7px;min-width:0;padding:7px 1px;text-align:center;font:700 12px/1.2 ui-monospace,monospace}
+.demo-cell small{display:block;font:9px system-ui;color:#8fb5c0;margin-bottom:4px}
+.demo-cell.current{background:#008878;border-color:#48d6ba}
+.demo-cell.other{background:#5f412c;border-color:#b08354}
+.demo-text{background:#092033;border-radius:9px;padding:10px;line-height:1.5;white-space:pre-wrap;overflow-wrap:anywhere}
+.demo-actions{display:flex;align-items:center;gap:10px;margin-top:8px}
+.demo-actions button{min-height:32px;font-size:12px;padding:6px 12px}
+.demo-svg{width:100%;max-width:400px;height:auto;display:block;margin:6px auto}
+a.source-link{font-size:12px;text-decoration:none}
+.visually-hidden{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+@media(max-width:880px){.grid{grid-template-columns:1fr}.card{padding:14px}.wrap{padding:16px 13px 35px}.demo-cells{grid-template-columns:repeat(10,minmax(0,1fr))}.top{padding:12px 14px}}
+</style>
+<script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.21/lib/codemirror.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.21/mode/python/python.js"></script>
+<script src="../assets/python-editor.js"></script>
+<script src="../assets/python-console.js"></script>
+<script src="https://cdn.jsdelivr.net/pyodide/v314.0.8/full/pyodide.js"></script>
+<script defer src="../assets/c2-practica.js"></script>
+</head>
+<body>
+<header class="top">
+<a class="brand" href="../index.html">EYWA / AED</a>
+<small>C2 · Práctica interactiva · Python en tu navegador</small>
+<a href="../slides/c2-practica.html" class="source-link">↗ Ver slides</a>
+</header>
+<main class="wrap">
+<div class="eyebrow">Prueba de entrenamiento · Controles históricos adaptados</div>
+<h1>Practica como en un Control 2.</h1>
+<p class="intro">Resuelve funciones Python, comprueba casos públicos y justifica complejidad. Cada reto está inspirado en un control antiguo de AED, pero redactado como ejercicio original. Los cambios quedan solo en este navegador; no necesitas instalar Python.</p>
+<div class="toolbar">
+<button id="prev" type="button" aria-label="Problema anterior">← Anterior</button>
+<label class="visually-hidden" for="task">Selecciona problema</label>
+<select id="task"></select>
+<button id="next" type="button" aria-label="Problema siguiente">Siguiente →</button>
+<span class="counter" id="counter"></span>
+</div>
+<div class="progress-track" aria-label="Progreso de problemas resueltos"><div id="progress-bar"></div></div>
+<div class="grid">
+<div class="stack">
+<section class="card">
+<div id="meta" class="meta"></div>
+<h2 id="title">Cargando ejercicios…</h2>
+<p class="small" id="focus"></p>
+<p class="prompt" id="prompt"></p>
+<div id="signature" class="contract"></div>
+<p class="small" id="complexity"></p>
+<details><summary>Ver pista</summary><p id="hint" class="note"></p></details>
+<p class="small" id="source"></p>
+</section>
+<section class="card">
+<h3>Implementación Python</h3>
+<label class="label" for="editor">c2_solve.py · editable</label>
+<textarea id="editor" spellcheck="false" wrap="off" autocapitalize="off" autocomplete="off"></textarea>
+<div class="edit-actions">
+<button id="run" class="primary" type="button">▶ Ejecutar casos</button>
+<button id="reset" type="button">Restablecer</button>
+<button id="copy" type="button">Copiar código</button>
+<span id="state" class="status" aria-live="polite">Listo</span>
+</div>
+</section>
+</div>
+<div class="stack">
+<section class="card">
+<h3>Autocorrección · casos públicos</h3>
+<pre class="output" id="output" role="status" aria-live="polite">Escribe tu solución y pulsa «Ejecutar casos».</pre>
+<details class="tests"><summary>Inspeccionar todos los casos de prueba</summary><pre id="tests"></pre></details>
+</section>
+<section class="card">
+<h3>Visualización de referencia</h3>
+<div class="demo" id="demo"></div>
+<div class="demo-actions" id="demo-actions" hidden>
+<button id="demo-prev" type="button">← Paso</button>
+<span class="status" id="demo-count"></span>
+<button id="demo-next" type="button">Paso →</button>
+</div>
+<p class="small">La animación ilustra el caso del enunciado. No representa automáticamente el código que escribes.</p>
+</section>
+<section class="card">
+<h3>Pregunta conceptual</h3>
+<p class="prompt" id="quiz-question"></p>
+<div id="quiz-options"></div>
+<button id="quiz-check" type="button">Comprobar respuesta</button>
+<p class="feedback" id="quiz-feedback" aria-live="polite"></p>
+</section>
+</div>
+</div>
+<p class="small" style="margin-top:20px">Basado en los controles C2 1997–2017 proporcionados para el curso. No es material oficial de evaluación ni reproduce pautas completas.</p>
+</main>
+</body>
+</html>

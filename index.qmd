@@ -29,6 +29,17 @@ author: "Curso visual · Python · 10 capítulos + herramientas"
 <a class="eywa-index-card" href="slides/10-grafos.html"><span class="eywa-number">10 / AED</span><strong>Grafos</strong><small>BFS · DFS · MST · rutas mínimas</small></a>
 </div>
 
+## Entrenamiento para el Control 2
+
+<div class="eywa-kicker">PRÁCTICA C2 / 9 DESAFÍOS PYTHON · CONTROLES HISTÓRICOS</div>
+
+<div class="eywa-declaration">Una prueba no es repetir algoritmos: es preservar invariantes y demostrar por qué funcionan.</div>
+
+<div class="eywa-index-grid">
+<a class="eywa-index-card" href="slides/c2-practica.html"><span class="eywa-number">C2 / DIAPOSITIVAS</span><strong>Simulacro guiado</strong><small>9 retos · heurísticas · complejidad · referencias históricas</small></a>
+<a class="eywa-index-card" href="labs/c2-practica.html"><span class="eywa-number">C2 / LABORATORIO</span><strong>Editor y autocorrección</strong><small>Python en navegador · casos públicos · trazas interactivas</small></a>
+</div>
+
 ## Cómo estudiar con EYWA
 
 <div class="eywa-kicker">MÉTODO EN 3 PASOS</div>
